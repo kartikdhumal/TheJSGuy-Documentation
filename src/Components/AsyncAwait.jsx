@@ -6,7 +6,6 @@ import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function AsyncAwait() {
     useEffect(() => {
-    
         window.scrollTo(0,0);
     }, []);
     return (

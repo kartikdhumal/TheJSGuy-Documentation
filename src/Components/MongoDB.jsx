@@ -33,6 +33,26 @@ It stores data in BSON format (Binary JSON), which is a binary representation of
 
       </section>
 
+      <h2>DEFAULT PORT : <span>27017</span></h2>
+
+      <p>MongoDB listens on TCP port <strong>27017</strong> for client connections.</p>
+
+      <h3>Change Port</h3>
+      <SyntaxHighlighter language="javascript" style={atomDark}>mongod --port 27018</SyntaxHighlighter>
+
+      <h3>Connect Using Custom Port</h3>
+      <SyntaxHighlighter language="javascript" style={atomDark}>mongosh --port 27018</SyntaxHighlighter>
+
+      <h3>Connection URI</h3>
+      <SyntaxHighlighter language="javascript" style={atomDark}>mongodb://localhost:27017</SyntaxHighlighter>
+
+      <h3>Note</h3>
+      <p>
+        The MongoDB port must be opened in the firewall to allow external or LAN-based access.
+      </p>
+
+
+
       <section id="difference">
         <h2>Difference Between MongoDB and MySQL</h2>
 
@@ -287,6 +307,116 @@ db.collection.aggregate([{ $match: { $expr: { $gt: ["$price", "$cost"] } } }])
 
 // 31. $arrayElemAt - Gets the element at the specified array index
 db.collection.aggregate([{ $project: { firstTag: { $arrayElemAt: ["$tags", 0] } } }])
+
+// 32. $regex - Pattern matching
+
+// BASIC MATCH
+// Finds documents where name contains "arti" anywhere (case-insensitive)
+db.collection.find({
+  name: { $regex: "arti", $options: "i" }
+})
+
+// EXACT MATCH (case-insensitive)
+db.collection.find({
+  name: { $regex: "^kartik$", $options: "i" }
+})
+
+// STARTS WITH (prefix search)
+// Finds names starting with "Kar"
+db.collection.find({
+  name: { $regex: "^Kar", $options: "i" }
+})
+
+// ENDS WITH
+// Finds names ending with "lal"
+db.collection.find({
+  name: { $regex: "lal$", $options: "i" }
+})
+
+// CONTAINS WORD PART
+// Finds names containing "man"
+db.collection.find({
+  name: { $regex: "man", $options: "i" }
+})
+
+// MULTIPLE PATTERNS (OR search)
+// Finds "kartik" OR "rahul"
+db.collection.find({
+  name: { $regex: "kartik|rahul", $options: "i" }
+})
+
+// REGEX IN AGGREGATION ($match stage)
+db.collection.aggregate([
+  {
+    $match: {
+      name: { $regex: "arti", $options: "i" }
+    }
+  }
+])
+
+// ==============================
+// REGEX OPTIONS
+// ==============================
+
+// i → Case-insensitive
+// m → Multiline matching (^ and $ work per line)
+// s → Dot matches newline
+// x → Ignore whitespace/comments inside pattern
+
+// Example with multiple options:
+db.collection.find({
+  description: { $regex: "^hello", $options: "im" }
+})
+
+// ==============================
+// ADVANCED REGEX EXAMPLES
+// ==============================
+
+// Case-sensitive match (no 'i')
+db.collection.find({
+  name: { $regex: "^Kartik$" }
+})
+
+// Match only alphabets (no numbers or symbols)
+db.collection.find({
+  name: { $regex: "^[A-Za-z]+$" }
+})
+
+// Match mobile number pattern (10-digit)
+db.collection.find({
+  phone: { $regex: "^[0-9]{10}$" }
+})
+
+// Find emails
+db.collection.find({
+  email: { $regex: "^[\\w.-]+@[\\w.-]+\\.\\w{2,}$", $options: "i" }
+})
+
+// ==============================
+// PERFORMANCE NOTE (IMPORTANT)
+// ==============================
+
+// ✅ Good: prefix search uses index
+//   "^Kar"
+
+// ❌ Bad: contains search NOT indexed
+//   "arti"   (full collection scan)
+
+// ==============================
+// $regex vs Normal find()
+// ==============================
+
+// Using regex
+db.collection.find({
+  name: { $regex: "kartik", $options: "i" }
+})
+
+// Normal equality check (faster & indexed)
+db.collection.find({
+  name: "Kartik"
+})
+
+// Use regex ONLY when partial or pattern search is required
 `}
         </SyntaxHighlighter>
 
@@ -371,6 +501,7 @@ run().catch(console.error);`}</SyntaxHighlighter>
 
       </section>
 
+
       <section id="mongoose">
         <h2>Difference Between MongoDB and Mongoose</h2>
         <ul>
@@ -428,6 +559,196 @@ app.get('/movies', async (req, res) => {
   }
 });`}</SyntaxHighlighter>
 
+      </section>
+
+      <section id="indexing">
+        <h2>⚡ Indexing & Performance Tuning</h2>
+        <p>Indexes are special data structures that store a subset of the collection data in an easy-to-traverse form to dramatically speed up query execution.</p>
+
+        <h3>Index Creation Commands</h3>
+        <SyntaxHighlighter language="javascript" style={atomDark}>{`// 1. Single-Field Index (Ascending on 'email')
+db.users.createIndex({ email: 1 })
+
+// 2. Compound Index (Order matters: Filter by 'type', then sort by 'date')
+db.events.createIndex({ type: 1, date: -1 })
+
+// 3. Unique Index (Ensures no two documents have the same value)
+db.users.createIndex({ username: 1 }, { unique: true })
+
+// 4. Multi-key Index (Automatically created on array fields for faster array lookups)
+db.posts.createIndex({ tags: 1 }) 
+
+// View Indexes
+db.users.getIndexes()
+
+// Drop Index (Use the index name, typically a combination of fields and order, e.g., 'email_1')
+db.users.dropIndex("email_1")`}</SyntaxHighlighter>
+
+        <h3>Query Analysis: The Explain Plan</h3>
+        <p>Use <strong><SyntaxHighlighter language="javascript" style={atomDark}>.explain("executionStats")</SyntaxHighlighter></strong> to analyze and debug slow queries. Look for a low <SyntaxHighlighter language="javascript" style={atomDark}>totalDocsExamined</SyntaxHighlighter>.</p>
+        <SyntaxHighlighter language="javascript" style={atomDark}>{`db.posts.find({ title: "Post Title 1" }).explain("executionStats")`}</SyntaxHighlighter>
+        <ul>
+          <li>**`winningPlan.stage`:**
+            <ul>
+              <li>**`IXSCAN` (Index Scan):** **GOOD!** The query used an index.</li>
+              <li>**`COLLSCAN` (Collection Scan):** **BAD!** The query read every document in the collection.</li>
+            </ul>
+          </li>
+          <li>**`totalDocsExamined`:** The fewer documents examined, the faster the query.</li>
+          <li>**Covered Query:** The fastest type of query, where all required fields (query filter and projection) are present *only* in the index, allowing MongoDB to skip fetching the actual documents.</li>
+        </ul>
+      </section>
+
+      <section id="scaling">
+        <h2>📈 Scaling: Replication and Sharding</h2>
+
+        <h3>1. Replication (High Availability / Fault Tolerance)</h3>
+        <p>Replication uses **Replica Sets**—groups of servers that hold the same data. It provides redundancy and high availability.
+
+          [Image of MongoDB Replica Set architecture]
+        </p>
+
+        <ul>
+          <li>**Primary:** Receives all **write operations**.</li>
+          <li>**Secondary:** Replicates data from the Primary and can serve **read operations**.</li>
+          <li>**Automatic Failover:** If the Primary fails, a Secondary is automatically elected as the new Primary.</li>
+          <li>**Oplog:** The log of operations that Secondaries apply to maintain synchronization.</li>
+        </ul>
+        <SyntaxHighlighter language="javascript" style={atomDark}>{`// Initiate a replica set (run on the first node)
+rs.initiate(
+  {
+    _id : "rs0",
+    members: [
+      { _id: 0, host: "mongo1:27017" },
+      { _id: 1, host: "mongo2:27017" },
+      { _id: 2, host: "mongo3:27017" }
+    ]
+  }
+)
+// Check status
+rs.status()`}</SyntaxHighlighter>
+
+        <h3>2. Sharding (Horizontal Scaling / Large Data Sets)</h3>
+        <p>Sharding distributes data across multiple independent servers (**Shards**). This is used when the data volume or write throughput exceeds the capacity of a single Replica Set. </p>
+
+        <ul>
+          <li>**Shards:** Each Shard is a **Replica Set** that stores a subset of the cluster's data.</li>
+          <li>**`mongos` (Query Router):** The interface for client applications. It routes queries to the correct Shard(s).</li>
+          <li>**Config Servers (CSRS):** Store the **metadata** about the cluster, including the mapping of data chunks to Shards.</li>
+          <li>**Shard Key:** The field used to determine how data is distributed across Shards (e.g., `zipcode`, `customer_id`). The choice of Shard Key is **CRITICAL** for performance.</li>
+        </ul>
+        <SyntaxHighlighter language="javascript" style={atomDark}>{`// 1. Enable sharding on a database
+sh.enableSharding("myDatabase")
+
+// 2. Shard a collection using a specific key (e.g., hashed on _id)
+sh.shardCollection("myDatabase.users", { _id: "hashed" })`}</SyntaxHighlighter>
+      </section>
+
+      <section id="transactions">
+        <h2>🔒 Atomicity and Transactions</h2>
+
+        <h3>Atomicity in MongoDB</h3>
+        <p>All single-document write operations in MongoDB are **atomic** (they either succeed completely or fail completely). For multi-step operations that must all succeed together, you need **Transactions**.</p>
+
+        <h3>Multi-Document Transactions</h3>
+        <p>Introduced in MongoDB 4.0 (for Replica Sets) and 4.2 (for Sharded Clusters), transactions allow you to apply **ACID** properties across multiple documents and multiple collections.</p>
+
+        <SyntaxHighlighter language="javascript" style={atomDark}>{`// Example of a Transaction in the Mongo Shell
+session = db.getMongo().startSession();
+session.startTransaction();
+
+try {
+  // Step 1: Deduct from one account
+  session.getDatabase("bank").accounts.updateOne(
+    { name: "Sender" }, 
+    { $inc: { balance: -100 } }
+  );
+
+  // Step 2: Add to another account
+  session.getDatabase("bank").accounts.updateOne(
+    { name: "Receiver" }, 
+    { $inc: { balance: 100 } }
+  );
+
+  // If both succeed, commit. If either fails, the transaction aborts.
+  session.commitTransaction();
+  print("Transaction committed successfully.");
+} catch (error) {
+  session.abortTransaction();
+  print("Transaction aborted:", error);
+} finally {
+  session.endSession();
+}`}</SyntaxHighlighter>
+      </section>
+
+      <section id="validation">
+        <h2>✅ Schema Validation</h2>
+        <p>Though MongoDB is schema-less, you can enforce structure using **Schema Validation** via the `$jsonSchema` operator on a collection.</p>
+
+        <SyntaxHighlighter language="javascript" style={atomDark}>{`// Creating a collection with schema validation
+db.createCollection("posts", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["title", "body"], // Enforce these fields must be present
+      properties: {
+        title: {
+          bsonType: "string",
+          description: "Title of post - Required and must be a string."
+        },
+        likes: {
+          bsonType: "int",
+          minimum: 0, // Enforce value constraints
+          description: "Must be a non-negative integer."
+        }
+      }
+    }
+  },
+  validationAction: "error" // Other option: "warn"
+})`}</SyntaxHighlighter>
+      </section>
+
+      <section id="mongoose">
+        <h2>💻 Mongoose (Node.js ODM)</h2>
+
+        <h3>MongoDB Driver vs. Mongoose (ODM)</h3>
+        <ul>
+          <li>**MongoDB (Native Driver):** Direct, low-level interface. Interacts with the database using raw MQL (Mongo Query Language). **Schema-less**.</li>
+          <li>**Mongoose (ODM - Object Data Modeling):** A library built on the Node.js driver. Provides a **schema-based solution** (models) for application data. Simplifies data validation, business logic (middleware/hooks), and relationships.</li>
+        </ul>
+
+        <h3>Connecting Mongoose in a Node.js and Express Application</h3>
+        <SyntaxHighlighter language="javascript" style={atomDark}>{`// Install Mongoose
+// npm install mongoose
+
+const mongoose = require('mongoose');
+
+// Connect to MongoDB
+const uri = 'your_mongodb_connection_string';
+
+mongoose.connect(uri)
+  .then(() => console.log('MongoDB connected successfully!'))
+  .catch(err => console.error('MongoDB connection error:', err));
+
+// Define a Schema (Enforcing structure)
+const PostSchema = new mongoose.Schema({
+  title: { type: String, required: true }, // Field validation
+  body: String,
+  likes: { type: Number, default: 0 }
+});
+
+// Create a Model
+const Post = mongoose.model('Post', PostSchema);
+
+// Example of using the Model
+async function createPost() {
+  try {
+    const newPost = await Post.create({ title: "Mongoose Post", body: "Hello" });
+    console.log("New Post:", newPost);
+  } catch(error) {
+    console.error(error); // Catches validation errors
+  }
+}`}</SyntaxHighlighter>
       </section>
     </div>
   );

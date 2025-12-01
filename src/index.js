@@ -69,6 +69,7 @@ import PropsInfo from './Components/PropsInfo';
 import ReactBestPractises from './Components/ReactBestPractises';
 import Networking from './Components/Networking';
 import OperatingSystem from './Components/OperatingSystem';
+import IMPQueries from './Components/IMPQueries';
 
 const LazyLoading = lazy(() => import('./Components/LazyLoading'));
 
@@ -171,6 +172,10 @@ export const myRouter = createBrowserRouter([
   {
    path:'/dsa',
    element:<DSA/>
+  },
+  {
+   path:'/impqueries',
+   element:<IMPQueries/>
   },
   {
     path: '/object-methods',

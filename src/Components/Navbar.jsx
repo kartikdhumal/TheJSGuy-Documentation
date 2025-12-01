@@ -122,6 +122,9 @@ function Navbar({ name }) {
                         <div className="navbar-item">
                             <Link to="/mongodb#mongoose" className="navbar-link">MongoDB vs Mongoose</Link>
                         </div>
+                        <div className="navbar-item">
+                            <Link to="/impqueries" className="navbar-link">Most IMP Queries</Link>
+                        </div>
                     </div>
                 </div>
                 <div className="navbar-section">

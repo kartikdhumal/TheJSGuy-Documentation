@@ -18,6 +18,51 @@ function QNA() {
           </p>
         </div>
 
+        <h2>MYSQL DEFAULT PORT : <span>3306</span></h2>
+
+        <p>MySQL listens on TCP port <strong>3306</strong> for client connections.</p>
+
+        <h3>Change MySQL Port</h3>
+        <pre><code>mysqld --port=3307</code></pre>
+
+        <h3>Connect Using Custom Port</h3>
+        <pre><code>mysql -u username -p --port=3307</code></pre>
+
+        <h3>MySQL Connection URI</h3>
+        <pre><code>mysql://username:password@localhost:3306/database_name</code></pre>
+
+        <h2>MYSQL OVER SSL (ENCRYPTED CONNECTION)</h2>
+
+        <p>MySQL can use SSL/TLS to encrypt traffic between client and server.
+          By default this still uses the same MySQL port <strong>3306</strong>,
+          unless you configure a different one.</p>
+
+        <h3>Connect to MySQL Using SSL</h3>
+        <pre><code>
+          mysql -u username -p \
+          --host=your-hostname \
+          --port=3306 \
+          --ssl-ca=ca.pem \
+          --ssl-cert=client-cert.pem \
+          --ssl-key=client-key.pem
+        </code></pre>
+
+        <h2>HTTPS / SSL DEFAULT PORT : <span>443</span></h2>
+
+        <p>HTTPS (HTTP over SSL/TLS) uses TCP port <strong>443</strong> by default.</p>
+
+        <h3>Examples</h3>
+        <pre><code>https://example.com
+          https://your-domain.com:443</code></pre>
+
+        <h3>Notes</h3>
+        <p>
+          • Port <strong>443</strong> is for secure web traffic (HTTPS), not for MySQL.<br />
+          • Web servers like Nginx / Apache terminate SSL on port 443 and can proxy to MySQL on port 3306.<br />
+        </p>
+
+
+
         <div className="faq-item">
           <h4 className="faq-question">What are the different Normal Forms?</h4>
           <p>
