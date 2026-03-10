@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function HTTPModule() {
@@ -17,7 +17,7 @@ function HTTPModule() {
 
       <div className="method-section">
         <h2 className="method-title">Create a simple HTTP server</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const http = require('http');
 
 const server = http.createServer((req, res) => {
@@ -28,12 +28,12 @@ const server = http.createServer((req, res) => {
 server.listen(3000, () => {
   console.log('Server running at http://localhost:3000');
 });`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
 
       <div className="method-section">
         <h2 className="method-title">Handling URL and method</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const server = http.createServer((req, res) => {
   const { method, url } = req;
 
@@ -52,12 +52,12 @@ server.listen(3000, () => {
     res.end('Not Found');
   }
 });`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
 
       <div className="method-section">
         <h2 className="method-title">Making HTTP requests (client)</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const http = require('http');
 
 const options = {
@@ -73,7 +73,7 @@ const req = http.request(options, (res) => {
 });
 req.on('error', err => console.error(err));
 req.end();`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

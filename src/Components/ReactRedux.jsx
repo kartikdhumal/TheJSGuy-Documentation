@@ -1,7 +1,7 @@
 import React from 'react';
 import Redux from './Redux';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function ReactRedux() {
@@ -33,7 +33,7 @@ function ReactRedux() {
                 <p>Below is an example of a React Redux application that allows users to add, remove, update, and clear a list of cricketers using Redux state management.</p>
 
                 <h3>appStore.js</h3>
-                 <SyntaxHighlighter language="javascript" style={atomDark}>
+                 <CodeBlock language="javascript" style={atomDark}>
                         {`import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from './cartSlice';
 
@@ -44,10 +44,10 @@ const appStore = configureStore({
 });
 
 export default appStore;`}
-                </SyntaxHighlighter>
+                </CodeBlock>
 
                 <h3>cartSlice.js</h3>
-                 <SyntaxHighlighter language="javascript" style={atomDark}>
+                 <CodeBlock language="javascript" style={atomDark}>
                     {`import { createSlice } from "@reduxjs/toolkit";
 
 const cartSlice = createSlice({
@@ -77,10 +77,10 @@ const cartSlice = createSlice({
 
 export const { addItem, removeItem, updateItem, clearItem } = cartSlice.actions;
 export default cartSlice.reducer;`}
-                </SyntaxHighlighter>
+                </CodeBlock>
 
                 <h3>index.js</h3>
-                 <SyntaxHighlighter language="javascript" style={atomDark}>
+                 <CodeBlock language="javascript" style={atomDark}>
                     {`import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -151,10 +151,10 @@ root.render(
     </userContext.Provider>
   </Provider>
 );`}
-                </SyntaxHighlighter>
+                </CodeBlock>
 
                 <h3>Redux.jsx</h3>
-                 <SyntaxHighlighter language="javascript" style={atomDark}>
+                 <CodeBlock language="javascript" style={atomDark}>
                     {`import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, clearItem, removeItem, updateItem } from '../utils/cartSlice';
@@ -233,7 +233,7 @@ function Redux() {
 }
 
 export default Redux;`}
-                </SyntaxHighlighter>
+                </CodeBlock>
             </div>
         </div>
     );

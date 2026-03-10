@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function NextJSAppRouter() {
@@ -18,7 +18,7 @@ function NextJSAppRouter() {
       <div className="method-section">
         <h2 className="method-title">Pages and layouts</h2>
         <p><code>page.js</code> is the UI for that route. <code>layout.js</code> wraps its children and persists across navigations (so it doesn’t re-mount).</p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// app/page.js
 export default function Home() {
   return <h1>Home</h1>;
@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
     </html>
   );
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
       <div className="method-section">
         <h2 className="method-title">Server Components by default</h2>

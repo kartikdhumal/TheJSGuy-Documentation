@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function Routing() {
@@ -33,7 +33,7 @@ function Routing() {
                         <span className="code-filename">routes/userRoutes.js</span>
                     </div>
                     <div className="code-block">
-                        <SyntaxHighlighter language="javascript" style={atomDark}>
+                        <CodeBlock language="javascript" style={atomDark}>
 {`const express = require('express');
 const router = express.Router();
 
@@ -58,7 +58,7 @@ module.exports = router;
 
 // Implementation in app.js
 const userRoutes = require('./routes/userRoutes');
-app.use('/api/users', userRoutes);`}</SyntaxHighlighter>
+app.use('/api/users', userRoutes);`}</CodeBlock>
                     </div>
                 </div>
             </div>

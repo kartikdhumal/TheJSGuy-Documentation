@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function Functions() {
@@ -25,15 +25,15 @@ function Functions() {
             <section className="method-section">
                 <h2 className="method-title">Function Declaration</h2>
                 <p>
-                    A named function defined with the <SyntaxHighlighter language="javascript" style={atomDark}>function</SyntaxHighlighter> keyword, hoisted to the top of its scope.
+                    A named function defined with the <CodeBlock language="javascript" style={atomDark}>function</CodeBlock> keyword, hoisted to the top of its scope.
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`function myName() {
     console.log("Pappu Kumar");
 }
 myName();`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
             </section>
 
@@ -43,12 +43,12 @@ myName();`}
                     A function expression is a way to define a function and assign it to a variable.
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`var b = function () {
     console.log("Pappu Kumar");
 };
 b();`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
             </section>
 
@@ -58,11 +58,11 @@ b();`}
                     Functions that do not have a name are called anonymous functions.
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`var b = function () {
     console.log("Pappu Kumar");
 };`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
             </section>
 
@@ -72,12 +72,12 @@ b();`}
                     A named function expression is a function defined within an expression that has a name.
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`var b = function xyz() {
     console.log("I am Named functions expressions");
 };
 b();`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
             </section>
 
@@ -87,12 +87,12 @@ b();`}
                     Parameters are variables defined in the function signature to accept input values. Arguments are the actual values passed to the function when it is called.
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`function sum(a, b) { // Parameters
     console.log(a + b);
 }
 sum(32, 54); // Arguments`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
             </section>
 
@@ -102,7 +102,7 @@ sum(32, 54); // Arguments`}
                     First-class functions refer to the concept that functions are treated as first-class citizens, meaning they can be assigned to variables, passed as arguments, returned from other functions, and stored in data structures.
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`const greet = function() {
     console.log("Hello, World!");
 };
@@ -127,7 +127,7 @@ const functionsArray = [
 ];
 functionsArray[0](); // Output: First function
 functionsArray[1](); // Output: Second function`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
             </section>
 
@@ -137,23 +137,23 @@ functionsArray[1](); // Output: Second function`}
                     Arrow functions are anonymous functions without a name, often assigned to a variable. They are also called lambda functions.
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`const sayName = () => {
     console.log("Pappu Kumar");
 };`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
             </section>
 
             <section className="method-section">
                 <h2 className="method-title">Limitations of Arrow Functions</h2>
                 <ul>
-                    <li>Arrow functions do not have the <SyntaxHighlighter language="javascript" style={atomDark}>prototype</SyntaxHighlighter> property.</li>
-                    <li>They do not have their own <SyntaxHighlighter language="javascript" style={atomDark}>this</SyntaxHighlighter>.</li>
-                    <li>Cannot be used with the <SyntaxHighlighter language="javascript" style={atomDark}>new</SyntaxHighlighter> keyword.</li>
+                    <li>Arrow functions do not have the <CodeBlock language="javascript" style={atomDark}>prototype</CodeBlock> property.</li>
+                    <li>They do not have their own <CodeBlock language="javascript" style={atomDark}>this</CodeBlock>.</li>
+                    <li>Cannot be used with the <CodeBlock language="javascript" style={atomDark}>new</CodeBlock> keyword.</li>
                     <li>Cannot be used as constructors.</li>
                     <li>These functions are anonymous, making debugging harder.</li>
-                    <li>Cannot be used as generator functions that use the <SyntaxHighlighter language="javascript" style={atomDark}>yield</SyntaxHighlighter> keyword.</li>
+                    <li>Cannot be used as generator functions that use the <CodeBlock language="javascript" style={atomDark}>yield</CodeBlock> keyword.</li>
                 </ul>
             </section>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function TemplateLiteral() {
@@ -21,7 +21,7 @@ not \${2 * a + b}.\`);
         <div className="debounce-container">
             <h1>Template Literals (Template Strings)</h1>
             <p>
-                Template literals are enclosed by backtick (<SyntaxHighlighter language="javascript" style={atomDark}>`</SyntaxHighlighter>) characters, allowing for multi-line strings, string interpolation with embedded expressions, and special constructs called tagged templates.
+                Template literals are enclosed by backtick (<CodeBlock language="javascript" style={atomDark}>`</CodeBlock>) characters, allowing for multi-line strings, string interpolation with embedded expressions, and special constructs called tagged templates.
             </p>
             <p>
                 Template literals are sometimes informally called template strings, because they are used most commonly for string interpolation.
@@ -29,17 +29,17 @@ not \${2 * a + b}.\`);
             
             <h2>String Interpolation</h2>
             <p>
-                Without template literals, when you want to combine output from expressions with strings, you'd concatenate them using the addition operator <SyntaxHighlighter language="javascript" style={atomDark}>+</SyntaxHighlighter>:
+                Without template literals, when you want to combine output from expressions with strings, you'd concatenate them using the addition operator <CodeBlock language="javascript" style={atomDark}>+</CodeBlock>:
             </p>
-            <SyntaxHighlighter language="javascript" style={atomDark}>{String(codeExample1)}</SyntaxHighlighter>
+            <CodeBlock language="javascript" style={atomDark}>{String(codeExample1)}</CodeBlock>
             
             <p>
                 That can be hard to read – especially when you have multiple expressions.
             </p>
             <p>
-                With template literals, you can avoid the concatenation operator — and improve the readability of your code — by using placeholders of the form <SyntaxHighlighter language="javascript" style={atomDark}>${'{expression}'}</SyntaxHighlighter> to perform substitutions for embedded expressions:
+                With template literals, you can avoid the concatenation operator — and improve the readability of your code — by using placeholders of the form <CodeBlock language="javascript" style={atomDark}>${'{expression}'}</CodeBlock> to perform substitutions for embedded expressions:
             </p>
-            <SyntaxHighlighter language="javascript" style={atomDark}>{String(codeExample2)}</SyntaxHighlighter>
+            <CodeBlock language="javascript" style={atomDark}>{String(codeExample2)}</CodeBlock>
         </div>
     );
 }

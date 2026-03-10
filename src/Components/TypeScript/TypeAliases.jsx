@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function TypeScriptTypeAliases() {
@@ -17,7 +17,7 @@ function TypeScriptTypeAliases() {
       </p>
       <div className="method-section">
         <h2 className="method-title">Object and union aliases</h2>
-        <SyntaxHighlighter language="typescript" style={atomDark}>
+        <CodeBlock language="typescript" style={atomDark}>
           {`type ID = string | number;
 
 type User = {
@@ -26,16 +26,16 @@ type User = {
 };
 
 type Status = "pending" | "success" | "error";`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
       <div className="method-section">
         <h2 className="method-title">Alias vs interface</h2>
         <p>Interfaces can be extended and merged (declaration merging). Type aliases can express unions, intersections, and mapped types. Prefer interface for object shapes when you need extension; use type for unions and complex types.</p>
-        <SyntaxHighlighter language="typescript" style={atomDark}>
+        <CodeBlock language="typescript" style={atomDark}>
           {`type A = { a: number };
 type B = { b: string };
 type C = A & B;  // intersection`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

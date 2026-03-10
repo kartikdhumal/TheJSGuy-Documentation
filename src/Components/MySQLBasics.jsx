@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function MySQLBasics() {
@@ -17,7 +17,7 @@ function MySQLBasics() {
         <h2 className="method-title">DDL (Data Definition Language)</h2>
         <p>Commands that define or change the structure of the database: <code>CREATE</code>, <code>ALTER</code>, <code>DROP</code>.</p>
         <h3>CREATE database and table</h3>
-        <SyntaxHighlighter language="sql" style={atomDark}>
+        <CodeBlock language="sql" style={atomDark}>
           {`CREATE DATABASE mydb;
 USE mydb;
 
@@ -27,24 +27,24 @@ CREATE TABLE users (
   email VARCHAR(255) UNIQUE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );`}
-        </SyntaxHighlighter>
+        </CodeBlock>
         <h3>ALTER table (add column, modify)</h3>
-        <SyntaxHighlighter language="sql" style={atomDark}>
+        <CodeBlock language="sql" style={atomDark}>
           {`ALTER TABLE users ADD COLUMN age INT;
 ALTER TABLE users MODIFY COLUMN name VARCHAR(200);
 ALTER TABLE users DROP COLUMN age;`}
-        </SyntaxHighlighter>
+        </CodeBlock>
         <h3>DROP table or database</h3>
-        <SyntaxHighlighter language="sql" style={atomDark}>
+        <CodeBlock language="sql" style={atomDark}>
           {`DROP TABLE users;
 DROP DATABASE mydb;`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
 
       <div className="method-section">
         <h2 className="method-title">DML (Data Manipulation Language)</h2>
         <p>Commands that work with data: <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>.</p>
-        <SyntaxHighlighter language="sql" style={atomDark}>
+        <CodeBlock language="sql" style={atomDark}>
           {`-- Insert
 INSERT INTO users (name, email) VALUES ('Kartik', 'kartik@example.com');
 INSERT INTO users (name, email) VALUES ('Rohit', 'rohit@example.com'), ('Virat', 'virat@example.com');
@@ -58,7 +58,7 @@ UPDATE users SET name = 'Kartik Dhumal' WHERE id = 1;
 
 -- Delete
 DELETE FROM users WHERE id = 2;`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
 
       <div className="method-section">
@@ -82,7 +82,7 @@ DELETE FROM users WHERE id = 2;`}
 
       <div className="method-section">
         <h2 className="method-title">Constraints</h2>
-        <SyntaxHighlighter language="sql" style={atomDark}>
+        <CodeBlock language="sql" style={atomDark}>
           {`CREATE TABLE products (
   id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(100) NOT NULL,
@@ -91,7 +91,7 @@ DELETE FROM users WHERE id = 2;`}
   price DECIMAL(10,2) CHECK (price >= 0),
   FOREIGN KEY (category_id) REFERENCES categories(id)
 );`}
-        </SyntaxHighlighter>
+        </CodeBlock>
         <p><strong>PRIMARY KEY</strong> — unique identifier; <strong>UNIQUE</strong> — no duplicates; <strong>NOT NULL</strong> — required; <strong>FOREIGN KEY</strong> — reference to another table; <strong>CHECK</strong> — condition on value.</p>
       </div>
     </div>

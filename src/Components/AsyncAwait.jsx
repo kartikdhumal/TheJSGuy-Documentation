@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function AsyncAwait() {
@@ -19,7 +19,7 @@ function AsyncAwait() {
                     Async functions will always return a value, wrapping it in a promise if necessary.
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`async function getData() {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -28,7 +28,7 @@ function AsyncAwait() {
     }, 3000);
   });
 }`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
             </section>
 
@@ -38,14 +38,14 @@ function AsyncAwait() {
                     The await keyword pauses the execution of the async function until the promise is resolved.
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`async function run() {
   await getData();
   getData2();
 }
 
 run();`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
             </section>
 
@@ -55,7 +55,7 @@ run();`}
                     Async functions can use try/catch blocks to handle errors in a more synchronous style.
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`async function getDataWithError() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -74,7 +74,7 @@ async function runWithErrorHandling() {
 }
 
 runWithErrorHandling();`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
             </section>
 
@@ -84,7 +84,7 @@ runWithErrorHandling();`}
                     You can chain multiple async functions to run one after another.
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`async function runChained() {
   await getData();
   await getData3();
@@ -92,7 +92,7 @@ runWithErrorHandling();`}
 }
 
 runChained();`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
             </section>
 
@@ -102,14 +102,14 @@ runChained();`}
                     To run async functions in parallel, you can use Promise.all.
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`async function runParallel() {
   await Promise.all([getDataParallel1(), getDataParallel2()]);
   console.log("Both parallel functions have completed");
 }
 
 runParallel();`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
             </section>
         </div>

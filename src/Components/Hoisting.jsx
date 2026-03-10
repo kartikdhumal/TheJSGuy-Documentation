@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function Hoisting() {
@@ -25,7 +25,7 @@ function Hoisting() {
       <div className="method-section">
         <h3>How Hoisting Works</h3>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`// Hoisting Example
+          <CodeBlock language="javascript" style={atomDark}>{`// Hoisting Example
 
 console.log(a); // ReferenceError: Cannot access 'a' before initialization
 console.log(b); // Undefined
@@ -43,7 +43,7 @@ function myName() {
 
 var myCity = () => {
     console.log("Mirzapur"); // Function expressions are not hoisted as functions
-}`}</SyntaxHighlighter>
+}`}</CodeBlock>
         
       </div>
 

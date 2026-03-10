@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function Security() {
@@ -17,19 +17,19 @@ function Security() {
 
       <div className="method-section">
         <h2 className="method-title">Helmet – secure HTTP headers</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// npm install helmet
 const helmet = require('helmet');
 const app = express();
 
 app.use(helmet());
 // Sets X-Content-Type-Options, X-Frame-Options, etc.`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
 
       <div className="method-section">
         <h2 className="method-title">Rate limiting</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// npm install express-rate-limit
 const rateLimit = require('express-rate-limit');
 
@@ -38,7 +38,7 @@ const limiter = rateLimit({
   max: 100                    // max 100 requests per window
 });
 app.use(limiter);`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
 
       <div className="method-section">

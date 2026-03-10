@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function ReduxReducers() {
@@ -14,7 +14,7 @@ function ReduxReducers() {
       </p>
       <section className="method-section">
         <h2 className="method-title">Reducer signature</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`function myReducer(state, action) {
   // state: current state for this slice
   // action: { type: '...', payload?: ... }
@@ -27,7 +27,7 @@ function ReduxReducers() {
       return state;
   }
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
       <section className="method-section">
         <h2 className="method-title">Rules for reducers</h2>
@@ -40,7 +40,7 @@ function ReduxReducers() {
       <section className="method-section">
         <h2 className="method-title">Redux Toolkit: createSlice</h2>
         <p className="com-text">With createSlice you write "mutating" logic inside reducers because Immer is used under the hood. You still never mutate state outside of createSlice. The slice generates the reducer and action creators for you.</p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`import { createSlice } from '@reduxjs/toolkit';
 
 const counterSlice = createSlice({
@@ -58,7 +58,7 @@ const counterSlice = createSlice({
 
 export const { increment, addBy } = counterSlice.actions;
 export default counterSlice.reducer;`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
     </div>
   );

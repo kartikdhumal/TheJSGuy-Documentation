@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function ThisKeyword() {
@@ -21,15 +21,15 @@ function ThisKeyword() {
       <h2>1. Global Context</h2>
       <p>In the global context, `this` refers to the global object (e.g., `window` in browsers).</p>
       
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`console.log(this); // Output: Window (in browsers)`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       
 
       <h2>2. Object Method</h2>
       <p>When a function is called as a method of an object, `this` refers to the object the method belongs to.</p>
       
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const obj = {
   name: "Guddu",
   greet() {
@@ -37,25 +37,25 @@ function ThisKeyword() {
   }
 };
 obj.greet();`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       
 
       <h2>3. Constructor Function</h2>
       <p>In a constructor function, `this` refers to the instance of the object being created.</p>
       
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`function Person(name) {
   this.name = name;
 }
 const person1 = new Person("Guddu");
 console.log(person1.name); // Output: "Guddu"`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       
 
       <h2>4. Class Syntax</h2>
       <p>In classes, `this` refers to the instance of the class.</p>
       
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`class Person {
   constructor(name) {
     this.name = name;
@@ -66,13 +66,13 @@ console.log(person1.name); // Output: "Guddu"`}
 }
 const person2 = new Person("Guddu");
 person2.greet();`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       
 
       <h2>5. Arrow Functions</h2>
       <p>Arrow functions do not have their own `this`. Instead, they inherit `this` from the parent scope.</p>
       
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const obj2 = {
   name: "Guddu",
   greet: () => {
@@ -80,44 +80,44 @@ person2.greet();`}
   }
 };
 obj2.greet();`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       
 
       <h2>6. Event Handlers</h2>
       <p>In event handlers, `this` refers to the element that fired the event.</p>
       
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const button = document.createElement("button");
 button.innerText = "Click me!";
 button.addEventListener("click", function() {
   console.log(this); // Output: <button> element
 });
 document.body.appendChild(button);`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       
 
       <h2>7. Explicit Binding</h2>
-      <p>You can explicitly bind `this` using <SyntaxHighlighter language="javascript" style={atomDark}>call</SyntaxHighlighter>, <SyntaxHighlighter language="javascript" style={atomDark}>apply</SyntaxHighlighter>, or <SyntaxHighlighter language="javascript" style={atomDark}>bind</SyntaxHighlighter>.</p>
+      <p>You can explicitly bind `this` using <CodeBlock language="javascript" style={atomDark}>call</CodeBlock>, <CodeBlock language="javascript" style={atomDark}>apply</CodeBlock>, or <CodeBlock language="javascript" style={atomDark}>bind</CodeBlock>.</p>
       
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`function greet() {
   console.log("Hello, " + this.name);
 }
 const obj3 = { name: "Guddu" };
 greet.call(obj3); // Output: "Hello, Guddu"`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       
 
       <h2>8. The `this` Keyword in Strict Mode</h2>
       <p>In strict mode, `this` is `undefined` in the global context and for regular functions.</p>
       
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`function strictFunction() {
   "use strict";
   console.log(this); // Output: undefined
 }
 strictFunction();`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       
 
       <h2>9. Summary</h2>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function TypeScriptIntroduction() {
@@ -26,22 +26,22 @@ function TypeScriptIntroduction() {
       </div>
       <div className="method-section">
         <h2 className="method-title">Install and run</h2>
-        <SyntaxHighlighter language="bash" style={atomDark}>
+        <CodeBlock language="bash" style={atomDark}>
           {`npm install -g typescript
 tsc --version
 tsc app.ts    # compiles app.ts to app.js`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
       <div className="method-section">
         <h2 className="method-title">First TypeScript file</h2>
-        <SyntaxHighlighter language="typescript" style={atomDark}>
+        <CodeBlock language="typescript" style={atomDark}>
           {`// hello.ts
 function greet(name: string): string {
   return \`Hello, \${name}!\`;
 }
 console.log(greet("World"));  // Hello, World!
 // greet(42);  // Error: Argument of type 'number' is not assignable to parameter of type 'string'`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function ReduxMiddleware() {
@@ -19,7 +19,7 @@ function ReduxMiddleware() {
       <section className="method-section">
         <h2 className="method-title">Thunks</h2>
         <p className="com-text">A thunk is a function that returns another function. The inner function receives dispatch and getState. You use it to run async code and then dispatch actions with the result.</p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`import { createAsyncThunk } from '@reduxjs/toolkit';
 
 // With createAsyncThunk (recommended)
@@ -42,7 +42,7 @@ extraReducers: (builder) => {
     })
     .addCase(fetchUser.rejected, (state) => { state.loading = false; });
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
       <section className="method-section">
         <h2 className="method-title">Other middleware</h2>

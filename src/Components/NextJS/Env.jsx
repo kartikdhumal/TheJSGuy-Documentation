@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function NextJSEnv() {
@@ -17,25 +17,25 @@ function NextJSEnv() {
       </p>
       <div className="method-section">
         <h2 className="method-title">Server-only (default)</h2>
-        <SyntaxHighlighter language="text" style={atomDark}>
+        <CodeBlock language="text" style={atomDark}>
           {`# .env.local
 DATABASE_URL=postgresql://...
 API_SECRET=xyz`}
-        </SyntaxHighlighter>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        </CodeBlock>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// Only available on server (API routes, Server Components)
 const url = process.env.DATABASE_URL;`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
       <div className="method-section">
         <h2 className="method-title">Expose to browser</h2>
-        <SyntaxHighlighter language="text" style={atomDark}>
+        <CodeBlock language="text" style={atomDark}>
           {`NEXT_PUBLIC_APP_URL=https://myapp.com`}
-        </SyntaxHighlighter>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        </CodeBlock>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// Client or Server
 const url = process.env.NEXT_PUBLIC_APP_URL;`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

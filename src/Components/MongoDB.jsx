@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const Mongodb = () => {
@@ -38,13 +38,13 @@ It stores data in BSON format (Binary JSON), which is a binary representation of
       <p>MongoDB listens on TCP port <strong>27017</strong> for client connections.</p>
 
       <h3>Change Port</h3>
-      <SyntaxHighlighter language="javascript" style={atomDark}>mongod --port 27018</SyntaxHighlighter>
+      <CodeBlock language="javascript" style={atomDark}>mongod --port 27018</CodeBlock>
 
       <h3>Connect Using Custom Port</h3>
-      <SyntaxHighlighter language="javascript" style={atomDark}>mongosh --port 27018</SyntaxHighlighter>
+      <CodeBlock language="javascript" style={atomDark}>mongosh --port 27018</CodeBlock>
 
       <h3>Connection URI</h3>
-      <SyntaxHighlighter language="javascript" style={atomDark}>mongodb://localhost:27017</SyntaxHighlighter>
+      <CodeBlock language="javascript" style={atomDark}>mongodb://localhost:27017</CodeBlock>
 
       <h3>Note</h3>
       <p>
@@ -119,53 +119,53 @@ It stores data in BSON format (Binary JSON), which is a binary representation of
         <h2>MongoDB Commands</h2>
         <h3>Check MongoDB Version</h3>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{`mongosh --version`}</SyntaxHighlighter>
+        <CodeBlock language="javascript" style={atomDark}>{`mongosh --version`}</CodeBlock>
 
 
         <h3>Create a New Database</h3>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{`use blog`}</SyntaxHighlighter>
+        <CodeBlock language="javascript" style={atomDark}>{`use blog`}</CodeBlock>
 
 
         <h3>Create Collection</h3>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{`// Method 1: Using createCollection
+        <CodeBlock language="javascript" style={atomDark}>{`// Method 1: Using createCollection
 db.createCollection("posts")
 
 // Method 2: During the insert process
-db.posts.insertOne(object)`}</SyntaxHighlighter>
+db.posts.insertOne(object)`}</CodeBlock>
 
 
         <h3>Insert a Document</h3>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{`// Insert one document
+        <CodeBlock language="javascript" style={atomDark}>{`// Insert one document
 db.posts.insertOne(object)
 
 // Insert multiple documents
-db.posts.insertMany([object1, object2])`}</SyntaxHighlighter>
+db.posts.insertMany([object1, object2])`}</CodeBlock>
 
 
         <h3>Find Data</h3>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{`// Find all documents
+        <CodeBlock language="javascript" style={atomDark}>{`// Find all documents
 db.posts.find()
 
 // Find one document
-db.posts.findOne()`}</SyntaxHighlighter>
+db.posts.findOne()`}</CodeBlock>
 
 
         <h3>Querying Data</h3>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{`// Example query to filter documents
+        <CodeBlock language="javascript" style={atomDark}>{`// Example query to filter documents
 db.users.find({idAdmin: false})
 
 // Projection to include/exclude fields
-db.posts.find({}, { title: 1, date: 1 })`}</SyntaxHighlighter>
+db.posts.find({}, { title: 1, date: 1 })`}</CodeBlock>
 
 
         <h3>Update Documents</h3>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{`// Update one document
+        <CodeBlock language="javascript" style={atomDark}>{`// Update one document
 db.posts.updateOne({ title: "Post Title 1" }, { $set: { likes: 2 } })
 
 // Insert if not found
@@ -176,23 +176,23 @@ db.posts.updateOne(
 )
 
 // Update multiple documents
-db.posts.updateMany({}, { $inc: { likes: 1 } })`}</SyntaxHighlighter>
+db.posts.updateMany({}, { $inc: { likes: 1 } })`}</CodeBlock>
 
 
         <h3>Delete Documents</h3>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{`// Delete one document
+        <CodeBlock language="javascript" style={atomDark}>{`// Delete one document
 db.posts.deleteOne({ title: "Post Title 1" })
 
 // Delete multiple documents
-db.posts.deleteMany({ likes: { $lt: 0 } })`}</SyntaxHighlighter>
+db.posts.deleteMany({ likes: { $lt: 0 } })`}</CodeBlock>
 
       </section>
 
       <section id="operators">
         <h2>MongoDB Query Operators</h2>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{`// Comparison Operators
+        <CodeBlock language="javascript" style={atomDark}>{`// Comparison Operators
 db.collection.find({ age: { $eq: 30 } }) // $eq: Values are equal  
 db.collection.find({ age: { $ne: 30 } }) // $ne: Values are not equal
 db.collection.find({ age: { $gt: 25 } }) // $gt: Value is greater than another value
@@ -205,14 +205,14 @@ db.collection.find({ age: { $in: [20, 30, 40] } }) // $in: Value is matched with
 db.collection.find({ $and: [{ age: { $gt: 25 } }, { age: { $lt: 35 } }] }) // $and: Returns documents where both queries match
 db.collection.find({ $or: [{ age: 25 }, { age: 30 }] }) // $or: Returns documents where either query matches
 db.collection.find({ $nor: [{ age: 25 }, { age: 30 }] }) // $nor: Returns documents where both queries fail to match
-db.collection.find({ age: { $not: { $gt: 30 } } }) // $not: Returns documents where the query does not match`}</SyntaxHighlighter>
+db.collection.find({ age: { $not: { $gt: 30 } } }) // $not: Returns documents where the query does not match`}</CodeBlock>
 
       </section>
 
       <section id="aggregation">
         <h2>Aggregation Pipelines</h2>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{`// 1. $match - Filters documents where status is active
+        <CodeBlock language="javascript" style={atomDark}>{`// 1. $match - Filters documents where status is active
 db.collection.aggregate([{ $match: { status: "active" } }])
 
 // 2. $group - Groups by category and sums amount
@@ -418,12 +418,12 @@ db.collection.find({
 
 // Use regex ONLY when partial or pattern search is required
 `}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
 
         <h3>Example Usage of $group</h3>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{`db.users.aggregate([
+        <CodeBlock language="javascript" style={atomDark}>{`db.users.aggregate([
   {
     $group : {
       _id : "$name",
@@ -432,14 +432,14 @@ db.collection.find({
       avgHeight: { $avg: "$height" }
     }
   }
-])`}</SyntaxHighlighter>
+])`}</CodeBlock>
 
       </section>
 
       <section id="validation">
         <h2>Schema Validation</h2>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{`// Creating a collection with schema validation
+        <CodeBlock language="javascript" style={atomDark}>{`// Creating a collection with schema validation
 db.createCollection("posts", {
   validator: {
     $jsonSchema: {
@@ -473,14 +473,14 @@ db.createCollection("posts", {
       }
     }
   }
-})`}</SyntaxHighlighter>
+})`}</CodeBlock>
 
       </section>
 
       <section id="nodejs">
         <h2>Using MongoDB in Node.js</h2>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{`// Install MongoDB Driver
+        <CodeBlock language="javascript" style={atomDark}>{`// Install MongoDB Driver
 npm install mongodb
 
 const { MongoClient } = require('mongodb');
@@ -497,7 +497,7 @@ async function run() {
     await client.close();
   }
 }
-run().catch(console.error);`}</SyntaxHighlighter>
+run().catch(console.error);`}</CodeBlock>
 
       </section>
 
@@ -527,7 +527,7 @@ run().catch(console.error);`}</SyntaxHighlighter>
 
         <h2>Connecting Mongoose in a Node.js and Express Application</h2>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{`// Install Mongoose
+        <CodeBlock language="javascript" style={atomDark}>{`// Install Mongoose
 npm install mongoose
 
 const mongoose = require('mongoose');
@@ -557,7 +557,7 @@ app.get('/movies', async (req, res) => {
   } catch (err) {
     res.status(500).send(err);
   }
-});`}</SyntaxHighlighter>
+});`}</CodeBlock>
 
       </section>
 
@@ -566,7 +566,7 @@ app.get('/movies', async (req, res) => {
         <p>Indexes are special data structures that store a subset of the collection data in an easy-to-traverse form to dramatically speed up query execution.</p>
 
         <h3>Index Creation Commands</h3>
-        <SyntaxHighlighter language="javascript" style={atomDark}>{`// 1. Single-Field Index (Ascending on 'email')
+        <CodeBlock language="javascript" style={atomDark}>{`// 1. Single-Field Index (Ascending on 'email')
 db.users.createIndex({ email: 1 })
 
 // 2. Compound Index (Order matters: Filter by 'type', then sort by 'date')
@@ -582,11 +582,11 @@ db.posts.createIndex({ tags: 1 })
 db.users.getIndexes()
 
 // Drop Index (Use the index name, typically a combination of fields and order, e.g., 'email_1')
-db.users.dropIndex("email_1")`}</SyntaxHighlighter>
+db.users.dropIndex("email_1")`}</CodeBlock>
 
         <h3>Query Analysis: The Explain Plan</h3>
-        <p>Use <strong><SyntaxHighlighter language="javascript" style={atomDark}>.explain("executionStats")</SyntaxHighlighter></strong> to analyze and debug slow queries. Look for a low <SyntaxHighlighter language="javascript" style={atomDark}>totalDocsExamined</SyntaxHighlighter>.</p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>{`db.posts.find({ title: "Post Title 1" }).explain("executionStats")`}</SyntaxHighlighter>
+        <p>Use <strong><CodeBlock language="javascript" style={atomDark}>.explain("executionStats")</CodeBlock></strong> to analyze and debug slow queries. Look for a low <CodeBlock language="javascript" style={atomDark}>totalDocsExamined</CodeBlock>.</p>
+        <CodeBlock language="javascript" style={atomDark}>{`db.posts.find({ title: "Post Title 1" }).explain("executionStats")`}</CodeBlock>
         <ul>
           <li>**`winningPlan.stage`:**
             <ul>
@@ -614,7 +614,7 @@ db.users.dropIndex("email_1")`}</SyntaxHighlighter>
           <li>**Automatic Failover:** If the Primary fails, a Secondary is automatically elected as the new Primary.</li>
           <li>**Oplog:** The log of operations that Secondaries apply to maintain synchronization.</li>
         </ul>
-        <SyntaxHighlighter language="javascript" style={atomDark}>{`// Initiate a replica set (run on the first node)
+        <CodeBlock language="javascript" style={atomDark}>{`// Initiate a replica set (run on the first node)
 rs.initiate(
   {
     _id : "rs0",
@@ -626,7 +626,7 @@ rs.initiate(
   }
 )
 // Check status
-rs.status()`}</SyntaxHighlighter>
+rs.status()`}</CodeBlock>
 
         <h3>2. Sharding (Horizontal Scaling / Large Data Sets)</h3>
         <p>Sharding distributes data across multiple independent servers (**Shards**). This is used when the data volume or write throughput exceeds the capacity of a single Replica Set. </p>
@@ -637,11 +637,11 @@ rs.status()`}</SyntaxHighlighter>
           <li>**Config Servers (CSRS):** Store the **metadata** about the cluster, including the mapping of data chunks to Shards.</li>
           <li>**Shard Key:** The field used to determine how data is distributed across Shards (e.g., `zipcode`, `customer_id`). The choice of Shard Key is **CRITICAL** for performance.</li>
         </ul>
-        <SyntaxHighlighter language="javascript" style={atomDark}>{`// 1. Enable sharding on a database
+        <CodeBlock language="javascript" style={atomDark}>{`// 1. Enable sharding on a database
 sh.enableSharding("myDatabase")
 
 // 2. Shard a collection using a specific key (e.g., hashed on _id)
-sh.shardCollection("myDatabase.users", { _id: "hashed" })`}</SyntaxHighlighter>
+sh.shardCollection("myDatabase.users", { _id: "hashed" })`}</CodeBlock>
       </section>
 
       <section id="transactions">
@@ -653,7 +653,7 @@ sh.shardCollection("myDatabase.users", { _id: "hashed" })`}</SyntaxHighlighter>
         <h3>Multi-Document Transactions</h3>
         <p>Introduced in MongoDB 4.0 (for Replica Sets) and 4.2 (for Sharded Clusters), transactions allow you to apply **ACID** properties across multiple documents and multiple collections.</p>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{`// Example of a Transaction in the Mongo Shell
+        <CodeBlock language="javascript" style={atomDark}>{`// Example of a Transaction in the Mongo Shell
 session = db.getMongo().startSession();
 session.startTransaction();
 
@@ -678,14 +678,14 @@ try {
   print("Transaction aborted:", error);
 } finally {
   session.endSession();
-}`}</SyntaxHighlighter>
+}`}</CodeBlock>
       </section>
 
       <section id="validation">
         <h2>✅ Schema Validation</h2>
         <p>Though MongoDB is schema-less, you can enforce structure using **Schema Validation** via the `$jsonSchema` operator on a collection.</p>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{`// Creating a collection with schema validation
+        <CodeBlock language="javascript" style={atomDark}>{`// Creating a collection with schema validation
 db.createCollection("posts", {
   validator: {
     $jsonSchema: {
@@ -705,7 +705,7 @@ db.createCollection("posts", {
     }
   },
   validationAction: "error" // Other option: "warn"
-})`}</SyntaxHighlighter>
+})`}</CodeBlock>
       </section>
 
       <section id="mongoose">
@@ -718,7 +718,7 @@ db.createCollection("posts", {
         </ul>
 
         <h3>Connecting Mongoose in a Node.js and Express Application</h3>
-        <SyntaxHighlighter language="javascript" style={atomDark}>{`// Install Mongoose
+        <CodeBlock language="javascript" style={atomDark}>{`// Install Mongoose
 // npm install mongoose
 
 const mongoose = require('mongoose');
@@ -748,7 +748,7 @@ async function createPost() {
   } catch(error) {
     console.error(error); // Catches validation errors
   }
-}`}</SyntaxHighlighter>
+}`}</CodeBlock>
       </section>
     </div>
   );

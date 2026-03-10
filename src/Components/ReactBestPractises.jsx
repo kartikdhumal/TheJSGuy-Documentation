@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/debouncing.css'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function ReactBestPractises() {
@@ -13,7 +13,7 @@ function ReactBestPractises() {
                 <p>
                     Use a clean and modular folder structure. Separate components, pages, hooks, and utils. This makes your codebase scalable and easy to maintain.
                 </p>
-                <SyntaxHighlighter language="javascript" style={atomDark}>{`
+                <CodeBlock language="javascript" style={atomDark}>{`
 src/
 |-- components/
 |   |-- Button.jsx
@@ -24,7 +24,7 @@ src/
 |   |-- useAuth.js
 |-- utils/
 |   |-- validateEmail.js
-        `}</SyntaxHighlighter>
+        `}</CodeBlock>
             </section>
 
             <section className="practice-section">
@@ -32,7 +32,7 @@ src/
                 <p>
                     Prefer functional components over class components. Hooks like <strong>useState</strong>, <strong>useEffect</strong> simplify logic and make code cleaner.
                 </p>
-                <SyntaxHighlighter language="javascript" style={atomDark}>{`
+                <CodeBlock language="javascript" style={atomDark}>{`
 import { useState } from 'react';
 
 function Counter() {
@@ -43,7 +43,7 @@ function Counter() {
     </button>
   );
 }
-        `}</SyntaxHighlighter>
+        `}</CodeBlock>
             </section>
 
             <section className="practice-section">
@@ -51,7 +51,7 @@ function Counter() {
                 <p>
                     Break large UI into smaller reusable components. Each component should do one job only.
                 </p>
-                <SyntaxHighlighter language="javascript" style={atomDark}>{`
+                <CodeBlock language="javascript" style={atomDark}>{`
 function ProductCard({ product }) {
   return (
     <div>
@@ -60,7 +60,7 @@ function ProductCard({ product }) {
     </div>
   );
 }
-        `}</SyntaxHighlighter>
+        `}</CodeBlock>
             </section>
 
             <section className="practice-section">
@@ -68,7 +68,7 @@ function ProductCard({ product }) {
                 <p>
                     Use <strong>PropTypes</strong> or <strong>TypeScript</strong> to validate props and avoid bugs.
                 </p>
-                <SyntaxHighlighter language="javascript" style={atomDark}>{`
+                <CodeBlock language="javascript" style={atomDark}>{`
 import PropTypes from 'prop-types';
 
 function User({ name }) {
@@ -78,7 +78,7 @@ function User({ name }) {
 User.propTypes = {
   name: PropTypes.string.isRequired
 };
-        `}</SyntaxHighlighter>
+        `}</CodeBlock>
             </section>
 
             <section className="practice-section">
@@ -86,11 +86,11 @@ User.propTypes = {
                 <p>
                     Keys help React identify which items have changed. Never use index as key unless you're sure the list won’t change.
                 </p>
-                <SyntaxHighlighter language="javascript" style={atomDark}>{`
+                <CodeBlock language="javascript" style={atomDark}>{`
 {users.map(user => (
   <UserCard key={user.id} user={user} />
 ))}
-        `}</SyntaxHighlighter>
+        `}</CodeBlock>
             </section>
 
             <section className="practice-section">
@@ -98,7 +98,7 @@ User.propTypes = {
                 <p>
                     If you’re passing the same prop through multiple levels, use <strong>React Context</strong> or <strong>Redux</strong> to manage global state.
                 </p>
-                <SyntaxHighlighter language="javascript" style={atomDark}>{`
+                <CodeBlock language="javascript" style={atomDark}>{`
 import { createContext, useContext } from 'react';
 
 const AuthContext = createContext();
@@ -115,7 +115,7 @@ function Child() {
   const { user } = useContext(AuthContext);
   return <p>Logged in as {user}</p>;
 }
-        `}</SyntaxHighlighter>
+        `}</CodeBlock>
             </section>
 
             <section className="practice-section">
@@ -123,10 +123,10 @@ function Child() {
                 <p>
                     Use conditional rendering smartly. Avoid long nested if-else blocks in JSX.
                 </p>
-                <SyntaxHighlighter language="javascript" style={atomDark}>{`
+                <CodeBlock language="javascript" style={atomDark}>{`
 {isLoggedIn ? <Dashboard /> : <LoginPage />}
 {isLoading && <Spinner />}
-        `}</SyntaxHighlighter>
+        `}</CodeBlock>
             </section>
 
             <section className="practice-section">
@@ -134,12 +134,12 @@ function Child() {
                 <p>
                     Don’t mix business logic inside the JSX. Prepare data before return statement.
                 </p>
-                <SyntaxHighlighter language="javascript" style={atomDark}>{`
+                <CodeBlock language="javascript" style={atomDark}>{`
 function PriceDisplay({ price }) {
   const formatted = \`₹ \${price.toFixed(2)}\`;
   return <p>{formatted}</p>;
 }
-        `}</SyntaxHighlighter>
+        `}</CodeBlock>
             </section>
 
             <section className="practice-section">
@@ -147,12 +147,12 @@ function PriceDisplay({ price }) {
                 <p>
                     Always clean up side effects and manage dependency array properly to avoid infinite loops.
                 </p>
-                <SyntaxHighlighter language="javascript" style={atomDark}>{`
+                <CodeBlock language="javascript" style={atomDark}>{`
 useEffect(() => {
   const timer = setInterval(() => console.log("Tick"), 1000);
   return () => clearInterval(timer); // cleanup
 }, []);
-        `}</SyntaxHighlighter>
+        `}</CodeBlock>
             </section>
 
             <section className="practice-section">
@@ -160,11 +160,11 @@ useEffect(() => {
                 <p>
                     Use <strong>React.memo</strong>, <strong>useCallback</strong>, and <strong>useMemo</strong> for expensive operations or preventing unnecessary re-renders.
                 </p>
-                <SyntaxHighlighter language="javascript" style={atomDark}>{`
+                <CodeBlock language="javascript" style={atomDark}>{`
 const MemoizedComponent = React.memo(function HeavyComponent({ data }) {
   // Renders only if data changes
 });
-        `}</SyntaxHighlighter>
+        `}</CodeBlock>
             </section>
         </div>
     );

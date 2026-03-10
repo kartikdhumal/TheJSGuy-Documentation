@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function MySQLNormalization() {
@@ -47,7 +47,7 @@ function MySQLNormalization() {
         <h2 className="method-title">Second Normal Form (2NF)</h2>
         <p>Already in 1NF + every non-key attribute is <strong>fully dependent</strong> on the primary key. Fix: split into separate tables.</p>
         <p><strong>Example:</strong> Players table (player_id, player_name) and Teams table (team, captain), with a junction table Player_Teams (player_id, team).</p>
-        <SyntaxHighlighter language="sql" style={atomDark}>
+        <CodeBlock language="sql" style={atomDark}>
           {`-- Players
 CREATE TABLE players (player_id INT PRIMARY KEY, player_name VARCHAR(100));
 
@@ -59,31 +59,31 @@ CREATE TABLE player_teams (player_id INT, team VARCHAR(50),
   PRIMARY KEY (player_id, team),
   FOREIGN KEY (player_id) REFERENCES players(player_id),
   FOREIGN KEY (team) REFERENCES teams(team));`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
 
       <div className="method-section">
         <h2 className="method-title">Third Normal Form (3NF)</h2>
         <p>Already in 2NF + no <strong>transitive dependency</strong>: non-key attributes depend only on the primary key, not on other non-key attributes.</p>
         <p><strong>Example:</strong> If Teams has (team, captain, owner) and owner depends on team, move owner to a separate table (e.g. team_owners) so Teams only has team and captain.</p>
-        <SyntaxHighlighter language="sql" style={atomDark}>
+        <CodeBlock language="sql" style={atomDark}>
           {`-- Teams (no owner here)
 CREATE TABLE teams (team VARCHAR(50) PRIMARY KEY, captain VARCHAR(100));
 
 -- Owners in separate table
 CREATE TABLE team_owners (team VARCHAR(50) PRIMARY KEY, owner VARCHAR(100),
   FOREIGN KEY (team) REFERENCES teams(team));`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
 
       <div className="method-section">
         <h2 className="method-title">Boyce-Codd Normal Form (BCNF)</h2>
         <p>Already in 3NF + for every functional dependency <code>A → B</code>, <code>A</code> must be a <strong>superkey</strong>.</p>
         <p>If you have <code>team → captain</code> and <code>captain → sponsor</code>, sponsor depends on captain (not a key). Split: one table (team, captain), another (captain, sponsor).</p>
-        <SyntaxHighlighter language="sql" style={atomDark}>
+        <CodeBlock language="sql" style={atomDark}>
           {`CREATE TABLE team_captain (team VARCHAR(50) PRIMARY KEY, captain VARCHAR(100));
 CREATE TABLE captain_sponsor (captain VARCHAR(100) PRIMARY KEY, sponsor VARCHAR(100));`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

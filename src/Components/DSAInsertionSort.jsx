@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function DSAInsertionSort() {
@@ -30,7 +30,7 @@ function DSAInsertionSort() {
       </div>
       <div className="method-section">
         <h2 className="method-title">Implementation</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`function insertionSort(arr) {
   for (let i = 0; i < arr.length; i++) {
     let j = i;
@@ -44,7 +44,7 @@ function DSAInsertionSort() {
 
 const array = [64, 25, 12, 22, 11];
 console.log(insertionSort(array)); // [11, 12, 22, 25, 64]`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

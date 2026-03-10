@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function Errors() {
@@ -21,7 +21,7 @@ function Errors() {
                     A SyntaxError occurs when the JavaScript engine encounters code that does not follow the correct syntax rules of the language.
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`// Example of SyntaxError
 lat lat = 5; // SyntaxError: Unexpected identifier
 console.log("Hello World" // SyntaxError: Unexpected end of input
@@ -29,7 +29,7 @@ console.log("Hello World" // SyntaxError: Unexpected end of input
 if (true { // SyntaxError: Unexpected token {
     console.log("Hello");
 }`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
             </div>
 
             <div className="method-section">
@@ -38,7 +38,7 @@ if (true { // SyntaxError: Unexpected token {
                     A ReferenceError occurs when code references a variable that does not exist.
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`// Example of ReferenceError
 console.log(x); // ReferenceError: x is not defined
 
@@ -51,7 +51,7 @@ let a = 10;
 if (true) {
     console.log(b); // ReferenceError: b is not defined
 }`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
             </div>
 
             <div className="method-section">
@@ -60,7 +60,7 @@ if (true) {
                     A TypeError occurs when an operation is performed on a value of the wrong type.
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`// Example of TypeError
 var num = 42;
 num.toUpperCase(); // TypeError: num.toUpperCase is not a function
@@ -69,7 +69,7 @@ var obj = {};
 obj.foo(); // TypeError: obj.foo is not a function
 
 null.length; // TypeError: Cannot read properties of null (reading 'length')`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
             </div>
 
             <div className="method-section">
@@ -78,7 +78,7 @@ null.length; // TypeError: Cannot read properties of null (reading 'length')`}
                     A RangeError occurs when a value is not within the expected range.
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`// Example of RangeError
 function factorial(n) {
     if (n < 0) throw new RangeError("Argument must be a non-negative number");
@@ -90,7 +90,7 @@ let arr = new Array(-1); // RangeError: Invalid array length
 
 let num = 1;
 num.toExponential(101); // RangeError: toExponential() argument must be between 0 and 100`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
             </div>
 
             <div className="method-section">
@@ -99,14 +99,14 @@ num.toExponential(101); // RangeError: toExponential() argument must be between 
                     A URIError occurs when there is an error in encoding or decoding a URI.
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`// Example of URIError
 decodeURIComponent('%'); // URIError: URI malformed
 
 decodeURI('%E0%A4%A'); // URIError: URI malformed
 
 encodeURIComponent('\\uD800'); // URIError: URI malformed`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
             </div>
 
             <div className="method-section">
@@ -115,7 +115,7 @@ encodeURIComponent('\\uD800'); // URIError: URI malformed`}
                     An EvalError is thrown when there is an error in the global eval() function.
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`// Example of EvalError
 eval("foo bar"); // EvalError: Unexpected identifier
 
@@ -126,7 +126,7 @@ try {
 }
 
 eval("var a = 'hello"); // EvalError: Unterminated string constant`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
             </div>
         </div>
     );

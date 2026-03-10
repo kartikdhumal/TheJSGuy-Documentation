@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import '../styles/debouncing.css';
 import 'prismjs/themes/prism.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function BindFunction() {
@@ -22,7 +22,7 @@ function BindFunction() {
         <p>
           It immediately invokes the function.
         </p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const person = {
   fullName: function(city, country) {
     return this.firstName + " " + this.lastName + " from " + city + ", " + country;
@@ -36,7 +36,7 @@ const member = {
 
 const result = person.fullName.call(member, "Gaya", "India");
 console.log(result); // Output: Guddu Pandit from Gaya, India`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
       </section>
 
@@ -49,7 +49,7 @@ console.log(result); // Output: Guddu Pandit from Gaya, India`}
         <p>
           Commonly used to fix the context of this inside a function.
         </p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const person = {
   firstName: "Guddu",
   lastName: "Pandit",
@@ -65,7 +65,7 @@ const member = {
 
 const fullName = person.fullName.bind(member);
 console.log(fullName()); // Output: Guddu Pandit`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
 
       {/* apply() */}
@@ -77,7 +77,7 @@ console.log(fullName()); // Output: Guddu Pandit`}
         <p>
           Useful when arguments are already in array form.
         </p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const person = {
   fullName: function(city, country) {
     return this.firstName + " " + this.lastName + " from " + city + ", " + country;
@@ -91,7 +91,7 @@ const member = {
 
 const result = person.fullName.apply(member, ["Gaya", "India"]);
 console.log(result); // Output: Guddu Pandit from Gaya, India`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
 
       {/* Difference */}

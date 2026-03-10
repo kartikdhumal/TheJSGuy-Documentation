@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function Express() {
@@ -15,15 +15,15 @@ function Express() {
                 <div className="setup-block">
                     <h2 className="section-title">Initial Setup</h2>
                     <div >
-                        <SyntaxHighlighter language="javascript" style={atomDark}>npm init -y</SyntaxHighlighter>
-                        <SyntaxHighlighter language="javascript" style={atomDark}>npm install express</SyntaxHighlighter>
+                        <CodeBlock language="javascript" style={atomDark}>npm init -y</CodeBlock>
+                        <CodeBlock language="javascript" style={atomDark}>npm install express</CodeBlock>
                     </div>
 
                     <div>
                         <div className="code-header">
                             <span className="file-name">app.js</span>
                         </div>
-                        <SyntaxHighlighter language="javascript" style={atomDark}>
+                        <CodeBlock language="javascript" style={atomDark}>
 {`const express = require('express');
 const app = express();
 const port = 3000;
@@ -55,16 +55,16 @@ app.post('/users', (req, res) => {
 
 app.listen(port, () => {
     console.log(\`Server running at http://localhost:\${port}\`);
-});`}</SyntaxHighlighter>
+});`}</CodeBlock>
                     </div>
                 </div>
 
                 <div className="testing-block">
                     <h2 className="section-title">API Testing</h2>
                     <div >
-                        <SyntaxHighlighter language="javascript" style={atomDark}>curl http://localhost:3000</SyntaxHighlighter>
-                        <SyntaxHighlighter language="javascript" style={atomDark}>curl http://localhost:3000/users/123</SyntaxHighlighter>
-                        <SyntaxHighlighter language="javascript" style={atomDark}>curl -X POST -H "Content-Type: application/json" -d {"\"name\":\"John\""} http://localhost:3000/users</SyntaxHighlighter>
+                        <CodeBlock language="javascript" style={atomDark}>curl http://localhost:3000</CodeBlock>
+                        <CodeBlock language="javascript" style={atomDark}>curl http://localhost:3000/users/123</CodeBlock>
+                        <CodeBlock language="javascript" style={atomDark}>curl -X POST -H "Content-Type: application/json" -d {"\"name\":\"John\""} http://localhost:3000/users</CodeBlock>
                     </div>
                 </div>
             </section>  

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function StaticCORS() {
@@ -17,7 +17,7 @@ function StaticCORS() {
 
       <div className="method-section">
         <h2 className="method-title">Serving static files</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const path = require('path');
 const express = require('express');
 const app = express();
@@ -28,12 +28,12 @@ app.use(express.static('public'));
 
 // Mount at a path
 app.use('/assets', express.static(path.join(__dirname, 'public')));`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
 
       <div className="method-section">
         <h2 className="method-title">CORS (Cross-Origin Resource Sharing)</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// npm install cors
 const cors = require('cors');
 
@@ -46,7 +46,7 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

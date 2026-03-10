@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function OOPS() {
@@ -40,7 +40,7 @@ function OOPS() {
           Definition: Classes are blueprints for creating objects. Objects are instances of classes.
         </p>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`
+          <CodeBlock language="javascript" style={atomDark}>{`
     // Class Definition
     class Person {
         constructor(name, age) {
@@ -60,7 +60,7 @@ function OOPS() {
     // Methods of Class:
     // .constructor()     - Initializes new instances of the class
     // .greet()           - A method that logs a greeting message
-    `}</SyntaxHighlighter>
+    `}</CodeBlock>
         
       </div>
 
@@ -71,7 +71,7 @@ function OOPS() {
           Definition: Encapsulation is the bundling of data with the methods that operate on that data. It restricts direct access to some of the object's components.
         </p>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`
+          <CodeBlock language="javascript" style={atomDark}>{`
     class EncapsulatedPerson {
         constructor(name, age) {
             this._name = name; // Convention to indicate private variable
@@ -113,7 +113,7 @@ function OOPS() {
     // .set name(newName)- Sets the name property with validation
     // .get age()        - Retrieves the age property
     // .set age(newAge)  - Sets the age property with validation
-    `}</SyntaxHighlighter>
+    `}</CodeBlock>
         
       </div>
 
@@ -124,7 +124,7 @@ function OOPS() {
           Definition: Inheritance is a mechanism where one class inherits the properties and methods of another class.
         </p>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`
+          <CodeBlock language="javascript" style={atomDark}>{`
     class Employee extends Person {
         constructor(name, age, jobTitle) {
             super(name, age); // Call the constructor of the parent class
@@ -142,7 +142,7 @@ function OOPS() {
 
     // Methods of Employee:
     // .work()           - Logs the job title of the employee
-    `}</SyntaxHighlighter>
+    `}</CodeBlock>
         
       </div>
 
@@ -153,7 +153,7 @@ function OOPS() {
           Definition: Polymorphism is the ability to present the same interface for differing underlying data types.
         </p>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`
+          <CodeBlock language="javascript" style={atomDark}>{`
     class Shape {
         draw() {
             console.log('Drawing a shape');
@@ -181,7 +181,7 @@ function OOPS() {
 
     // Methods of Shape and its subclasses:
     // .draw() - Overridden in subclasses to provide specific drawing behavior
-    `}</SyntaxHighlighter>
+    `}</CodeBlock>
         
       </div>
 
@@ -192,7 +192,7 @@ function OOPS() {
           Definition: Abstraction means hiding the complex implementation details and showing only the essential features of the object.
         </p>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`
+          <CodeBlock language="javascript" style={atomDark}>{`
     class AbstractPerson {
         constructor(name, age) {
             if (this.constructor === AbstractPerson) {
@@ -220,7 +220,7 @@ function OOPS() {
     // Notes:
     // - AbstractPerson cannot be instantiated directly
     // - ConcretePerson implements the abstract greet() method
-    `}</SyntaxHighlighter>
+    `}</CodeBlock>
         
       </div>
 
@@ -231,7 +231,7 @@ function OOPS() {
           Definition: Composition is a design principle where a class is composed of one or more objects from other classes to achieve complex functionality.
         </p>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`
+          <CodeBlock language="javascript" style={atomDark}>{`
     class Engine {
         start() {
             console.log('Engine started');
@@ -258,7 +258,7 @@ function OOPS() {
 
     // Methods of Composition:
     // Car uses Engine through composition to delegate the start functionality
-    `}</SyntaxHighlighter>
+    `}</CodeBlock>
         
       </div>
 
@@ -269,7 +269,7 @@ function OOPS() {
           Definition: Aggregation is a special form of association where the child can exist independently of the parent.
         </p>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`
+          <CodeBlock language="javascript" style={atomDark}>{`
     class Department {
         constructor(name) {
             this.name = name;
@@ -300,7 +300,7 @@ function OOPS() {
     // Methods of Department:
     // .addEmployee(employee) - Adds an employee to the department
     // .describe()            - Logs the department details and its employees
-    `}</SyntaxHighlighter>
+    `}</CodeBlock>
         
       </div>
 
@@ -311,7 +311,7 @@ function OOPS() {
           Definition: Association represents the relationship between two separate classes that establish through their objects.
         </p>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`
+          <CodeBlock language="javascript" style={atomDark}>{`
     class Teacher {
         constructor(name) {
             this.name = name;
@@ -341,7 +341,7 @@ function OOPS() {
     // Association between Teacher and Student:
     // - Teacher and Student are separate classes with their own behaviors
     // - They interact through their respective methods
-    `}</SyntaxHighlighter>
+    `}</CodeBlock>
         
       </div>
 
@@ -352,7 +352,7 @@ function OOPS() {
           Definition: Method overriding is a feature that allows a subclass to provide a specific implementation of a method that is already defined in its superclass.
         </p>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`
+          <CodeBlock language="javascript" style={atomDark}>{`
     class Animal {
         makeSound() {
             console.log('Some generic animal sound');
@@ -373,7 +373,7 @@ function OOPS() {
 
     // Methods of Animal and Dog:
     // .makeSound() - Overridden in Dog to provide specific sound
-    `}</SyntaxHighlighter>
+    `}</CodeBlock>
         
       </div>
 
@@ -384,7 +384,7 @@ function OOPS() {
           Definition: JavaScript does not support method overloading in the traditional sense (multiple methods with the same name but different parameters). However, we can simulate it using default parameters or the arguments object.
         </p>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`
+          <CodeBlock language="javascript" style={atomDark}>{`
     class MathOperations {
         add(a, b, c) {
             if (typeof c !== 'undefined') {
@@ -400,7 +400,7 @@ function OOPS() {
 
     // Simulated Method Overloading:
     // - Checks the number of arguments and behaves accordingly
-    `}</SyntaxHighlighter>
+    `}</CodeBlock>
         
       </div>
 
@@ -411,7 +411,7 @@ function OOPS() {
           Definition: Static methods and properties are called on the class itself, not on instances of the class.
         </p>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`
+          <CodeBlock language="javascript" style={atomDark}>{`
     class Utility {
         static calculateArea(radius) {
             return Math.PI * radius * radius;
@@ -426,7 +426,7 @@ function OOPS() {
     // Static Members of Utility:
     // .calculateArea(radius) - Static method to calculate area of a circle
     // .description          - Static property providing class description
-    `}</SyntaxHighlighter>
+    `}</CodeBlock>
         
       </div>
 
@@ -437,7 +437,7 @@ function OOPS() {
           Definition: Getters and setters allow you to define methods that are executed when a property is accessed or modified.
         </p>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`
+          <CodeBlock language="javascript" style={atomDark}>{`
     class Rectangle {
         constructor(width, height) {
             this.width = width;
@@ -460,7 +460,7 @@ function OOPS() {
     // Getters and Setters:
     // .get area() - Calculates and returns the area
     // .set area(value) - Prevents direct modification of the area
-    `}</SyntaxHighlighter>
+    `}</CodeBlock>
         
       </div>
 
@@ -471,7 +471,7 @@ function OOPS() {
           Definition: JavaScript does not support operator overloading. Operator overloading allows operators to have user-defined meanings on user-defined types. However, we can achieve similar functionality using methods.
         </p>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`
+          <CodeBlock language="javascript" style={atomDark}>{`
     class ComplexNumber {
         constructor(real, imaginary) {
             this.real = real;
@@ -495,7 +495,7 @@ function OOPS() {
     // Simulated Operator Overloading:
     // - Uses the add() method to perform addition
     // - toString() method to represent the complex number as a string
-    `}</SyntaxHighlighter>
+    `}</CodeBlock>
         
       </div>
     </div>

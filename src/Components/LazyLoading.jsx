@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function LazyLoading() {
@@ -31,7 +31,7 @@ function LazyLoading() {
       <h2>Example</h2>
       <p>Below is a simple example showing how to implement lazy loading in a React application:</p>
 
-      <SyntaxHighlighter language="javascript" style={atomDark}>
+      <CodeBlock language="javascript" style={atomDark}>
 {`import React, { Suspense, lazy } from 'react';
 
 // Lazy load the component
@@ -49,7 +49,7 @@ function App() {
 }
 
 export default App;`}
-      </SyntaxHighlighter>
+      </CodeBlock>
 
       <h2>Conclusion</h2>
       <p>

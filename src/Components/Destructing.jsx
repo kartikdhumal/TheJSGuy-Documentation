@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function Destructing() {
@@ -19,31 +19,31 @@ function Destructing() {
                 <h2 className="method-title">Array Destructuring</h2>
                 <p>Array destructuring allows you to unpack values from arrays or iterable objects into distinct variables.</p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`// Example 1: Basic Array Destructuring
 const actresses = ['Sreeleela', 'Rashmika Mandana', 'Rashi Khanna', 'Nivetha Thomas', 'Hansika Motwani'];
 const [firstActress, secondActress, thirdActress, fourthActress, fifthActress] = actresses;
 console.log(firstActress, secondActress, thirdActress, fourthActress, fifthActress);
 // Output: Sreeleela Rashmika Mandana Rashi Khanna Nivetha Thomas Hansika Motwani`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
 
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`// Example 2: Ignoring Certain Actresses
 const [bestActress, , , , stunningActress] = actresses;
 console.log(bestActress, stunningActress);
 // Output: Sreeleela Hansika Motwani`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
 
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`// Example 3: Default Values
 const [popularActress, versatileActress, charmingActress, beautifulActress, newActress = 'Another Actress'] = actresses;
 console.log(newActress);
 // Output: Hansika Motwani`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
             </section>
 
@@ -52,7 +52,7 @@ console.log(newActress);
                 <p>Object destructuring allows you to extract properties from objects and bind them to variables.</p>
 
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`// Example 1: Basic Object Destructuring
 const actressInfo = {
     name: 'Rashmika Mandana',
@@ -66,11 +66,11 @@ const actressInfo = {
 const { name: actressName, age: actressAge, movies: actressMovies, awards: actressAwards } = actressInfo;
 console.log(actressName, actressAge, actressMovies, actressAwards);
 // Output: Rashmika Mandana 25 [ 'Geetha Govindam', 'Dear Comrade', 'Bheeshma' ] { filmfare: 3, siima: 2 }`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
 
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`// Example 4: Nested Object Destructuring
 const actressProfile = {
     personalDetails: {
@@ -86,21 +86,21 @@ const actressProfile = {
 const { personalDetails: { height, weight }, socialMedia: { instagram, twitter } } = actressProfile;
 console.log(height, weight, instagram, twitter);
 // Output: 5 feet 6 inches 55 kg @rashmika_mandanna @iamRashmika`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
             </section>
 
             <section className="method-section">
                 <h2 className="method-title">Destructuring Function Parameters</h2>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`// Example 5: Destructuring Function Parameters
 function displayActress({ name, age, movies }) {
     console.log(\`Name: \${name}, Age: \${age}, Movies: \${movies.join(', ')}\`);
 }
 displayActress(actressInfo);
 // Output: Name: Rashmika Mandana, Age: 25, Movies: Geetha Govindam, Dear Comrade, Bheeshma`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
             </section>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function Deployment() {
@@ -38,7 +38,7 @@ function Deployment() {
                         <div className="code-header">
                             <span>config.js</span>
                         </div>
-                        <SyntaxHighlighter language="javascript" style={atomDark}>{`const config = {
+                        <CodeBlock language="javascript" style={atomDark}>{`const config = {
     PORT: process.env.PORT || 3000,
     MONGODB_URI: process.env.MONGODB_URI,
     JWT_SECRET: process.env.JWT_SECRET,
@@ -46,18 +46,18 @@ function Deployment() {
     CORS_ORIGIN: process.env.CORS_ORIGIN || '*'
 };
 
-module.exports = config;`}</SyntaxHighlighter>
+module.exports = config;`}</CodeBlock>
                     </div>
 
                     <div >
                         <div className="code-header">
                             <span>.env</span>
                         </div>
-                        <SyntaxHighlighter language="javascript" style={atomDark}>{`NODE_ENV=production
+                        <CodeBlock language="javascript" style={atomDark}>{`NODE_ENV=production
 PORT=3000
 MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/db
 JWT_SECRET=your_secure_jwt_secret
-CORS_ORIGIN=https://yourapp.com`}</SyntaxHighlighter>
+CORS_ORIGIN=https://yourapp.com`}</CodeBlock>
                     </div>
                 </div>
 
@@ -67,19 +67,19 @@ CORS_ORIGIN=https://yourapp.com`}</SyntaxHighlighter>
                         <div className="step-item">
                             <h3>1. Build Application</h3>
                             <div>
-                                <SyntaxHighlighter language="bash" style={atomDark}>npm run build</SyntaxHighlighter>
+                                <CodeBlock language="bash" style={atomDark}>npm run build</CodeBlock>
                             </div>
                         </div>
                         <div className="step-item">
                             <h3>2. Run Tests</h3>
                             <div>
-                                <SyntaxHighlighter language="bash" style={atomDark}>npm test</SyntaxHighlighter>
+                                <CodeBlock language="bash" style={atomDark}>npm test</CodeBlock>
                             </div>
                         </div>
                         <div className="step-item">
                             <h3>3. Start Server</h3>
                             <div>
-                                <SyntaxHighlighter language="bash" style={atomDark}>npm start</SyntaxHighlighter>
+                                <CodeBlock language="bash" style={atomDark}>npm start</CodeBlock>
                             </div>
                         </div>
                     </div>

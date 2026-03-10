@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function ScopeChain() {
@@ -19,7 +19,7 @@ function ScopeChain() {
 
       <h2>Example Code:</h2>
       
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// Logging the value of variable 'a'
 console.log(a);
 
@@ -35,7 +35,7 @@ var b = 20;
 
 // Calling the function 'sum'
 sum();`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       
 
       <h2>Explanation:</h2>
@@ -76,10 +76,10 @@ sum();`}
         The output of the code will be:
       </p>
       
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`undefined
 30`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       
 
       <h2>Conclusion:</h2>

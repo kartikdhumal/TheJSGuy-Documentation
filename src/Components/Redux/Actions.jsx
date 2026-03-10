@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function ReduxActions() {
@@ -14,7 +14,7 @@ function ReduxActions() {
       </p>
       <section className="method-section">
         <h2 className="method-title">Action shape</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// Minimal action: only type
 { type: 'counter/increment' }
 
@@ -23,12 +23,12 @@ function ReduxActions() {
 
 // Another common pattern
 { type: 'todos/toggle', id: 3 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
       <section className="method-section">
         <h2 className="method-title">Action creators</h2>
         <p className="com-text">An action creator is a function that returns an action. It helps avoid typos and keeps action structure in one place. With Redux Toolkit, action creators are generated for you from createSlice.</p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// Manual action creator
 function addUser(name, id) {
   return { type: 'users/addUser', payload: { name, id } };
@@ -38,16 +38,16 @@ dispatch(addUser('Jane', 2));
 // With Redux Toolkit createSlice, you get action creators automatically
 const { addUser } = userSlice.actions;
 dispatch(addUser({ name: 'Jane', id: 2 }));`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
       <section className="method-section">
         <h2 className="method-title">Dispatching actions</h2>
         <p className="com-text">You send an action to the store with dispatch. The store runs all reducers with that action and updates state. In React you use the useDispatch hook to get the dispatch function.</p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`import { useDispatch } from 'react-redux';
 const dispatch = useDispatch();
 dispatch({ type: 'counter/increment' });`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
     </div>
   );

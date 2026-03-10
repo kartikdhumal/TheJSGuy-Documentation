@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function TypeScriptUnionLiteral() {
@@ -17,28 +17,28 @@ function TypeScriptUnionLiteral() {
       </p>
       <div className="method-section">
         <h2 className="method-title">Union types</h2>
-        <SyntaxHighlighter language="typescript" style={atomDark}>
+        <CodeBlock language="typescript" style={atomDark}>
           {`function pad(value: string | number): string {
   if (typeof value === "number") return value.toString().padStart(2, "0");
   return value.padStart(2, "0");
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
       <div className="method-section">
         <h2 className="method-title">Literal types</h2>
-        <SyntaxHighlighter language="typescript" style={atomDark}>
+        <CodeBlock language="typescript" style={atomDark}>
           {`type Direction = "up" | "down" | "left" | "right";
 type Dice = 1 | 2 | 3 | 4 | 5 | 6;
 
 function move(d: Direction) { /* ... */ }
 move("up");   // ok
 move("north"); // error`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
       <div className="method-section">
         <h2 className="method-title">Discriminated unions</h2>
         <p>Use a common literal property to narrow the union in type guards.</p>
-        <SyntaxHighlighter language="typescript" style={atomDark}>
+        <CodeBlock language="typescript" style={atomDark}>
           {`type Result = 
   | { kind: "ok"; data: string }
   | { kind: "error"; message: string };
@@ -47,7 +47,7 @@ function handle(r: Result) {
   if (r.kind === "ok") console.log(r.data);
   else console.log(r.message);
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

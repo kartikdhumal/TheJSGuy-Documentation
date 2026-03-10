@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function EqualityComparison() {
@@ -26,7 +26,7 @@ function EqualityComparison() {
                 <h2 className="code-title">Code Example</h2>
 
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`// Example: Double vs. Triple Equality
 let str = "10";
 let num = 10;
@@ -36,7 +36,7 @@ console.log(str == num ? "Both are same " : "Not same");
 
 console.log(str === num ? "Both are same " : "Not same");
 // Output: "Not same" (because === checks both value and type strictly)`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
             </section>
 
@@ -45,7 +45,7 @@ console.log(str === num ? "Both are same " : "Not same");
                 <ul className="difference-list">
                     <li>Type coercion: The double equals operator converts the operands to the same type before comparison.</li>
                     <li>Strict comparison: The triple equals operator checks both the value and the type without converting them.</li>
-                    <li>Usage: Prefer triple equals (<SyntaxHighlighter language="javascript" style={atomDark}>===</SyntaxHighlighter>) for strict comparisons, as it avoids unexpected behavior due to type coercion.</li>
+                    <li>Usage: Prefer triple equals (<CodeBlock language="javascript" style={atomDark}>===</CodeBlock>) for strict comparisons, as it avoids unexpected behavior due to type coercion.</li>
                 </ul>
             </section>
         </div>

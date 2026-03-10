@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function DSATree() {
@@ -17,7 +17,7 @@ function DSATree() {
       </p>
       <div className="method-section">
         <h2 className="method-title">Implementation</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`class TreeNode {
   constructor(data) {
     this.data = data;
@@ -64,7 +64,7 @@ tree.insert(5);
 tree.insert(15);
 console.log(tree.search(15)); // true
 console.log(tree.search(20)); // false`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

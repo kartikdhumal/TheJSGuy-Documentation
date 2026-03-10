@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function DOMManipulation() {
@@ -37,7 +37,7 @@ function DOMManipulation() {
 
         <h3>Example:</h3>
 
-        <SyntaxHighlighter language="html" style={atomDark}>
+        <CodeBlock language="html" style={atomDark}>
           {`<!-- HTML Structure -->
 <!DOCTYPE html>
 <html>
@@ -49,12 +49,12 @@ function DOMManipulation() {
     <p>This is a paragraph.</p>
 </body>
 </html>`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
 
         <h3>Corresponding DOM Tree:</h3>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`Document
  ├── html
  |    ├── head
@@ -65,7 +65,7 @@ function DOMManipulation() {
  |         |    └── "Welcome to the DOM"
  |         └── p
  |              └── "This is a paragraph."`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
       </section>
 
@@ -80,11 +80,11 @@ function DOMManipulation() {
             The document.querySelector() method returns the first element within the document that matches the specified selector, or group of selectors. If no matches are found, it returns null.
           </p>
 
-          <SyntaxHighlighter language="javascript" style={atomDark}>
+          <CodeBlock language="javascript" style={atomDark}>
             {`// Example:
 let firstParagraph = document.querySelector('p');
 firstParagraph.style.color = 'blue';`}
-          </SyntaxHighlighter>
+          </CodeBlock>
 
         </section>
 
@@ -95,13 +95,13 @@ firstParagraph.style.color = 'blue';`}
             The document.querySelectorAll() method returns a static (not live) NodeList representing a list of the document's elements that match the specified group of selectors.
           </p>
 
-          <SyntaxHighlighter language="javascript" style={atomDark}>
+          <CodeBlock language="javascript" style={atomDark}>
             {`// Example:
 let allParagraphs = document.querySelectorAll('p');
 allParagraphs.forEach(paragraph => {
   paragraph.style.color = 'blue';
 });`}
-          </SyntaxHighlighter>
+          </CodeBlock>
 
         </section>
 
@@ -112,12 +112,12 @@ allParagraphs.forEach(paragraph => {
             The document.createElement() method creates the HTML element specified by tagName.
           </p>
 
-          <SyntaxHighlighter language="javascript" style={atomDark}>
+          <CodeBlock language="javascript" style={atomDark}>
             {`// Example:
 let newDiv = document.createElement('div');
 newDiv.innerHTML = 'Hello, World!';
 document.body.appendChild(newDiv);`}
-          </SyntaxHighlighter>
+          </CodeBlock>
 
         </section>
 
@@ -125,14 +125,14 @@ document.body.appendChild(newDiv);`}
         <section className="sub-method-section">
           <h3 className="method-title">Element.innerHTML</h3>
           <p className="description">
-            The <SyntaxHighlighter language="javascript" style={atomDark}>Element.innerHTML</SyntaxHighlighter> property sets or gets the HTML or XML markup contained within the element.
+            The <CodeBlock language="javascript" style={atomDark}>Element.innerHTML</CodeBlock> property sets or gets the HTML or XML markup contained within the element.
           </p>
 
-          <SyntaxHighlighter language="javascript" style={atomDark}>
+          <CodeBlock language="javascript" style={atomDark}>
             {`// Example:
 let paragraph = document.querySelector('p');
 paragraph.innerHTML = 'Updated content';`}
-          </SyntaxHighlighter>
+          </CodeBlock>
 
         </section>
 
@@ -143,11 +143,11 @@ paragraph.innerHTML = 'Updated content';`}
             The Element.setAttribute() method adds a new attribute or changes the value of an existing attribute on the specified element.
           </p>
 
-          <SyntaxHighlighter language="javascript" style={atomDark}>
+          <CodeBlock language="javascript" style={atomDark}>
             {`// Example:
 let image = document.querySelector('img');
 image.setAttribute('src', 'image.jpg');`}
-          </SyntaxHighlighter>
+          </CodeBlock>
 
         </section>
 
@@ -158,12 +158,12 @@ image.setAttribute('src', 'image.jpg');`}
             The Element.getAttribute() method returns the value of a specified attribute on the element. If the given attribute does not exist, it returns null.
           </p>
 
-          <SyntaxHighlighter language="javascript" style={atomDark}>
+          <CodeBlock language="javascript" style={atomDark}>
             {`// Example:
 let link = document.querySelector('a');
 let hrefValue = link.getAttribute('href');
 console.log(hrefValue);`}
-          </SyntaxHighlighter>
+          </CodeBlock>
 
         </section>
 
@@ -174,13 +174,13 @@ console.log(hrefValue);`}
             The EventTarget.addEventListener() method sets up a function that will be called whenever the specified event is delivered to the target.
           </p>
 
-          <SyntaxHighlighter language="javascript" style={atomDark}>
+          <CodeBlock language="javascript" style={atomDark}>
             {`// Example:
 let button = document.getElementById('myButton');
 button.addEventListener('click', () => {
   alert('Button was clicked!');
 });`}
-          </SyntaxHighlighter>
+          </CodeBlock>
 
         </section>
 
@@ -188,14 +188,14 @@ button.addEventListener('click', () => {
         <section className="sub-method-section">
           <h3 className="method-title">HTMLElement.style</h3>
           <p className="description">
-            The <SyntaxHighlighter language="javascript" style={atomDark}>HTMLElement.style</SyntaxHighlighter> property is used to get or set the inline style of an element.
+            The <CodeBlock language="javascript" style={atomDark}>HTMLElement.style</CodeBlock> property is used to get or set the inline style of an element.
           </p>
 
-          <SyntaxHighlighter language="javascript" style={atomDark}>
+          <CodeBlock language="javascript" style={atomDark}>
             {`// Example:
 let div = document.querySelector('div');
 div.style.backgroundColor = 'yellow';`}
-          </SyntaxHighlighter>
+          </CodeBlock>
 
         </section>
 
@@ -206,12 +206,12 @@ div.style.backgroundColor = 'yellow';`}
             The Node.appendChild() method adds a node to the end of the list of children of a specified parent node. If the node already exists in the document, it is moved from its current position to the new position.
           </p>
 
-          <SyntaxHighlighter language="javascript" style={atomDark}>
+          <CodeBlock language="javascript" style={atomDark}>
             {`// Example:
 let newParagraph = document.createElement('p');
 newParagraph.textContent = 'This is a new paragraph';
 document.body.appendChild(newParagraph);`}
-          </SyntaxHighlighter>
+          </CodeBlock>
 
         </section>
 
@@ -219,15 +219,15 @@ document.body.appendChild(newParagraph);`}
         <section className="sub-method-section">
           <h3 className="method-title">window.onload</h3>
           <p className="description">
-            The <SyntaxHighlighter language="javascript" style={atomDark}>window.onload</SyntaxHighlighter> event occurs when the entire page (including all dependent resources such as stylesheets and images) has loaded.
+            The <CodeBlock language="javascript" style={atomDark}>window.onload</CodeBlock> event occurs when the entire page (including all dependent resources such as stylesheets and images) has loaded.
           </p>
 
-          <SyntaxHighlighter language="javascript" style={atomDark}>
+          <CodeBlock language="javascript" style={atomDark}>
             {`// Example:
 window.onload = function () {
   alert('Page is fully loaded');
 };`}
-          </SyntaxHighlighter>
+          </CodeBlock>
 
         </section>
 
@@ -238,10 +238,10 @@ window.onload = function () {
             The window.scrollTo() method scrolls to a particular set of coordinates in the document.
           </p>
 
-          <SyntaxHighlighter language="javascript" style={atomDark}>
+          <CodeBlock language="javascript" style={atomDark}>
             {`// Example:
 window.scrollTo(0, 500); // Scrolls to 500px down the page`}
-          </SyntaxHighlighter>
+          </CodeBlock>
 
         </section>
       </section>
@@ -265,7 +265,7 @@ window.scrollTo(0, 500); // Scrolls to 500px down the page`}
         </ul>
 
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// Example:
 let button = document.getElementById('myButton');
 button.addEventListener('click', function () {
@@ -283,7 +283,7 @@ button.addEventListener('mouseenter', function () {
 button.addEventListener('mouseleave', function () {
   console.log('Mouse left button area');
 });`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
 
         {/* Keyboard Events */}
@@ -294,7 +294,7 @@ button.addEventListener('mouseleave', function () {
         </ul>
 
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// Example:
 document.addEventListener('keydown', function (event) {
   console.log('Key down: ' + event.key);
@@ -303,7 +303,7 @@ document.addEventListener('keydown', function (event) {
 document.addEventListener('keyup', function (event) {
   console.log('Key up: ' + event.key);
 });`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
 
         {/* Form Events */}
@@ -315,7 +315,7 @@ document.addEventListener('keyup', function (event) {
         </ul>
 
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// Example:
 let form = document.querySelector('form');
 form.addEventListener('submit', function (event) {
@@ -331,7 +331,7 @@ inputField.addEventListener('change', function () {
 inputField.addEventListener('input', function () {
   console.log('Input value: ' + inputField.value);
 });`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
 
         {/* Window Events */}
@@ -342,7 +342,7 @@ inputField.addEventListener('input', function () {
         </ul>
 
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// Example:
 window.addEventListener('resize', function () {
   console.log('Window resized');
@@ -351,7 +351,7 @@ window.addEventListener('resize', function () {
 window.addEventListener('scroll', function () {
   console.log('Window scrolled');
 });`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
 
         {/* Clipboard Events */}
@@ -362,7 +362,7 @@ window.addEventListener('scroll', function () {
         </ul>
 
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// Example:
 document.addEventListener('copy', function () {
   console.log('Content copied');
@@ -371,7 +371,7 @@ document.addEventListener('copy', function () {
 document.addEventListener('paste', function () {
   console.log('Content pasted');
 });`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
       </section>
     </div>

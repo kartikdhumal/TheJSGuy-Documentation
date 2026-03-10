@@ -1,6 +1,6 @@
 import React, { StrictMode } from 'react';
 import '../styles/debouncing.css'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const Package = () => {
@@ -36,15 +36,15 @@ const Package = () => {
 
             <h2>NPM and NPX</h2>
             <p>
-                NPM (Node Package Manager): NPM is a package manager for JavaScript, used to install, share, and manage dependencies in your project. You can install packages using the command <SyntaxHighlighter language="javascript" style={atomDark}>npm install package-name</SyntaxHighlighter>.
+                NPM (Node Package Manager): NPM is a package manager for JavaScript, used to install, share, and manage dependencies in your project. You can install packages using the command <CodeBlock language="javascript" style={atomDark}>npm install package-name</CodeBlock>.
             </p>
             <p>
-                NPX (Node Package Execute): NPX is a tool that comes with NPM (version 5.2.0 and later) and allows you to run Node.js packages without having to install them globally. You can use it to execute commands directly from the npm registry. For example, <SyntaxHighlighter language="javascript" style={atomDark}>npx create-react-app my-app</SyntaxHighlighter> runs the Create React App tool without needing to install it globally.
+                NPX (Node Package Execute): NPX is a tool that comes with NPM (version 5.2.0 and later) and allows you to run Node.js packages without having to install them globally. You can use it to execute commands directly from the npm registry. For example, <CodeBlock language="javascript" style={atomDark}>npx create-react-app my-app</CodeBlock> runs the Create React App tool without needing to install it globally.
             </p>
 
             <h2>Project File Structure</h2>
             <p>
-                node_modules: This directory contains all the installed npm packages. It is generated automatically when you run <SyntaxHighlighter language="javascript" style={atomDark}>npm install</SyntaxHighlighter> and should not be modified manually.
+                node_modules: This directory contains all the installed npm packages. It is generated automatically when you run <CodeBlock language="javascript" style={atomDark}>npm install</CodeBlock> and should not be modified manually.
             </p>
             <p>
                 package.json: This file contains metadata about your project, including its dependencies, scripts, version, and more. It's essential for managing project dependencies and scripts.

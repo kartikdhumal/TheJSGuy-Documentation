@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function TypeScriptUtilityTypes() {
@@ -17,29 +17,29 @@ function TypeScriptUtilityTypes() {
       </p>
       <div className="method-section">
         <h2 className="method-title">Partial, Required, Readonly</h2>
-        <SyntaxHighlighter language="typescript" style={atomDark}>
+        <CodeBlock language="typescript" style={atomDark}>
           {`interface User { id: number; name: string; }
 
 type PartialUser = Partial<User>;   // { id?: number; name?: string }
 type RequiredUser = Required<PartialUser>;
 type ReadonlyUser = Readonly<User>;  // readonly id, name`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
       <div className="method-section">
         <h2 className="method-title">Pick, Omit, Record</h2>
-        <SyntaxHighlighter language="typescript" style={atomDark}>
+        <CodeBlock language="typescript" style={atomDark}>
           {`type NameOnly = Pick<User, "name">;           // { name: string }
 type WithoutId = Omit<User, "id">;         // { name: string }
 type Page = Record<"home" | "about", string>;  // { home: string; about: string }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
       <div className="method-section">
         <h2 className="method-title">ReturnType, Parameters</h2>
-        <SyntaxHighlighter language="typescript" style={atomDark}>
+        <CodeBlock language="typescript" style={atomDark}>
           {`function f(a: number, b: string): boolean { return true; }
 type R = ReturnType<typeof f>;        // boolean
 type P = Parameters<typeof f>;       // [number, string]`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

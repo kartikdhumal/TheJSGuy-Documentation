@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 
@@ -9,9 +9,9 @@ function ReactRouter() {
     <div className="debounce-container">
       <h1 className="router-title">React Router Documentation</h1>
 
-      <SyntaxHighlighter language="bash" style={atomDark}>
+      <CodeBlock language="bash" style={atomDark}>
         npm i -D react-router-dom@latest
-      </SyntaxHighlighter>
+      </CodeBlock>
       <div className="router-section">
         <h2 className="router-subtitle">BrowserRouter</h2>
         <p className="router-description">
@@ -28,7 +28,7 @@ function ReactRouter() {
           To implement routing in your React application, you should wrap your root component with BrowserRouter
           as follows:
         </p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`import { BrowserRouter } from 'react-router-dom';`}
           <br />
           {`ReactDOM.render(`}
@@ -42,7 +42,7 @@ function ReactRouter() {
           {`  document.getElementById('root')`}
           <br />
           {`);`}
-        </SyntaxHighlighter>
+        </CodeBlock>
         <p className="router-description">
           This ensures that all child components of App have access to the routing context provided by BrowserRouter.
         </p>
@@ -65,13 +65,13 @@ function ReactRouter() {
           but it prevents the browser from performing a full page refresh.
           A Link is a wrapper over anchor tag
         </p>
-          <SyntaxHighlighter language="javascript" style={atomDark}>
+          <CodeBlock language="javascript" style={atomDark}>
             {`<Link to="/login"> Login </Link>`}
-          </SyntaxHighlighter>
+          </CodeBlock>
       </div>
 
       
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`
         import React from 'react';
         import ReactDOM from 'react-dom/client';
@@ -112,10 +112,10 @@ function ReactRouter() {
           </React.StrictMode>
         );        
         `}
-        </SyntaxHighlighter>
+        </CodeBlock>
       
       
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`
         import ReactDOM from "react-dom/client";
         import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -143,7 +143,7 @@ function ReactRouter() {
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
         `}
-        </SyntaxHighlighter>
+        </CodeBlock>
       
       <div className="router-section">
         <h2 className="router-subtitle">Routes</h2>
@@ -152,7 +152,7 @@ function ReactRouter() {
           Each Route component specifies a path and the corresponding component to render when that path matches the URL.
         </p>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>
+          <CodeBlock language="javascript" style={atomDark}>
             {`             <Routes>
                 <Route path="/" element={<Layout />}>
                   <Route index element={<Home />} />
@@ -161,7 +161,7 @@ function ReactRouter() {
                   <Route path="*" element={<NoPage />} />
                 </Route>
              </Routes>`}
-          </SyntaxHighlighter>
+          </CodeBlock>
         
       </div>
 
@@ -173,7 +173,7 @@ function ReactRouter() {
         </p>
 
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>
+          <CodeBlock language="javascript" style={atomDark}>
             {`import React from "react";
 import Navbar from "./Components/Navbar";
 import { Outlet } from "react-router-dom";
@@ -189,16 +189,16 @@ function App() {
 
 export default App;
 `}
-          </SyntaxHighlighter>
+          </CodeBlock>
         
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>
+          <CodeBlock language="javascript" style={atomDark}>
             {`
 <Route path="/products" element={<Products />}>
   <Route path="product/:id" element={<ProductDetails />} />
 </Route>
           `}
-          </SyntaxHighlighter>
+          </CodeBlock>
         
         <p className="router-description">
           In this example, ProductDetails component will be rendered inside the Outlet of the Products component
@@ -223,9 +223,9 @@ export default App;
           product ID:
         </p>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>
+          <CodeBlock language="javascript" style={atomDark}>
             {`<Route path="product/:id" element={<ProductDetails />} />`}
-          </SyntaxHighlighter>
+          </CodeBlock>
         
         <p className="router-description">
           In this case, ":id" acts as a placeholder for the actual product ID value. When the URL matches the

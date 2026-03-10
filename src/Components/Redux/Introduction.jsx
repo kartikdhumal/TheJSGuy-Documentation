@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function ReduxIntroduction() {
@@ -33,9 +33,9 @@ function ReduxIntroduction() {
       </section>
       <section className="method-section">
         <h2 className="method-title">Install Redux (with React)</h2>
-        <SyntaxHighlighter language="bash" style={atomDark}>
+        <CodeBlock language="bash" style={atomDark}>
           {`npm install redux @reduxjs/toolkit react-redux`}
-        </SyntaxHighlighter>
+        </CodeBlock>
         <p className="com-text">Redux Toolkit is the official recommended way to write Redux. It includes the store, helpers for reducers and actions, and optional tools like RTK Query for fetching data.</p>
       </section>
     </div>

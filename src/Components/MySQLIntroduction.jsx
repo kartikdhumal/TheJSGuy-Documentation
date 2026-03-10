@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function MySQLIntroduction() {
@@ -30,35 +30,35 @@ function MySQLIntroduction() {
         <h2 className="method-title">Default Port: 3306</h2>
         <p>MySQL listens on TCP port <strong>3306</strong> for client connections.</p>
         <h3>Start MySQL on a custom port</h3>
-        <SyntaxHighlighter language="bash" style={atomDark}>
+        <CodeBlock language="bash" style={atomDark}>
           {`mysqld --port=3307`}
-        </SyntaxHighlighter>
+        </CodeBlock>
         <h3>Connect using custom port</h3>
-        <SyntaxHighlighter language="bash" style={atomDark}>
+        <CodeBlock language="bash" style={atomDark}>
           {`mysql -u username -p --port=3307`}
-        </SyntaxHighlighter>
+        </CodeBlock>
         <h3>Connection URI format</h3>
-        <SyntaxHighlighter language="text" style={atomDark}>
+        <CodeBlock language="text" style={atomDark}>
           {`mysql://username:password@localhost:3306/database_name`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
 
       <div className="method-section">
         <h2 className="method-title">MySQL over SSL (Encrypted Connection)</h2>
         <p>You can use SSL/TLS to encrypt traffic between client and server. Port remains <strong>3306</strong> unless you change it.</p>
-        <SyntaxHighlighter language="bash" style={atomDark}>
+        <CodeBlock language="bash" style={atomDark}>
           {`mysql -u username -p \\
   --host=your-hostname \\
   --port=3306 \\
   --ssl-ca=ca.pem \\
   --ssl-cert=client-cert.pem \\
   --ssl-key=client-key.pem`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
 
       <div className="method-section">
         <h2 className="method-title">Basic connection from command line</h2>
-        <SyntaxHighlighter language="bash" style={atomDark}>
+        <CodeBlock language="bash" style={atomDark}>
           {`# Connect to local MySQL (will prompt for password)
 mysql -u root -p
 
@@ -67,7 +67,7 @@ mysql -u root -p my_database
 
 # Exit
 exit;`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

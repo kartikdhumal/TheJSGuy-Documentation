@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function BodyValidation() {
@@ -17,7 +17,7 @@ function BodyValidation() {
 
       <div className="method-section">
         <h2 className="method-title">Body parsing middleware</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const express = require('express');
 const app = express();
 
@@ -32,12 +32,12 @@ app.post('/users', (req, res) => {
   const { name, email } = req.body;
   res.json({ name, email });
 });`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
 
       <div className="method-section">
         <h2 className="method-title">Validation with express-validator</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// npm install express-validator
 const { body, validationResult } = require('express-validator');
 
@@ -53,7 +53,7 @@ app.post('/users',
     res.status(201).json({ name, email });
   }
 );`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

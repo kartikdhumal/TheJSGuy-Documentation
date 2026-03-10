@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function DataStructure() {
@@ -21,10 +21,10 @@ function DataStructure() {
           Definition: A Set is a collection of unique values. It ensures that each value appears only once, making it ideal for storing distinct elements.
         </p>
         <p>
-          Syntax: <SyntaxHighlighter language="javascript" style={atomDark}>new Set([iterable])</SyntaxHighlighter>
+          Syntax: <CodeBlock language="javascript" style={atomDark}>new Set([iterable])</CodeBlock>
         </p>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`
+          <CodeBlock language="javascript" style={atomDark}>{`
     // Example:
     const numbers = new Set([1, 2, 3, 4, 4, 5]);
 
@@ -53,7 +53,7 @@ function DataStructure() {
     // .has(value)       - Returns a boolean asserting whether an element is present
     // .clear()          - Removes all elements from the Set
     // .size             - Returns the number of elements in the Set
-    `}</SyntaxHighlighter>
+    `}</CodeBlock>
         
       </div>
 
@@ -63,10 +63,10 @@ function DataStructure() {
           Definition: A Map is a collection of key-value pairs where both keys and values can be of any type. It maintains the insertion order of the elements.
         </p>
         <p>
-          Syntax: <SyntaxHighlighter language="javascript" style={atomDark}>new Map([iterable])</SyntaxHighlighter>
+          Syntax: <CodeBlock language="javascript" style={atomDark}>new Map([iterable])</CodeBlock>
         </p>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`
+          <CodeBlock language="javascript" style={atomDark}>{`
     // Example:
     const user = new Map();
 
@@ -94,7 +94,7 @@ function DataStructure() {
     // .delete(key)       - Removes the specified element
     // .clear()           - Removes all elements from the Map
     // .size              - Returns the number of elements in the Map
-    `}</SyntaxHighlighter>
+    `}</CodeBlock>
         
       </div>
 
@@ -104,10 +104,10 @@ function DataStructure() {
           Definition: A WeakSet is similar to a Set, but it only stores objects and does not prevent garbage collection of its items. This is useful for storing objects without affecting their lifecycle.
         </p>
         <p>
-          Syntax: <SyntaxHighlighter language="javascript" style={atomDark}>new WeakSet([iterable])</SyntaxHighlighter>
+          Syntax: <CodeBlock language="javascript" style={atomDark}>new WeakSet([iterable])</CodeBlock>
         </p>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`
+          <CodeBlock language="javascript" style={atomDark}>{`
     // Example:
     const obj1 = {};
     const obj2 = {};
@@ -126,7 +126,7 @@ function DataStructure() {
     // .add(value)        - Adds a new object to the WeakSet
     // .delete(value)     - Removes the specified object from the WeakSet
     // .has(value)        - Checks if the object exists in the WeakSet
-    `}</SyntaxHighlighter>
+    `}</CodeBlock>
         
       </div>
 
@@ -136,10 +136,10 @@ function DataStructure() {
           Definition: A WeakMap is similar to a Map , but it only allows objects as keys and does not prevent garbage collection of its keys. This is useful for associating data with objects without interfering with their garbage collection.
         </p>
         <p>
-          Syntax: <SyntaxHighlighter language="javascript" style={atomDark}>new WeakMap([iterable])</SyntaxHighlighter>
+          Syntax: <CodeBlock language="javascript" style={atomDark}>new WeakMap([iterable])</CodeBlock>
         </p>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`
+          <CodeBlock language="javascript" style={atomDark}>{`
     // Example:
     const obj1 = {};
     const obj2 = {};
@@ -159,7 +159,7 @@ function DataStructure() {
     // .get(key)           - Retrieves the value associated with the key
     // .has(key)           - Checks if the key exists in the WeakMap
     // .delete(key)        - Removes the key-value pair
-    `}</SyntaxHighlighter>
+    `}</CodeBlock>
         
       </div>
 

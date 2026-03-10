@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function DSAQueue() {
@@ -17,7 +17,7 @@ function DSAQueue() {
       </p>
       <div className="method-section">
         <h2 className="method-title">Implementation</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`class Queue {
   constructor() {
     this.items = [];
@@ -43,7 +43,7 @@ queue.enqueue(1);
 queue.enqueue(2);
 console.log(queue.dequeue()); // 1
 console.log(queue.front());   // 2`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

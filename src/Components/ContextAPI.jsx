@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function ContextAPI() {
@@ -118,9 +118,9 @@ export default TodoApp;`;
         </p>
         <h2>Example: TODO App using Context</h2>
         <p> ContextAPI.jsx</p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>{String(todoExampleCode)}</SyntaxHighlighter>
+        <CodeBlock language="javascript" style={atomDark}>{String(todoExampleCode)}</CodeBlock>
         <p> index.js</p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>{String(codeexample2)}</SyntaxHighlighter>
+        <CodeBlock language="javascript" style={atomDark}>{String(codeexample2)}</CodeBlock>
       </div>
     </div>
   );

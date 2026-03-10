@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function Authentication() {
@@ -34,7 +34,7 @@ function Authentication() {
                     <div className="setup-section">
                         <h3 className="subsection-title">Initial Setup</h3>
                         <div>
-                            <SyntaxHighlighter language="javascript" style={atomDark}>npm install jsonwebtoken bcryptjs</SyntaxHighlighter>
+                            <CodeBlock language="javascript" style={atomDark}>npm install jsonwebtoken bcryptjs</CodeBlock>
                         </div>
                     </div>
 
@@ -42,7 +42,7 @@ function Authentication() {
                         <div className="code-header">
                             <span className="filename">middleware/auth.js</span>
                         </div>
-                        <SyntaxHighlighter language="javascript" style={atomDark}>{`const jwt = require('jsonwebtoken');
+                        <CodeBlock language="javascript" style={atomDark}>{`const jwt = require('jsonwebtoken');
 
 const auth = async (req, res, next) => {
     try {
@@ -55,14 +55,14 @@ const auth = async (req, res, next) => {
     }
 };
 
-module.exports = auth;`}</SyntaxHighlighter>
+module.exports = auth;`}</CodeBlock>
                     </div>
 
                     <div className="code-block">
                         <div className="code-header">
                             <span className="filename">controllers/authController.js</span>
                         </div>
-                        <SyntaxHighlighter language="javascript" style={atomDark}>{`const bcrypt = require('bcryptjs');
+                        <CodeBlock language="javascript" style={atomDark}>{`const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
@@ -85,7 +85,7 @@ exports.login = async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: 'Server error' });
     }
-};`}</SyntaxHighlighter>
+};`}</CodeBlock>
                     </div>
                 </div>
             </section>

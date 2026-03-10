@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function Middleware() {
@@ -44,7 +44,7 @@ function Middleware() {
                     <div className="code-header">
                         <span className="file-name">authMiddleware.js</span>
                     </div>
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
 {`const jwt = require('jsonwebtoken');
 
 const authMiddleware = (req, res, next) => {
@@ -68,12 +68,12 @@ const authMiddleware = (req, res, next) => {
 };
 
 module.exports = authMiddleware;`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
 
                     <div className="code-header">
                         <span className="file-name">app.js</span>
                     </div>
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
 {`const express = require('express');
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('./authMiddleware');
@@ -101,7 +101,7 @@ app.get('/profile', authMiddleware, (req, res) => {
 });
 
 app.listen(5000, () => console.log('Server running on port 5000'));`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 </div>
 
                 {/* Common Middleware Packages */}
@@ -110,14 +110,14 @@ app.listen(5000, () => console.log('Server running on port 5000'));`}
                     <p className="section-description">
                         Express has many helpful middleware packages that are commonly used:
                     </p>
-                    <SyntaxHighlighter language="bash" style={atomDark}>
+                    <CodeBlock language="bash" style={atomDark}>
 {`npm install cors morgan helmet`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
 
                     <div className="code-header">
                         <span className="file-name">app.js</span>
                     </div>
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
 {`const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
@@ -125,7 +125,7 @@ const helmet = require('helmet');
 app.use(helmet());   // Adds security headers
 app.use(cors());     // Enables CORS
 app.use(morgan('dev')); // Logs requests`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 </div>
             </section>
         </div>

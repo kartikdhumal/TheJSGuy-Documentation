@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function NextJSIntroduction() {
@@ -26,16 +26,16 @@ function NextJSIntroduction() {
       </div>
       <div className="method-section">
         <h2 className="method-title">Create a new project</h2>
-        <SyntaxHighlighter language="bash" style={atomDark}>
+        <CodeBlock language="bash" style={atomDark}>
           {`npx create-next-app@latest my-app
 cd my-app
 npm run dev`}
-        </SyntaxHighlighter>
+        </CodeBlock>
         <p>You get a dev server at <code>http://localhost:3000</code>. The app uses the App Router by default (Next.js 13+).</p>
       </div>
       <div className="method-section">
         <h2 className="method-title">Project structure (App Router)</h2>
-        <SyntaxHighlighter language="text" style={atomDark}>
+        <CodeBlock language="text" style={atomDark}>
           {`app/
   layout.js    # Root layout (wraps all pages)
   page.js      # Home page (/)
@@ -44,7 +44,7 @@ app/dashboard/
   page.js      # /dashboard
   layout.js    # Layout for dashboard
 public/       # Static files`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

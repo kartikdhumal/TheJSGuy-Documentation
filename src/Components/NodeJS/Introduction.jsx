@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function Introduction() {
@@ -26,7 +26,7 @@ function Introduction() {
                             <span className="file-name">hello.js</span>
                         </div>
                         <div >
-                            <SyntaxHighlighter language="javascript" style={atomDark}>
+                            <CodeBlock language="javascript" style={atomDark}>
                                 {`// Your first Node.js program
 console.log("Welcome to Node.js!");
 
@@ -42,14 +42,14 @@ technologies.forEach(tech => {
 setTimeout(() => {
     console.log("This runs after a delay");
 }, 1000);`}
-                            </SyntaxHighlighter>
+                            </CodeBlock>
                         </div>
                     </div>
 
                         <p>Running your program:</p>
-                    <SyntaxHighlighter language="bash" style={atomDark}>
+                    <CodeBlock language="bash" style={atomDark}>
                         {`node hello.js`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 </div>
 
                 <h3>Key Features and Benefits</h3>
@@ -68,7 +68,7 @@ setTimeout(() => {
                             <span className="file-name">server.js</span>
                         </div>
                         <div >
-                            <SyntaxHighlighter language="javascript" style={atomDark}>
+                            <CodeBlock language="javascript" style={atomDark}>
                                 {`const http = require('http');
 
 // Create a basic HTTP server
@@ -95,14 +95,14 @@ const PORT = 3000;
 server.listen(PORT, () => {
     console.log('Server is running on http://localhost:' + PORT);
 });`}
-                            </SyntaxHighlighter>
+                            </CodeBlock>
                         </div>
                     </div>
 
                         <p>Start the server:</p>
-                    <SyntaxHighlighter language="bash" style={atomDark}>
+                    <CodeBlock language="bash" style={atomDark}>
                         {`node server.js`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 </div>
 
                 <div className="note-section">

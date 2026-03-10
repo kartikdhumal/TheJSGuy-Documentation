@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import '../styles/debouncing.css'
 
 import 'prismjs/themes/prism.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function Callback() {
@@ -20,7 +20,7 @@ function Callback() {
           A callback is a function that is passed as an argument to another function, 
           and is called after the main function has finished its execution.
         </p>
-<SyntaxHighlighter language="javascript" style={atomDark}>
+<CodeBlock language="javascript" style={atomDark}>
 {`function mainFunction(callback) {
     console.log("Performing operation...");
     // Use setTimeout to simulate an asynchronous operation
@@ -36,7 +36,7 @@ function callbackFunction(result) {
 
 // Call the main function with the callback function
 mainFunction(callbackFunction);`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
 
       <section className="method-section">
@@ -52,7 +52,7 @@ mainFunction(callbackFunction);`}
         <p>
           Callback hell refers to the situation where callback functions are nested within one another excessively, leading to code that is difficult to read, understand, and maintain.
         </p>
-<SyntaxHighlighter language="javascript" style={atomDark}>
+<CodeBlock language="javascript" style={atomDark}>
 {`asyncFunction1(() => {
     asyncFunction2(() => {
         asyncFunction3(() => {
@@ -60,14 +60,14 @@ mainFunction(callbackFunction);`}
         });
     });
 });`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
         <h3>2. Inversion Of Control</h3>
         <p>
           Inversion of Control (IoC) is a design principle where the control of flow is inverted from the caller to the callee, often facilitated through callbacks or event-driven programming. 
           In IoC, the callee controls when certain methods or functions are executed, which can lead to better modularity and decoupling in software systems.
         </p>
-<SyntaxHighlighter language="javascript" style={atomDark}>
+<CodeBlock language="javascript" style={atomDark}>
 {`function fetchData(callback) {
     // Simulating asynchronous operation
     setTimeout(() => {
@@ -81,7 +81,7 @@ function processData(data) {
 }
 
 fetchData(processData);`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
     </div>
   );

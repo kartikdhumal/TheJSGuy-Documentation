@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function TypeScriptBasicTypes() {
@@ -17,17 +17,17 @@ function TypeScriptBasicTypes() {
       </p>
       <div className="method-section">
         <h2 className="method-title">Primitives</h2>
-        <SyntaxHighlighter language="typescript" style={atomDark}>
+        <CodeBlock language="typescript" style={atomDark}>
           {`let num: number = 42;
 let str: string = "hello";
 let flag: boolean = true;
 let u: undefined = undefined;
 let n: null = null;`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
       <div className="method-section">
         <h2 className="method-title">Arrays and tuples</h2>
-        <SyntaxHighlighter language="typescript" style={atomDark}>
+        <CodeBlock language="typescript" style={atomDark}>
           {`let arr: number[] = [1, 2, 3];
 let list: Array<string> = ["a", "b"];
 
@@ -35,28 +35,28 @@ let list: Array<string> = ["a", "b"];
 let tuple: [string, number] = ["age", 25];
 tuple[0];  // string
 tuple[1];  // number`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
       <div className="method-section">
         <h2 className="method-title">Functions</h2>
-        <SyntaxHighlighter language="typescript" style={atomDark}>
+        <CodeBlock language="typescript" style={atomDark}>
           {`function add(a: number, b: number): number {
   return a + b;
 }
 
 const mul = (a: number, b: number): number => a * b;`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
       <div className="method-section">
         <h2 className="method-title">any and unknown</h2>
         <p><code>any</code> turns off type checking. <code>unknown</code> is safer: you must narrow the type (e.g. with typeof or type guards) before using it.</p>
-        <SyntaxHighlighter language="typescript" style={atomDark}>
+        <CodeBlock language="typescript" style={atomDark}>
           {`let x: any = 4;
 x = "ok";  // no error
 
 let y: unknown = getData();
 if (typeof y === "string") console.log(y.toUpperCase());`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

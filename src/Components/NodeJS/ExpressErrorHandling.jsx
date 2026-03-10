@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function ExpressErrorHandling() {
@@ -17,7 +17,7 @@ function ExpressErrorHandling() {
 
       <div className="method-section">
         <h2 className="method-title">Passing errors with next(err)</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`app.get('/users/:id', async (req, res, next) => {
   try {
     const user = await findUser(req.params.id);
@@ -31,12 +31,12 @@ function ExpressErrorHandling() {
     next(err);
   }
 });`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
 
       <div className="method-section">
         <h2 className="method-title">Error-handling middleware (define last)</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`app.use((err, req, res, next) => {
   console.error(err.stack);
   const status = err.status || 500;
@@ -44,7 +44,7 @@ function ExpressErrorHandling() {
     error: err.message || 'Internal Server Error'
   });
 });`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function BuffersStreams() {
@@ -17,7 +17,7 @@ function BuffersStreams() {
 
       <div className="method-section">
         <h2 className="method-title">Buffer</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// Create a buffer from string
 const buf = Buffer.from('Hello', 'utf8');
 console.log(buf);        // <Buffer 48 65 6c 6c 6f>
@@ -27,12 +27,12 @@ console.log(buf.toString());  // Hello
 const buf2 = Buffer.alloc(10);
 buf2.write('Node');
 console.log(buf2.toString());  // Node`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
 
       <div className="method-section">
         <h2 className="method-title">Readable & Writable Streams</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const fs = require('fs');
 
 // Read file as stream
@@ -46,17 +46,17 @@ readStream.on('data', (chunk) => {
 readStream.on('end', () => {
   writeStream.end();
 });`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
 
       <div className="method-section">
         <h2 className="method-title">Piping Streams</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const fs = require('fs');
 
 fs.createReadStream('input.txt')
   .pipe(fs.createWriteStream('output.txt'));`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

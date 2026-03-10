@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function FileSystem() {
@@ -18,7 +18,7 @@ function FileSystem() {
                         <div className="code-header">
                             <span className="file-name">readFile.js</span>
                         </div>
-                        <SyntaxHighlighter language="javascript" style={atomDark}>
+                        <CodeBlock language="javascript" style={atomDark}>
 {`const fs = require('fs');
 
 // Synchronous reading
@@ -40,7 +40,7 @@ async function readMyFile() {
     } catch (error) {
         console.error('Error reading file:', error);
     }
-}`}</SyntaxHighlighter>
+}`}</CodeBlock>
                     </div>
                 </div>
 
@@ -50,7 +50,7 @@ async function readMyFile() {
                         <div className="code-header">
                             <span className="file-name">writeFile.js</span>
                         </div>
-                        <SyntaxHighlighter language="javascript" style={atomDark}>
+                        <CodeBlock language="javascript" style={atomDark}>
 {`const fs = require('fs');
 
 // Writing file synchronously
@@ -66,16 +66,16 @@ fs.writeFile('output.txt', 'Hello Async World!', (err) => {
 fs.appendFile('output.txt', '\\nNew line of text', (err) => {
     if (err) throw err;
     console.log('Text appended!');
-});`}</SyntaxHighlighter>
+});`}</CodeBlock>
                     </div>
                 </div>
 
                 <div className="practice-block">
                     <h2 className="section-title">Testing File Operations</h2>
                     <div>
-                        <SyntaxHighlighter language="javascript" style={atomDark}>node readFile.js</SyntaxHighlighter>
-                        <SyntaxHighlighter language="javascript" style={atomDark}>node writeFile.js</SyntaxHighlighter>
-                        <SyntaxHighlighter language="javascript" style={atomDark}>cat output.txt</SyntaxHighlighter>
+                        <CodeBlock language="javascript" style={atomDark}>node readFile.js</CodeBlock>
+                        <CodeBlock language="javascript" style={atomDark}>node writeFile.js</CodeBlock>
+                        <CodeBlock language="javascript" style={atomDark}>cat output.txt</CodeBlock>
                     </div>
                 </div>
             </section>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { interviewSections } from '../data/interviewData';
 
@@ -25,14 +25,14 @@ function Improvement() {
               </p>
               {item.code && (
                 <div className="faq-code-wrap">
-                  <SyntaxHighlighter
+                  <CodeBlock
                     language="javascript"
                     style={atomDark}
                     customStyle={{ margin: 0, borderRadius: '8px', fontSize: '13px' }}
                     showLineNumbers={false}
                   >
                     {item.code}
-                  </SyntaxHighlighter>
+                  </CodeBlock>
                 </div>
               )}
             </div>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function TypeScriptConfig() {
@@ -17,7 +17,7 @@ function TypeScriptConfig() {
       </p>
       <div className="method-section">
         <h2 className="method-title">Common options</h2>
-        <SyntaxHighlighter language="json" style={atomDark}>
+        <CodeBlock language="json" style={atomDark}>
           {`{
   "compilerOptions": {
     "target": "ES2020",
@@ -33,7 +33,7 @@ function TypeScriptConfig() {
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
       <div className="method-section">
         <h2 className="method-title">Strict mode</h2>
@@ -41,14 +41,14 @@ function TypeScriptConfig() {
       </div>
       <div className="method-section">
         <h2 className="method-title">Paths (path mapping)</h2>
-        <SyntaxHighlighter language="json" style={atomDark}>
+        <CodeBlock language="json" style={atomDark}>
           {`"compilerOptions": {
   "baseUrl": ".",
   "paths": {
     "@/*": ["src/*"]
   }
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
         <p>Allows <code>import x from '@/components/X'</code>. Your bundler (e.g. Vite, webpack) must resolve these too.</p>
       </div>
     </div>

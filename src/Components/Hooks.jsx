@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import '../styles/debouncing.css';
 import { useNavigate, useParams, useRouteError } from 'react-router-dom';
 import { userContext } from '..';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function HooksFAQ() {
@@ -136,7 +136,7 @@ function HooksFAQ() {
                             <br />
                             Example:
                             <br />
-                            <SyntaxHighlighter language="javascript" style={atomDark}>
+                            <CodeBlock language="javascript" style={atomDark}>
                                 {`const routeError = useRouteError();
 
 // routeError.status     -> HTTP status code
@@ -144,7 +144,7 @@ function HooksFAQ() {
 // routeError.location   -> Location where the error occurred
 // routeError.code       -> Error code
 // routeError.timestamp  -> Timestamp when the error occurred`}
-                            </SyntaxHighlighter>
+                            </CodeBlock>
 
                         </p>
                     </div>
@@ -160,10 +160,10 @@ function HooksFAQ() {
                             <br />
                             Example:
                             <br />
-                            <SyntaxHighlighter language="javascript" style={atomDark}>
+                            <CodeBlock language="javascript" style={atomDark}>
                                 {`const { id } = useParams();
 console.log(id);`}
-                            </SyntaxHighlighter>
+                            </CodeBlock>
 
                         </p>
                     </div>
@@ -201,7 +201,7 @@ console.log(id);`}
                         <h3 className="faq-question">Example of a Custom Hook</h3>
                         <h2 className="hook-title">useGetData.js</h2>
                         <p className="faq-answer">
-                            <SyntaxHighlighter language="javascript" style={atomDark}>
+                            <CodeBlock language="javascript" style={atomDark}>
                                 {`
  import { useState, useEffect } from 'react';
  import FETCH_URL from '../utils/constants'
@@ -236,13 +236,13 @@ console.log(id);`}
  export default useGetData;   
                               
  `}
-                            </SyntaxHighlighter>
+                            </CodeBlock>
                             <h2 className="hook-title">Cricketers.jsx</h2>
-                            <SyntaxHighlighter language="javascript" style={atomDark}>
+                            <CodeBlock language="javascript" style={atomDark}>
                                 {`const response = useGetData(cri_id);
 setData(response);
                     `}
-                            </SyntaxHighlighter>
+                            </CodeBlock>
                         </p>
                     </div>
                 </div>
@@ -258,10 +258,10 @@ setData(response);
                             Example:
                             <br />
                             <div>
-                                <SyntaxHighlighter language="javascript" style={atomDark}>
+                                <CodeBlock language="javascript" style={atomDark}>
                                     {`const navigate = useNavigate();`}<br />
                                     {`navigate('/user');`}
-                                </SyntaxHighlighter>
+                                </CodeBlock>
                             </div>
                         </p>
                     </div>
@@ -278,7 +278,7 @@ setData(response);
                             The useContext hook is a function that lets you access the context values in a functional component. It takes a context object (created using React.createContext) and returns the current context value for that context.
                             <br />
                             MyComponent.jsx
-                            <SyntaxHighlighter language="javascript" style={atomDark}>
+                            <CodeBlock language="javascript" style={atomDark}>
                                 {`import React, { useContext } from 'react';
 import { UserContext } from '../context/userContext';
 
@@ -291,12 +291,12 @@ const MyComponent = () => {
     </div>
   );
 };`}
-                            </SyntaxHighlighter>
+                            </CodeBlock>
 
                         </p>
                         <p className='faq-answer'>
                             index.js
-                            <SyntaxHighlighter language="javascript" style={atomDark}>
+                            <CodeBlock language="javascript" style={atomDark}>
                                 {`
 import React, { createContext } from 'react';
 import ReactDOM from 'react-dom/client';
@@ -321,7 +321,7 @@ root.render(
 );
 
 `}
-                            </SyntaxHighlighter>
+                            </CodeBlock>
                         </p>
                     </div>
                 </div>
@@ -333,12 +333,12 @@ root.render(
                             The useDispatch hook returns a reference to the dispatch function from the Redux store. You use this function to dispatch actions.
                             <br />
                             Example:
-                            <SyntaxHighlighter language="javascript" style={atomDark}>
+                            <CodeBlock language="javascript" style={atomDark}>
                                 {`const handleRemove = (index) => {
   dispatch(removeItem(index));
  };
                              `}
-                            </SyntaxHighlighter>
+                            </CodeBlock>
                         </p>
                     </div>
                     <h2 className="hook-title">8. useSelector</h2>
@@ -348,11 +348,11 @@ root.render(
                             <br />
                             Example:
                             <br />
-                            <SyntaxHighlighter language="javascript" style={atomDark}>
+                            <CodeBlock language="javascript" style={atomDark}>
                                 {`import { useSelector } from 'react-redux';
 
 const cartItems = useSelector((state) => state.cart.items);`}
-                            </SyntaxHighlighter>
+                            </CodeBlock>
 
                         </p>
                     </div>
@@ -364,13 +364,13 @@ const cartItems = useSelector((state) => state.cart.items);`}
                             <br />
                             Example:
                             <br />
-                            <SyntaxHighlighter language="javascript" style={atomDark}>
+                            <CodeBlock language="javascript" style={atomDark}>
                                 {`import { useStore } from 'react-redux';
 
 const store = useStore();
 
 console.log(store.getState());`}
-                            </SyntaxHighlighter>
+                            </CodeBlock>
 
                         </p>
                     </div>
@@ -388,9 +388,9 @@ console.log(store.getState());`}
                             <br />
                             Example:
                             <br />
-                            <SyntaxHighlighter language="javascript" style={atomDark}>
+                            <CodeBlock language="javascript" style={atomDark}>
                                 {`const prime = useMemo(() => findPrime(text), [text]);`}
-                            </SyntaxHighlighter>
+                            </CodeBlock>
                         </p>
                     </div>
                 </div>
@@ -406,9 +406,9 @@ console.log(store.getState());`}
                             useCallback is used to memoize a callback function.<br />
                             Example:
                             <br />
-                            <SyntaxHighlighter language="javascript" style={atomDark}>
+                            <CodeBlock language="javascript" style={atomDark}>
                                 {`const memoizedCallback = useCallback(() => { doSomething(a, b); }, [a, b]);`}
-                            </SyntaxHighlighter>
+                            </CodeBlock>
                         </p>
                     </div>
                 </div>
@@ -423,7 +423,7 @@ console.log(store.getState());`}
                             <br />
                             Example 1
                             <br />
-                            <SyntaxHighlighter language="javascript" style={atomDark}>
+                            <CodeBlock language="javascript" style={atomDark}>
                                 {`
 import React, { useRef } from 'react';
 
@@ -444,9 +444,9 @@ function SimpleUseRefExample() {
 
 export default SimpleUseRefExample;
     `}
-                            </SyntaxHighlighter>
+                            </CodeBlock>
                             Example 2
-                            <SyntaxHighlighter language="javascript" style={atomDark}>
+                            <CodeBlock language="javascript" style={atomDark}>
                                 {`
 import React, { useRef, useState } from 'react';
 
@@ -481,7 +481,7 @@ function CricketerForm() {
 
 export default CricketerForm;
     `}
-                            </SyntaxHighlighter>
+                            </CodeBlock>
 
                         </p>
                     </div>
@@ -496,7 +496,7 @@ export default CricketerForm;
                                 <br />
                                 Example:
                                 <br />
-                                <SyntaxHighlighter language="javascript" style={atomDark}>
+                                <CodeBlock language="javascript" style={atomDark}>
                                     {`
  import React, { useReducer } from 'react'
  const initialState = { count: 0 };
@@ -527,7 +527,7 @@ export default CricketerForm;
  export default Counter;
  
  `}
-                                </SyntaxHighlighter>
+                                </CodeBlock>
                             </p>
                         </div>
                     </div>
@@ -542,7 +542,7 @@ export default CricketerForm;
                                 <br />
                                 Example:
                                 <br />
-                                <SyntaxHighlighter language="javascript" style={atomDark}>
+                                <CodeBlock language="javascript" style={atomDark}>
                                     {`
 import { useLocation } from 'react-router-dom';
 
@@ -554,7 +554,7 @@ function ShowLocation() {
 export default ShowLocation;
 
  `}
-                                </SyntaxHighlighter>
+                                </CodeBlock>
                             </p>
                         </div>
                     </div>

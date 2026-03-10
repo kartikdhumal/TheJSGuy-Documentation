@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function ReduxReact() {
@@ -15,7 +15,7 @@ function ReduxReact() {
       <section className="method-section">
         <h2 className="method-title">Provider</h2>
         <p className="com-text">Wrap your app (or the part that needs Redux) with Provider and pass the store as a prop. Every component inside can then use useSelector and useDispatch.</p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`import { Provider } from 'react-redux';
 import { store } from './store';
 
@@ -26,24 +26,24 @@ function App() {
     </Provider>
   );
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
       <section className="method-section">
         <h2 className="method-title">useSelector</h2>
         <p className="com-text">useSelector takes a selector function. It returns the value from the store that the selector returns. The component re-renders when that value changes (compared by reference, so avoid returning a new object/array every time if you want to avoid extra re-renders).</p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`import { useSelector } from 'react-redux';
 
 function Counter() {
   const count = useSelector((state) => state.counter.value);
   return <span>{count}</span>;
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
       <section className="method-section">
         <h2 className="method-title">useDispatch</h2>
         <p className="com-text">useDispatch returns the store's dispatch function. You call it with an action (or the result of an action creator) to update the store.</p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`import { useDispatch, useSelector } from 'react-redux';
 import { increment } from './counterSlice';
 
@@ -58,7 +58,7 @@ function CounterButtons() {
     </div>
   );
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
       <section className="method-section">
         <h2 className="method-title">Full example</h2>

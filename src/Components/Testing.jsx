@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function Testing() {
@@ -48,39 +48,39 @@ function Testing() {
                 <p>Install Babel Configuration</p>
 
                 <p>Configure Babel in
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         babel.config.js
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 </p>
 
                 <p>Configure Parcel Config file to disable default Babel transpilation</p>
 
                 <p>Jest Configuration:
-                    <SyntaxHighlighter language="bash" style={atomDark}>
+                    <CodeBlock language="bash" style={atomDark}>
                         npx jest --init
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 </p>
 
                 <p>Install jsdom library</p>
 
                 <p>Install:
-                    <SyntaxHighlighter language="bash" style={atomDark}>
+                    <CodeBlock language="bash" style={atomDark}>
                         npm i @babel/preset-react
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                     to make JSX work in test cases
                 </p>
 
                 <p>Include
-                    <SyntaxHighlighter language="bash" style={atomDark}>
+                    <CodeBlock language="bash" style={atomDark}>
                         @babel/preset-react
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                     inside your Babel configuration
                 </p>
 
                 <p>Install:
-                    <SyntaxHighlighter language="bash" style={atomDark}>
+                    <CodeBlock language="bash" style={atomDark}>
                         @testing-library/jest-dom
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 </p>
             </div>
 
@@ -122,7 +122,7 @@ function Testing() {
                 <h2>1. Navbar Component Test</h2>
                 <p>This test ensures that the Navbar component renders properly within a BrowserRouter.</p>
 
-                <SyntaxHighlighter language="javascript" style={atomDark}>
+                <CodeBlock language="javascript" style={atomDark}>
                     {`import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
@@ -136,13 +136,13 @@ test('Navbar should load', () => {
         </BrowserRouter>
     );
 });`}
-                </SyntaxHighlighter>
+                </CodeBlock>
 
 
                 <h2>2. Toggle Component Test</h2>
                 <p>This test verifies the functionality of a Toggle component by simulating a click event and checking if the button changes from 'Login' to 'Logout'.</p>
 
-                <SyntaxHighlighter language="javascript" style={atomDark}>
+                <CodeBlock language="javascript" style={atomDark}>
                     {`import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
@@ -155,13 +155,13 @@ test('Change login to logout check', () => {
     const logoutButton = screen.getByRole("button", { name: "Logout" });
     expect(logoutButton).toBeInTheDocument();
 });`}
-                </SyntaxHighlighter>
+                </CodeBlock>
 
 
                 <h2>3. Component with Props Test</h2>
                 <p>This test verifies the rendering of a component with props.</p>
 
-                <SyntaxHighlighter language="javascript" style={atomDark}>
+                <CodeBlock language="javascript" style={atomDark}>
                     {`import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
@@ -172,13 +172,13 @@ test('Should load Component with props', () => {
     const name = screen.getByText('My Name is Guddu');
     expect(name).toBeInTheDocument();
 });`}
-                </SyntaxHighlighter>
+                </CodeBlock>
 
 
                 <h2>4. Async Component Rendering Test</h2>
                 <p>This test ensures the asynchronous rendering of a component.</p>
 
-                <SyntaxHighlighter language="javascript" style={atomDark}>
+                <CodeBlock language="javascript" style={atomDark}>
                     {`import React from 'react';
 import { render, screen, act } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
@@ -192,13 +192,13 @@ test('Should render the component', async () => {
         </BrowserRouter>
     ));
 });`}
-                </SyntaxHighlighter>
+                </CodeBlock>
 
 
                 <h2>5. Event Handling Test</h2>
                 <p>This test verifies the event handling in a component.</p>
 
-                <SyntaxHighlighter language="javascript" style={atomDark}>
+                <CodeBlock language="javascript" style={atomDark}>
                     {`import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
@@ -211,13 +211,13 @@ test('Change login to logout check', () => {
     const logoutButton = screen.getByRole("button", { name: "Logout" });
     expect(logoutButton).toBeInTheDocument();
 });`}
-                </SyntaxHighlighter>
+                </CodeBlock>
 
 
                 <h2>6. Component with Props Test and Fetch Mock</h2>
                 <p>This test verifies the rendering of a component with props and mocks a fetch call to simulate asynchronous data fetching.</p>
 
-                <SyntaxHighlighter language="javascript" style={atomDark}>
+                <CodeBlock language="javascript" style={atomDark}>
                     {`import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
@@ -237,13 +237,13 @@ test('Should load Component with props', async () => {
     const name = await screen.findByText('My Name is Guddu');
     expect(name).toBeInTheDocument();
 });`}
-                </SyntaxHighlighter>
+                </CodeBlock>
 
 
                 <h2>7. SearchComponent Tests</h2>
                 <p>These tests verify the functionality of the SearchComponent.</p>
 
-                <SyntaxHighlighter language="javascript" style={atomDark}>
+                <CodeBlock language="javascript" style={atomDark}>
                     {`import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
@@ -291,13 +291,13 @@ describe('SearchComponent', () => {
         console.log('Running teardown after all tests...');
     });
 });`}
-                </SyntaxHighlighter>
+                </CodeBlock>
 
 
                 <h2>8. Cart Item Test</h2>
                 <p>This test verifies that an item is added to the cart when the 'Add' button is clicked.</p>
 
-                <SyntaxHighlighter language="javascript" style={atomDark}>
+                <CodeBlock language="javascript" style={atomDark}>
                     {`import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
@@ -310,7 +310,7 @@ test('adds item to cart when Add button is clicked', () => {
     fireEvent.click(addButton);
     expect(screen.getByText('Cart Item : 1')).toBeInTheDocument();
 });`}
-                </SyntaxHighlighter>
+                </CodeBlock>
 
 
             </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function QNA() {
@@ -442,14 +442,14 @@ function QNA() {
 
                 {/* SQL Query */}
                 <h3 className="text-xl font-semibold mb-2">SQL Query</h3>
-                <SyntaxHighlighter language="sql" style={atomDark}>
+                <CodeBlock language="sql" style={atomDark}>
                   {`
 SELECT players.player_name, matches.match_name
 FROM players
 INNER JOIN Enrollments ON players.player_id = Enrollments.player_id
 INNER JOIN matches ON Enrollments.match_id = matches.match_id;
 `}
-                </SyntaxHighlighter>
+                </CodeBlock>
 
                 {/* Result Table */}
                 <h3 className="text-xl font-semibold mb-2">Result</h3>
@@ -561,14 +561,14 @@ INNER JOIN matches ON Enrollments.match_id = matches.match_id;
 
                 {/* SQL Query */}
                 <h3>Query:</h3>
-                <SyntaxHighlighter language="sql" style={atomDark}>
+                <CodeBlock language="sql" style={atomDark}>
                   {`
 SELECT players.player_name, teams.team_name
 FROM players
 LEFT JOIN enrollments ON players.player_id = enrollments.player_id
 LEFT JOIN teams ON enrollments.team_id = teams.team_id;
 `}
-                </SyntaxHighlighter>
+                </CodeBlock>
 
                 {/* Result Table */}
                 <h3>Result:</h3>
@@ -603,14 +603,14 @@ LEFT JOIN teams ON enrollments.team_id = teams.team_id;
                 </p>
 
                 <p><b>Query:</b></p>
-                <SyntaxHighlighter language="sql" style={atomDark}>
+                <CodeBlock language="sql" style={atomDark}>
                   {`
 SELECT players.player_name, teams.team_name
 FROM players
 RIGHT JOIN Enrollments ON players.player_id = Enrollments.player_id
 RIGHT JOIN teams ON Enrollments.team_id = teams.team_id;
     `}
-                </SyntaxHighlighter>
+                </CodeBlock>
 
                 <p><b>Explanation:</b>
                   - Start with the <code>teams</code> table (right side).
@@ -676,7 +676,7 @@ RIGHT JOIN teams ON Enrollments.team_id = teams.team_id;
                 </p>
 
                 <p><b>Query:</b></p>
-                <SyntaxHighlighter language="sql" style={atomDark}>
+                <CodeBlock language="sql" style={atomDark}>
                   {`
 SELECT players.player_name, teams.team_name
 FROM players
@@ -690,7 +690,7 @@ FROM players
 RIGHT JOIN Enrollments ON players.player_id = Enrollments.player_id
 RIGHT JOIN teams ON Enrollments.team_id = teams.team_id;
     `}
-                </SyntaxHighlighter>
+                </CodeBlock>
 
                 <p><b>Explanation:</b></p>
                 <ul>
@@ -857,18 +857,18 @@ RIGHT JOIN teams ON Enrollments.team_id = teams.team_id;
               {/* Query 1 */}
               <div>
                 <p><b>1. Fetch records present in Roles but not in Players:</b></p>
-                <SyntaxHighlighter language="sql" style={atomDark}>
+                <CodeBlock language="sql" style={atomDark}>
                   {`SELECT * FROM roles WHERE player_id NOT IN (SELECT id FROM players);`}
-                </SyntaxHighlighter>
+                </CodeBlock>
                 <p><b>Output:</b> (Empty, because all role player_ids exist in Players)</p>
               </div>
 
               {/* Query 2 */}
               <div>
                 <p><b>2. Fetch players who don’t have any role assigned:</b></p>
-                <SyntaxHighlighter language="sql" style={atomDark}>
+                <CodeBlock language="sql" style={atomDark}>
                   {`SELECT * FROM players WHERE id NOT IN (SELECT player_id FROM roles);`}
-                </SyntaxHighlighter>
+                </CodeBlock>
                 <p><b>Output:</b></p>
                 <div className="table-wrapper">
                   <table className="comparison-table">
@@ -895,9 +895,9 @@ RIGHT JOIN teams ON Enrollments.team_id = teams.team_id;
               {/* Query 3 */}
               <div>
                 <p><b>3. Fetch all players born in 1990:</b></p>
-                <SyntaxHighlighter language="sql" style={atomDark}>
+                <CodeBlock language="sql" style={atomDark}>
                   {`SELECT * FROM players WHERE YEAR(DOB) = 1990;`}
-                </SyntaxHighlighter>
+                </CodeBlock>
                 <p><b>Output:</b></p>
                 <div className="table-wrapper">
                   <table className="comparison-table">
@@ -924,9 +924,9 @@ RIGHT JOIN teams ON Enrollments.team_id = teams.team_id;
               {/* Query 4 */}
               <div>
                 <p><b>4. Fetch players who have a role assigned:</b></p>
-                <SyntaxHighlighter language="sql" style={atomDark}>
+                <CodeBlock language="sql" style={atomDark}>
                   {`SELECT * FROM players WHERE id IN (SELECT player_id FROM roles);`}
-                </SyntaxHighlighter>
+                </CodeBlock>
                 <p><b>Output:</b></p>
                 <div className="table-wrapper">
                   <table className="comparison-table">
@@ -977,9 +977,9 @@ RIGHT JOIN teams ON Enrollments.team_id = teams.team_id;
               {/* Query 5 */}
               <div>
                 <p><b>5. Fetch role-wise count of players:</b></p>
-                <SyntaxHighlighter language="sql" style={atomDark}>
+                <CodeBlock language="sql" style={atomDark}>
                   {`SELECT role, COUNT(*) AS player_count FROM roles GROUP BY role;`}
-                </SyntaxHighlighter>
+                </CodeBlock>
                 <p><b>Output:</b></p>
                 <div className="table-wrapper">
                   <table className="comparison-table">
@@ -1018,13 +1018,13 @@ RIGHT JOIN teams ON Enrollments.team_id = teams.team_id;
               {/* Query 6 */}
               <div>
                 <p><b>6. Fetch player names even if they don’t have a role:</b></p>
-                <SyntaxHighlighter language="sql" style={atomDark}>
+                <CodeBlock language="sql" style={atomDark}>
                   {`
 SELECT p.first_name, p.last_name, r.role
 FROM players p 
 LEFT JOIN roles r ON p.id = r.player_id;
       `}
-                </SyntaxHighlighter>
+                </CodeBlock>
                 <p><b>Output:</b></p>
                 <div className="table-wrapper">
                   <table className="comparison-table">
@@ -1081,11 +1081,11 @@ LEFT JOIN roles r ON p.id = r.player_id;
             Indexes are used to speed up the retrieval of data from the database. They can be created on one or more columns of a table.
 
             <b>Creating an Index:</b>
-            <SyntaxHighlighter language="javascript" style={atomDark}>
+            <CodeBlock language="javascript" style={atomDark}>
               {`
 CREATE INDEX idx_name ON players (player_name);
               `}
-            </SyntaxHighlighter>
+            </CodeBlock>
 
             <b>Types of Indexes:</b>
             <div>

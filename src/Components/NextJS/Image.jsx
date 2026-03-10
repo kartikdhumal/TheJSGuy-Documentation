@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function NextJSImage() {
@@ -17,7 +17,7 @@ function NextJSImage() {
       </p>
       <div className="method-section">
         <h2 className="method-title">Basic usage</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`import Image from 'next/image';
 
 export default function Page() {
@@ -31,20 +31,20 @@ export default function Page() {
     />
   );
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
         <p>Use <code>priority</code> for above-the-fold images so they load immediately. For responsive images use <code>fill</code> with a positioned parent.</p>
       </div>
       <div className="method-section">
         <h2 className="method-title">External images</h2>
         <p>Add the domain to <code>next.config.js</code> under <code>images.domains</code> (or <code>remotePatterns</code>).</p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// next.config.js
 module.exports = {
   images: {
     remotePatterns: [{ protocol: 'https', hostname: 'example.com', pathname: '/**' }],
   },
 };`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

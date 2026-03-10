@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function MongoDB() {
@@ -15,14 +15,14 @@ function MongoDB() {
                 <div className="setup-block">
                     <h2 className="section-title">Database Setup</h2>
                     <div>
-                        <SyntaxHighlighter language="javascript" style={atomDark}>npm install mongoose</SyntaxHighlighter>
+                        <CodeBlock language="javascript" style={atomDark}>npm install mongoose</CodeBlock>
                     </div>
 
                     <div>
                         <div className="code-header">
                             <span className="file-name">config/db.js</span>
                         </div>
-                        <SyntaxHighlighter language="javascript" style={atomDark}>
+                        <CodeBlock language="javascript" style={atomDark}>
 {`const mongoose = require('mongoose');
 
 const connectDB = async () => {
@@ -38,7 +38,7 @@ const connectDB = async () => {
     }
 };
 
-module.exports = connectDB;`}</SyntaxHighlighter>
+module.exports = connectDB;`}</CodeBlock>
                     </div>
                 </div>
 
@@ -48,7 +48,7 @@ module.exports = connectDB;`}</SyntaxHighlighter>
                         <div className="code-header">
                             <span className="file-name">models/User.js</span>
                         </div>
-                        <SyntaxHighlighter language="javascript" style={atomDark}>
+                        <CodeBlock language="javascript" style={atomDark}>
 {`const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
@@ -69,7 +69,7 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('User', userSchema);`}</SyntaxHighlighter>
+module.exports = mongoose.model('User', userSchema);`}</CodeBlock>
                     </div>
                 </div>
 
@@ -79,7 +79,7 @@ module.exports = mongoose.model('User', userSchema);`}</SyntaxHighlighter>
                         <div className="code-header">
                             <span className="file-name">controllers/userController.js</span>
                         </div>
-                        <SyntaxHighlighter language="javascript" style={atomDark}>
+                        <CodeBlock language="javascript" style={atomDark}>
 {`const User = require('../models/User');
 
 // Create new user
@@ -114,7 +114,7 @@ exports.getUserById = async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-};`}</SyntaxHighlighter>
+};`}</CodeBlock>
                     </div>
                 </div>
             </section>

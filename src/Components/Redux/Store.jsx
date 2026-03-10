@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function ReduxStore() {
@@ -15,7 +15,7 @@ function ReduxStore() {
       <section className="method-section">
         <h2 className="method-title">Creating the store (Redux Toolkit)</h2>
         <p className="com-text">With Redux Toolkit you use configureStore. You pass it an object where each key is a slice name and the value is that slice's reducer.</p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`import { configureStore } from '@reduxjs/toolkit';
 import counterReducer from './features/counterSlice';
 import userReducer from './features/userSlice';
@@ -28,7 +28,7 @@ const store = configureStore({
 });
 
 export default store;`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
       <section className="method-section">
         <h2 className="method-title">Store methods</h2>

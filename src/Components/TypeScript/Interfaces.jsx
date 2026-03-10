@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function TypeScriptInterfaces() {
@@ -17,7 +17,7 @@ function TypeScriptInterfaces() {
       </p>
       <div className="method-section">
         <h2 className="method-title">Basic interface</h2>
-        <SyntaxHighlighter language="typescript" style={atomDark}>
+        <CodeBlock language="typescript" style={atomDark}>
           {`interface User {
   id: number;
   name: string;
@@ -26,11 +26,11 @@ function TypeScriptInterfaces() {
 
 const u: User = { id: 1, name: "Alice" };
 // u.email is string | undefined`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
       <div className="method-section">
         <h2 className="method-title">Readonly and extension</h2>
-        <SyntaxHighlighter language="typescript" style={atomDark}>
+        <CodeBlock language="typescript" style={atomDark}>
           {`interface Point {
   readonly x: number;
   readonly y: number;
@@ -39,11 +39,11 @@ const u: User = { id: 1, name: "Alice" };
 interface Admin extends User {
   role: "admin";
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
       <div className="method-section">
         <h2 className="method-title">Function and index signatures</h2>
-        <SyntaxHighlighter language="typescript" style={atomDark}>
+        <CodeBlock language="typescript" style={atomDark}>
           {`interface FnMap {
   (x: number): string;
 }
@@ -52,7 +52,7 @@ interface Dict {
   [key: string]: number;
 }
 const d: Dict = { a: 1, b: 2 };`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

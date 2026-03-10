@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function Variables() {
@@ -17,7 +17,7 @@ function Variables() {
 
       <h2>1. let</h2>
       <div>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// let keyword in JavaScript
 // ---------------------------
 // 1. Block-scoped: Only accessible within the block where it's defined.
@@ -30,13 +30,13 @@ x = 20; // ✅ Reassignment allowed
 
 let x = 30; // ❌ SyntaxError: Identifier 'x' has already been declared (in same scope)
 `}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
       </div>
 
       <h2>2. const</h2>
       <div>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// const keyword in JavaScript
 // ----------------------------
 // 1. Block-scoped: Accessible only within the block it is declared in.
@@ -53,13 +53,13 @@ user.age = 23; // ✅ Allowed (modifying object properties)
 
 user = { age: 30 }; // ❌ TypeError: Assignment to constant variable.
 `}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
       </div>
 
       <h2>3. var</h2>
       <div>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// var keyword in JavaScript
 // ---------------------------
 // 1. Function-scoped: Accessible anywhere within the function.
@@ -84,13 +84,13 @@ testVar();
 var y = 5;
 var y = 10; // Redeclaration allowed
 `}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
       </div>
 
       <h2>Block Scope (let and const)</h2>
       <div>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`function blockScopeExample() {
   if (true) {
     let blockScopedVar = 'I am block scoped';
@@ -105,13 +105,13 @@ var y = 10; // Redeclaration allowed
 }
 
 blockScopeExample();`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
       </div>
 
       <h2>Function Scope (var)</h2>
       <div>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`function functionScopeExample() {
   if (true) {
     var functionScopedVar = 'I am function scoped';
@@ -121,7 +121,7 @@ blockScopeExample();`}
   console.log(functionScopedVar); // Output: 'I am function scoped'
 }
 functionScopeExample();`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
       </div>
     </div>

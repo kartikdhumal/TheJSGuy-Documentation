@@ -1,5 +1,5 @@
 import React from 'react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import '../styles/debouncing.css';
 
@@ -14,7 +14,7 @@ const PropsInfo = () => {
                     <br />Props help make components dynamic and reusable. Without props, every component would be hardcoded and limited.
                 </p>
 
-                <SyntaxHighlighter language="javascript" style={atomDark}>
+                <CodeBlock language="javascript" style={atomDark}>
                     {`// Passing props to a component
 function Welcome(props) {
   return <h1>Hello, {props.name}!</h1>;
@@ -22,7 +22,7 @@ function Welcome(props) {
 
 // Using the component
 <Welcome name="Guddu" />`}
-                </SyntaxHighlighter>
+                </CodeBlock>
 
                 <p className="description">
                     In the above code:
@@ -32,18 +32,18 @@ function Welcome(props) {
                     </ul>
                 </p>
 
-                <SyntaxHighlighter language="javascript" style={atomDark}>
+                <CodeBlock language="javascript" style={atomDark}>
                     {`// Destructuring props for cleaner code
 function Welcome({ name }) {
   return <h1>Hello, {name}!</h1>;
 }`}
-                </SyntaxHighlighter>
+                </CodeBlock>
 
                 <p className="description">
                     Let's say you want to show multiple user profiles with different names and ages. Instead of copying code, pass props:
                 </p>
 
-                <SyntaxHighlighter language="javascript" style={atomDark}>
+                <CodeBlock language="javascript" style={atomDark}>
                     {`const UserCard = ({ name, age }) => (
   <div>
     <h3>{name}</h3>
@@ -54,13 +54,13 @@ function Welcome({ name }) {
 // Usage
 <UserCard name="Guddu" age={22} />
 <UserCard name="Aisha" age={25} />`}
-                </SyntaxHighlighter>
+                </CodeBlock>
 
                 <p className="description">
                     Props can also be functions, not just strings or numbers. Useful when child needs to communicate back to parent.
                 </p>
 
-                <SyntaxHighlighter language="javascript" style={atomDark}>
+                <CodeBlock language="javascript" style={atomDark}>
                     {`function Parent() {
   const handleClick = (msg) => {
     alert(msg);
@@ -72,7 +72,7 @@ function Welcome({ name }) {
 function Child({ onClick }) {
   return <button onClick={() => onClick("Clicked from Child!")}>Click Me</button>;
 }`}
-                </SyntaxHighlighter>
+                </CodeBlock>
 
                 <h4 className="interview-title">Interview Questions & Answers:</h4>
                 <ul className="faq-list">

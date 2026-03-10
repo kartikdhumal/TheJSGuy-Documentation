@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function PathProcess() {
@@ -17,7 +17,7 @@ function PathProcess() {
 
       <div className="method-section">
         <h2 className="method-title">Path module</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const path = require('path');
 
 const filePath = '/home/user/project/src/index.js';
@@ -30,12 +30,12 @@ path.resolve('src', 'app.js');  // absolute path
 
 // __dirname = directory of current module
 const fullPath = path.join(__dirname, 'config.json');`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
 
       <div className="method-section">
         <h2 className="method-title">Process: environment variables</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// Read env vars (set via export NODE_ENV=production or .env)
 const port = process.env.PORT || 3000;
 const isProd = process.env.NODE_ENV === 'production';
@@ -43,19 +43,19 @@ const isProd = process.env.NODE_ENV === 'production';
 // Often used with dotenv
 // require('dotenv').config();
 // process.env.DB_URL`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
 
       <div className="method-section">
         <h2 className="method-title">Process: argv, cwd, exit</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// Command-line args: node script.js arg1 arg2
 process.argv;        // [nodePath, scriptPath, 'arg1', 'arg2']
 
 process.cwd();       // current working directory
 process.exit(0);     // exit successfully (non-zero = error)
 process.platform;    // 'win32', 'darwin', 'linux'`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

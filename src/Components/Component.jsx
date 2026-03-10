@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function Component() {
@@ -23,20 +23,20 @@ function Component() {
         </p>
 
         <h3 className="com-subtitle">How to Write a Functional Component</h3>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`function Welcome(props) {
   return <h1>Hello, {props.name}</h1>;
 }
 
 // Or with arrow function
 const Welcome = (props) => <h1>Hello, {props.name}</h1>;`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
         <h3 className="com-subtitle">State in Functional Components (useState)</h3>
         <p className="com-text">
           Use the <code>useState</code> hook to keep local state. It returns the current value and a function to update it. Each time you call the updater, React re-renders the component with the new state.
         </p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`import React, { useState } from 'react';
 
 function Counter() {
@@ -49,7 +49,7 @@ function Counter() {
     </div>
   );
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
         <h3 className="com-subtitle">Lifecycle in Functional Components (useEffect)</h3>
         <p className="com-text">
@@ -60,7 +60,7 @@ function Counter() {
           <li><strong>Update (when props/state change):</strong> Put the values you care about in the dependency array. The effect runs after every render where one of those values changed.</li>
           <li><strong>Unmount (cleanup when component is removed):</strong> Return a function from <code>useEffect</code>. React calls that function when the component is removed or before the effect runs again.</li>
         </ul>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`import React, { useEffect, useState } from 'react';
 
 function UserProfile({ userId }) {
@@ -82,7 +82,7 @@ function UserProfile({ userId }) {
   if (!user) return <p>Loading...</p>;
   return <p>{user.name}</p>;
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
         <h3 className="com-subtitle">Pros and Cons of Functional Components</h3>
         <p className="com-text"><strong>Pros:</strong> Less code, no <code>this</code>, easier to read and test. Hooks let you reuse stateful logic without class hierarchies. React team recommends them for new code. Better tree-shaking and often slightly better performance.</p>
@@ -97,7 +97,7 @@ function UserProfile({ userId }) {
         </p>
 
         <h3 className="com-subtitle">How to Write a Class Component</h3>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`import React from 'react';
 
 class Welcome extends React.Component {
@@ -105,13 +105,13 @@ class Welcome extends React.Component {
     return <h1>Hello, {this.props.name}</h1>;
   }
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
         <h3 className="com-subtitle">State in Class Components</h3>
         <p className="com-text">
           State is a single object on <code>this.state</code>, usually set in the <code>constructor</code>. You update it with <code>{'this.setState({ key: value })'}</code>. React merges the object you pass into the existing state and re-renders.
         </p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`class Counter extends React.Component {
   constructor(props) {
     super(props);
@@ -129,7 +129,7 @@ class Welcome extends React.Component {
     );
   }
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
         <h3 className="com-subtitle">Lifecycle Methods in Class Components</h3>
         <p className="com-text">
@@ -165,7 +165,7 @@ class Welcome extends React.Component {
         </div>
 
         <h3 className="com-subtitle">Full Class Component Example with Lifecycle</h3>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`class UserProfile extends React.Component {
   constructor(props) {
     super(props);
@@ -195,7 +195,7 @@ class Welcome extends React.Component {
     return <p>{this.state.user.name}</p>;
   }
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
         <h3 className="com-subtitle">Pros and Cons of Class Components</h3>
         <p className="com-text"><strong>Pros:</strong> Familiar if you know classes. Lifecycle methods have clear names (mount, update, unmount). Error boundaries today must be class components.</p>
@@ -272,12 +272,12 @@ class Welcome extends React.Component {
         <p className="com-text">
           <strong>Fragments</strong> let you return multiple elements without wrapping them in an extra DOM node. Use <code>&lt;React.Fragment&gt;</code> or the short form <code>&lt;&gt;...&lt;/&gt;</code>.
         </p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`<>
   <h1>Title</h1>
   <p>Paragraph</p>
 </>`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
 
       {/* ========== INTERVIEW-STYLE Q&A ========== */}

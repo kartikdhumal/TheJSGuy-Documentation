@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function ObjectMethods() {
@@ -21,7 +21,7 @@ function ObjectMethods() {
           Object.keys() returns an array of a given object's own enumerable property names. It helps to retrieve the keys of an object.
         </p>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`
 const student = {
   id: 1,
@@ -32,7 +32,7 @@ const student = {
 console.log(Object.keys(student));
 // Output: [ 'id', 'name', 'age' ]
 `}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
       </section>
 
@@ -42,7 +42,7 @@ console.log(Object.keys(student));
           Object.values() returns an array of a given object's own enumerable property values.
         </p>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{
+        <CodeBlock language="javascript" style={atomDark}>{
           `const student1 = {
   id: 1,
   name: "Guddu",
@@ -51,7 +51,7 @@ console.log(Object.keys(student));
 
 console.log(Object.values(student1));
 // Output: [ 1, 'Guddu', 22 ]`
-        }</SyntaxHighlighter>
+        }</CodeBlock>
 
       </section>
 
@@ -61,7 +61,7 @@ console.log(Object.values(student1));
           Object.entries() returns an array of a given object's own enumerable string-keyed property [key, value] pairs.
         </p>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const student2 = {
   id: 1,
   name: "Guddu",
@@ -77,7 +77,7 @@ Object.entries(student2).forEach(([key, value]) => {
 // id is 1
 // name is Guddu
 // age is 22`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
       </section>
 
@@ -88,7 +88,7 @@ Object.entries(student2).forEach(([key, value]) => {
           Object.assign() copies all enumerable properties from one or more source objects to a target object.
         </p>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{
+        <CodeBlock language="javascript" style={atomDark}>{
           `const student3 = {
   id: 1,
   name: "Guddu",
@@ -103,7 +103,7 @@ const newObj = {
 Object.assign(student3, newObj);
 console.log(student3);
 // Output: { id: 2, name: 'Divya', age: 22 }`
-        }</SyntaxHighlighter>
+        }</CodeBlock>
 
       </section>
 
@@ -113,7 +113,7 @@ console.log(student3);
           Object.seal() seals an object, preventing new properties from being added and marking all existing properties as non-configurable.
         </p>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{
+        <CodeBlock language="javascript" style={atomDark}>{
           `const student4 = {
   id: 1,
   name: "Guddu",
@@ -122,7 +122,7 @@ console.log(student3);
 
 Object.seal(student4);
 console.log(Object.isSealed(student4)); // true`
-        }</SyntaxHighlighter>
+        }</CodeBlock>
 
       </section>
 
@@ -132,7 +132,7 @@ console.log(Object.isSealed(student4)); // true`
           Object.freeze() prevents modifications to an object.
         </p>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{
+        <CodeBlock language="javascript" style={atomDark}>{
           `const student5 = {
   id: 1,
   name: "Guddu",
@@ -145,7 +145,7 @@ student5.age = 23;
 student5.grade = "A";
 
 console.log(student5);`
-        }</SyntaxHighlighter>
+        }</CodeBlock>
 
       </section>
 
@@ -155,7 +155,7 @@ console.log(student5);`
           Object.fromEntries() transforms a list of key-value pairs into an object.
         </p>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{
+        <CodeBlock language="javascript" style={atomDark}>{
           `const entries6 = [
   ['id', 2],
   ['name', 'Divya']
@@ -163,7 +163,7 @@ console.log(student5);`
 
 const obj = Object.fromEntries(entries6);
 console.log(obj);`
-        }</SyntaxHighlighter>
+        }</CodeBlock>
 
       </section>
 
@@ -173,7 +173,7 @@ console.log(obj);`
           Using Object.values() with map() lets you iterate and transform values.
         </p>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>{
+        <CodeBlock language="javascript" style={atomDark}>{
           `const student6 = {
   id: 2,
   name: "Divya",
@@ -182,7 +182,7 @@ console.log(obj);`
 
 const values = Object.values(student6);
 values.map((val) => console.log(val));`
-        }</SyntaxHighlighter>
+        }</CodeBlock>
 
       </section>
 
@@ -192,7 +192,7 @@ values.map((val) => console.log(val));`
           Deep copy creates a completely new object and also duplicates all nested objects. Changes in the copy don’t affect the original.
         </p>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const person = {
   name: "Guddu",
   address: {
@@ -206,7 +206,7 @@ deepCopy.address.city = "Mumbai";
 
 console.log(person.address.city); // Pune (original not affected)
 console.log(deepCopy.address.city); // Mumbai`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
 
 
@@ -216,7 +216,7 @@ console.log(deepCopy.address.city); // Mumbai`}
           Shallow copy copies the top-level properties, but nested objects are still referenced. So changes in nested data affect the original.
         </p>
 
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const person = {
   name: "Guddu",
   address: {
@@ -230,7 +230,7 @@ shallowCopy.address.city = "Mumbai";
 
 console.log(person.address.city); // Mumbai (original also affected)
 console.log(shallowCopy.address.city); // Mumbai`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
 
     </div>

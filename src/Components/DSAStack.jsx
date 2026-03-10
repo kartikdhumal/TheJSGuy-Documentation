@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function DSAStack() {
@@ -17,7 +17,7 @@ function DSAStack() {
       </p>
       <div className="method-section">
         <h2 className="method-title">Implementation</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`class Stack {
   constructor() {
     this.items = [];
@@ -43,7 +43,7 @@ stack.push(1);
 stack.push(2);
 console.log(stack.pop());  // 2
 console.log(stack.peek()); // 1`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

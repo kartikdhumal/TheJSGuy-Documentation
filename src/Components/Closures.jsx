@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function Closures() {
@@ -23,7 +23,7 @@ function Closures() {
                     In JavaScript, closures are created every time a function is created, at function creation time.
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`function init() {
     var name = "Mozilla"; // name is a local variable created by init
     function displayName() {
@@ -33,7 +33,7 @@ function Closures() {
     displayName();
 }
 init();`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
             </section>
 
@@ -43,7 +43,7 @@ init();`}
                     The behavior of variable declarations with var, let, and const can lead to different scoping rules:
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`if (Math.random() > 0.5) {
     var x = 1;
 } else {
@@ -64,7 +64,7 @@ console.log(x); // Outputs either 1 or 2
 //     const x = 2;
 // }
 // console.log(x);`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
             </section>
 
@@ -74,7 +74,7 @@ console.log(x); // Outputs either 1 or 2
                     You can also create functions that retain access to their lexical scope through closures:
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`function makeFunc() {
     const name = "Mozilla";
     function displayName() {
@@ -85,7 +85,7 @@ console.log(x); // Outputs either 1 or 2
   
 const myFunc = makeFunc();
 myFunc(); // Outputs: Mozilla`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
             </section>
 
@@ -101,7 +101,7 @@ myFunc(); // Outputs: Mozilla`}
                     Variables declared with var are function scoped, meaning they are accessible throughout the entire function in which they are declared.
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`function exampleFunction() {
     if (true) {
         var functionScoped = "I am function scoped";
@@ -112,15 +112,15 @@ exampleFunction(); // Outputs: I am function scoped
 
 // Outside the function
 // console.log(functionScoped); // ReferenceError: functionScoped is not defined`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
 
                 <h3>Block Scoped Variables</h3>
                 <p>
-                    Variables declared with let and const are block scoped, meaning they are only accessible within the block (e.g., <SyntaxHighlighter language="javascript" style={atomDark}>{`{ ... }`}</SyntaxHighlighter>) they are declared in.
+                    Variables declared with let and const are block scoped, meaning they are only accessible within the block (e.g., <CodeBlock language="javascript" style={atomDark}>{`{ ... }`}</CodeBlock>) they are declared in.
                 </p>
                 
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`function exampleBlockScope() {
     if (true) {
         let blockScopedLet = "I am block scoped with let";
@@ -132,7 +132,7 @@ exampleFunction(); // Outputs: I am function scoped
      console.log(blockScopedConst); // ReferenceError: blockScopedConst is not defined
 }
 exampleBlockScope();`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 
             </section>
         </div>

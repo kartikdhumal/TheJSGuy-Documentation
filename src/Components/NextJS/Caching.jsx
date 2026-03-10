@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function NextJSCaching() {
@@ -18,7 +18,7 @@ function NextJSCaching() {
       <div className="method-section">
         <h2 className="method-title">Fetch caching</h2>
         <p>By default <code>fetch</code> is cached. Use <code>next.revalidate</code> for time-based revalidation or <code>cache: 'no-store'</code> to skip cache.</p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// Cached indefinitely (default)
 const res = await fetch('https://api.example.com/data');
 
@@ -27,7 +27,7 @@ const res = await fetch(url, { next: { revalidate: 60 } });
 
 // No cache (always fresh)
 const res = await fetch(url, { cache: 'no-store' });`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
       <div className="method-section">
         <h2 className="method-title">Opt out of static rendering</h2>

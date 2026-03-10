@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function ErrorHandling() {
@@ -17,18 +17,18 @@ function ErrorHandling() {
 
       <div className="method-section">
         <h2 className="method-title">Try/Catch for synchronous code</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`try {
   const data = JSON.parse(invalidJson);
 } catch (err) {
   console.error('Parse error:', err.message);
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
 
       <div className="method-section">
         <h2 className="method-title">Async: callbacks and Promises</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// Callback style
 fs.readFile('file.txt', (err, data) => {
   if (err) {
@@ -48,12 +48,12 @@ async function read() {
     throw err;
   }
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
 
       <div className="method-section">
         <h2 className="method-title">Global error handlers</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);
   process.exit(1);
@@ -62,7 +62,7 @@ async function read() {
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

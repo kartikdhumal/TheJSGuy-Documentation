@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function JWTAuth() {
@@ -37,9 +37,9 @@ function JWTAuth() {
                     A JWT consists of three parts separated by dots (.):
                 </p>
                 <div className="jwt-code-example">
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`jwt.sign(payload, secretKey, {"expiresIn : expiredAt"});`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 </div>
                 <ul className="jwt-list">
                     <li>Header: Contains metadata about the token, such as the type of token and the algorithm used for signing.</li>
@@ -48,13 +48,13 @@ function JWTAuth() {
                 </ul>
                 <div className="jwt-code-example">
                     Example of a JWT structure:
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 .
 eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ
 .
 SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
 
                 </div>
             </section>
@@ -62,10 +62,10 @@ SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`}
             <section className="jwt-section" id="implementation">
                 <h2 className="jwt-section-title">Implementing JWT Authentication in React</h2>
                 <div className="jwt-subsection">
-                    <p className="jwt-section-content">To generate and validate JWTs, the server-side code can use libraries such as <SyntaxHighlighter language="javascript" style={atomDark}>jsonwebtoken</SyntaxHighlighter> in Node.js.</p>
+                    <p className="jwt-section-content">To generate and validate JWTs, the server-side code can use libraries such as <CodeBlock language="javascript" style={atomDark}>jsonwebtoken</CodeBlock> in Node.js.</p>
                     <div className="jwt-code-example">
                         Login.controller.js
-                        <SyntaxHighlighter language="javascript" style={atomDark}>
+                        <CodeBlock language="javascript" style={atomDark}>
                             {`const jwt = require('jsonwebtoken');
 
 const user = {
@@ -76,22 +76,22 @@ const user = {
 const token = jwt.sign(user, process.env.SECRET_KEY, { expiresIn: '1h' });
 
 console.log(token);`}
-                        </SyntaxHighlighter>
+                        </CodeBlock>
 
                     </div>
                     <div className="jwt-code-example">
                         .env
-                        <SyntaxHighlighter language="javascript" style={atomDark}>
+                        <CodeBlock language="javascript" style={atomDark}>
                             {`SECRET_KEY=guddubhaiyaa`}
-                        </SyntaxHighlighter>
+                        </CodeBlock>
                     </div>
                 </div>
 
                 <div className="jwt-subsection">
                     <h3 className="jwt-section-title" align="center">React Component Implementation</h3>
-                    <p className="jwt-section-content">The <SyntaxHighlighter language="javascript" style={atomDark}>JWTAuth</SyntaxHighlighter> component will handle the authentication logic using JWT tokens.</p>
+                    <p className="jwt-section-content">The <CodeBlock language="javascript" style={atomDark}>JWTAuth</CodeBlock> component will handle the authentication logic using JWT tokens.</p>
                     <div className="jwt-code-example">
-                        <SyntaxHighlighter language="javascript" style={atomDark}>
+                        <CodeBlock language="javascript" style={atomDark}>
                             {`import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/Component.css';
@@ -143,7 +143,7 @@ function JWTAuth() {
 }
 
 export default JWTAuth;`}
-                        </SyntaxHighlighter>
+                        </CodeBlock>
 
                     </div>
                 </div>
@@ -154,7 +154,7 @@ export default JWTAuth;`}
                         1. Obtain the JWT Token - When a user logs in, you typically make a request to your backend API, which returns a JWT token if the credentials are valid. Here’s an example using fetch:
                     </p>
                     <div className="jwt-code-example">
-                        <SyntaxHighlighter language="javascript" style={atomDark}>
+                        <CodeBlock language="javascript" style={atomDark}>
                             {`
 async function login(username, password) {
     const response = await fetch('https://Guddupandit.com/login', {
@@ -174,13 +174,13 @@ async function login(username, password) {
         throw new Error('Login failed');
     }
 }`}
-                        </SyntaxHighlighter>
+                        </CodeBlock>
                     </div>
                     <p className="jwt-section-content">
                         2. Decode and Validate the Token - You can use libraries like jsonwebtoken or jwt-decode to decode the token. You don't need to validate the token on the frontend (as it should be validated on the server), but you can check its expiration.
                     </p>
                     <div className="jwt-code-example">
-                        <SyntaxHighlighter language="javascript" style={atomDark}>
+                        <CodeBlock language="javascript" style={atomDark}>
                             {`
 import jwtDecode from 'jwt-decode';
 
@@ -202,13 +202,13 @@ if (userData) {
     console.log('User ID:', userData.user_id);
 }
                             `}
-                        </SyntaxHighlighter>
+                        </CodeBlock>
                     </div>
                     <p className="jwt-section-content">
                         3. Fetch User Profile Using User ID - Once you have the user ID from the decoded token, you can fetch the user profile from your backend:
                     </p>
                     <div className="jwt-code-example">
-                        <SyntaxHighlighter language="javascript" style={atomDark}>
+                        <CodeBlock language="javascript" style={atomDark}>
                             {`
 async function fetchUserProfile(userId) {
     const token = localStorage.getItem('token');
@@ -234,7 +234,7 @@ if (userData) {
         .catch(error => console.error(error));
 }
                             `}
-                        </SyntaxHighlighter>
+                        </CodeBlock>
                     </div>
                 </div>
 
@@ -269,28 +269,28 @@ if (userData) {
                     A JWT consists of three parts separated by dots (.):
                 </p>
                 <div className="jwt-code-example">
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         {`jwt.sign(payload, secretKey, { expiresIn: '1h' });`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                         <h2>Minimum and Maximum expiresIn Values</h2>
 
                         <h3>Minimum:</h3>
                         <p>1s (1 second)</p>
-                        <SyntaxHighlighter language="javascript" style={atomDark}>
+                        <CodeBlock language="javascript" style={atomDark}>
                             {`jwt.sign(payload, secretKey, {expiresIn: '1s' });`}
-                        </SyntaxHighlighter>
+                        </CodeBlock>
 
                         <h3>Maximum (string format):</h3>
                         <p>365d (365 days, ~1 year)</p>
-                        <SyntaxHighlighter language="javascript" style={atomDark}>
+                        <CodeBlock language="javascript" style={atomDark}>
                             {`jwt.sign(payload, secretKey, {expiresIn: '365d' });`}
-                        </SyntaxHighlighter>
+                        </CodeBlock>
 
                         <h3>Maximum (numeric format):</h3>
                         <p>You can also pass a numeric value in seconds:</p>
-                        <SyntaxHighlighter language="javascript" style={atomDark}>
+                        <CodeBlock language="javascript" style={atomDark}>
                             {`jwt.sign(payload, secretKey, {expiresIn: 31536000 }); // 1 year`}
-                        </SyntaxHighlighter>
+                        </CodeBlock>
                 </div>
                 <ul className="jwt-list">
                     <li>Header: Contains metadata about the token, such as the type of token and the algorithm used for signing.</li>
@@ -299,13 +299,13 @@ if (userData) {
                 </ul>
                 <div className="jwt-code-example">
                     Example of a JWT structure:
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9<br />
                         .<br />
                         eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ<br />
                         .<br />
                         SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 </div>
             </section>
 
@@ -329,9 +329,9 @@ if (userData) {
                     A JWT consists of three parts separated by dots (.):
                 </p>
                 <div className="jwt-code-example">
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         jwt.sign(payload, secretKey, {"{expiresIn : expiredAt}"});
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 </div>
                 <ul className="jwt-list">
                     <li>Header: Contains metadata about the token, such as the type of token and the algorithm used for signing.</li>
@@ -340,13 +340,13 @@ if (userData) {
                 </ul>
                 <div className="jwt-code-example">
                     Example of a JWT structure:
-                    <SyntaxHighlighter language="javascript" style={atomDark}>
+                    <CodeBlock language="javascript" style={atomDark}>
                         eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9<br />
                         .<br />
                         eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ<br />
                         .<br />
                         SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                 </div>
             </section>
 

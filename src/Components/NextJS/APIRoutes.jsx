@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function NextJSAPIRoutes() {
@@ -17,7 +17,7 @@ function NextJSAPIRoutes() {
       </p>
       <div className="method-section">
         <h2 className="method-title">Basic API route</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// app/api/users/route.js
 export async function GET() {
   const users = await db.getUsers();
@@ -29,19 +29,19 @@ export async function POST(request) {
   const user = await db.createUser(body);
   return Response.json(user, { status: 201 });
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
         <p>This serves <code>GET /api/users</code> and <code>POST /api/users</code>.</p>
       </div>
       <div className="method-section">
         <h2 className="method-title">Dynamic API route</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// app/api/users/[id]/route.js
 export async function GET(request, { params }) {
   const user = await db.getUser(params.id);
   if (!user) return new Response(null, { status: 404 });
   return Response.json(user);
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

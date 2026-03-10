@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function Promises() {
@@ -21,7 +21,7 @@ function Promises() {
         The callback function takes two arguments: resolve and reject.
       </p>
       
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const promise = new Promise((resolve, reject) => {
   // Perform operations
   if (success) {
@@ -30,7 +30,7 @@ function Promises() {
     reject('Failure!');
   }
 });`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       
 
       <h2>Promise States</h2>
@@ -50,7 +50,7 @@ function Promises() {
         If all true then resolves with an array of resolved values else will return first rejected promise
       </h2>
       
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`Promise.all([promise1,promise2,promise3])
   .then(values => {
     // All promises resolved
@@ -58,7 +58,7 @@ function Promises() {
   .catch(error => {
     // At least one promise rejected
   });`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       
 
       <h3>2. Promise.race()</h3>
@@ -69,7 +69,7 @@ function Promises() {
         It always resolves with an array of objects that each describe the outcome of each promise.
       </h2>
       
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`Promise.race([promise1,promise2,promise3])
   .then(value => {
     // First resolved or rejected promise
@@ -77,7 +77,7 @@ function Promises() {
   .catch(error => {
     // First rejected promise
   });`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       
 
       <h3>3. Promise.allSettled()</h3>
@@ -88,12 +88,12 @@ function Promises() {
         It will return the first promise no matter it is resolved or rejected
       </h2>
       
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`Promise.allSettled([promise1,promise2,promise3])
   .then(results => {
     // Array of outcome objects
   });`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       
 
       <h3>4. Promise.any()</h3>
@@ -104,7 +104,7 @@ function Promises() {
         with the value from that promise. If none of the promises resolve, it rejects with an AggregateError containing all the rejection reasons.
       </h2>
       
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`Promise.any([promise1,promise2,promise3])
   .then(value => {
     // First resolved promise
@@ -112,7 +112,7 @@ function Promises() {
   .catch(errors => {
     // All promises rejected
   });`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       
     </div>
   );

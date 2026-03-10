@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function ReduxRTKQuery() {
@@ -18,7 +18,7 @@ function ReduxRTKQuery() {
       </section>
       <section className="method-section">
         <h2 className="method-title">Define an API slice</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const api = createApi({
@@ -42,11 +42,11 @@ export const api = createApi({
 });
 
 export const { useGetUsersQuery, useGetUserByIdQuery, useAddUserMutation } = api;`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
       <section className="method-section">
         <h2 className="method-title">Use in a component</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`function UserList() {
   const { data, isLoading, error } = useGetUsersQuery();
 
@@ -58,7 +58,7 @@ export const { useGetUsersQuery, useGetUserByIdQuery, useAddUserMutation } = api
     </ul>
   );
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
       <section className="method-section">
         <h2 className="method-title">Features</h2>

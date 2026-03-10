@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function DSADoublyLinkedList() {
@@ -17,7 +17,7 @@ function DSADoublyLinkedList() {
       </p>
       <div className="method-section">
         <h2 className="method-title">Implementation</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`class DoublyNode {
   constructor(data) {
     this.data = data;
@@ -71,7 +71,7 @@ list.insert(2);
 console.log(list.search(2)); // true
 list.delete(1);
 console.log(list.search(1)); // false`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

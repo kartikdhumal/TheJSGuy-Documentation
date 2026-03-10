@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function Modules() {
@@ -32,23 +32,23 @@ function Modules() {
             Default Export:
             <p> A module can have one default export, which can be imported without curly braces. </p>
             
-              <SyntaxHighlighter language="javascript" style={atomDark}>{`// file: greet.js
+              <CodeBlock language="javascript" style={atomDark}>{`// file: greet.js
 export default function greet(name) {
     return \`Hello, \${name}!\`;
 }
     // index.js
     import greet from './math'
-`}</SyntaxHighlighter>
+`}</CodeBlock>
             
           </div>
           <div>
             Named Export: A module can have multiple named exports. These must be imported with curly braces.
             
-              <SyntaxHighlighter language="javascript" style={atomDark}>{`//
+              <CodeBlock language="javascript" style={atomDark}>{`//
 export const pi = 3.14159;
 // index.js
 import { pi } from './math'
-`}</SyntaxHighlighter>
+`}</CodeBlock>
             
           </div>
         </div>
@@ -59,7 +59,7 @@ import { pi } from './math'
 
         <h4>2.1 Exporting from a module</h4>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`// file: math.js
+          <CodeBlock language="javascript" style={atomDark}>{`// file: math.js
 export const pi = 3.14159;
 
 export function add(a, b) {
@@ -74,19 +74,19 @@ export class Circle {
     area() {
         return pi * this.radius * this.radius;
     }
-}`}</SyntaxHighlighter>
+}`}</CodeBlock>
         
 
 
         <h4>2.2 Importing from a module</h4>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`// file: main.js
+          <CodeBlock language="javascript" style={atomDark}>{`// file: main.js
 import { pi, add, Circle } from './math.js';
 
 console.log(pi); // 3.14159
 console.log(add(2, 3)); // 5
 const myCircle = new Circle(5);
-console.log(myCircle.area()); // 78.53975`}</SyntaxHighlighter>
+console.log(myCircle.area()); // 78.53975`}</CodeBlock>
         
       </div>
 
@@ -95,18 +95,18 @@ console.log(myCircle.area()); // 78.53975`}</SyntaxHighlighter>
 
         <h4>3.1 Exporting a default value</h4>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`// file: greet.js
+          <CodeBlock language="javascript" style={atomDark}>{`// file: greet.js
 export default function greet(name) {
     return \`Hello, \${name}!\`;
-}`}</SyntaxHighlighter>
+}`}</CodeBlock>
         
 
         <h4>3.2 Importing a default value</h4>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`// file: main.js
+          <CodeBlock language="javascript" style={atomDark}>{`// file: main.js
 import greet from './greet.js';
 
-console.log(greet('World')); // Hello, World!`}</SyntaxHighlighter>
+console.log(greet('World')); // Hello, World!`}</CodeBlock>
         
       </div>
 
@@ -115,19 +115,19 @@ console.log(greet('World')); // Hello, World!`}</SyntaxHighlighter>
 
         <h4>4.1 Renaming exports</h4>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`// file: math.js
+          <CodeBlock language="javascript" style={atomDark}>{`// file: math.js
 const pi = 3.14159;
 const e = 2.71828;
-export { pi as PI, e as E };`}</SyntaxHighlighter>
+export { pi as PI, e as E };`}</CodeBlock>
         
 
         <h4>4.2 Renaming imports</h4>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`// file: main.js
+          <CodeBlock language="javascript" style={atomDark}>{`// file: main.js
 import { PI, E } from './math.js';
 
 console.log(PI); // 3.14159
-console.log(E); // 2.71828`}</SyntaxHighlighter>
+console.log(E); // 2.71828`}</CodeBlock>
         
       </div>
 
@@ -136,17 +136,17 @@ console.log(E); // 2.71828`}</SyntaxHighlighter>
 
         <h4>5.1 Re-exporting from another module</h4>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`// file: constants.js
-export { PI, E } from './math.js';`}</SyntaxHighlighter>
+          <CodeBlock language="javascript" style={atomDark}>{`// file: constants.js
+export { PI, E } from './math.js';`}</CodeBlock>
         
 
         <h4>5.2 Importing aggregated modules</h4>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`// file: main.js
+          <CodeBlock language="javascript" style={atomDark}>{`// file: main.js
 import { PI, E } from './constants.js';
 
 console.log(PI); // 3.14159
-console.log(E); // 2.71828`}</SyntaxHighlighter>
+console.log(E); // 2.71828`}</CodeBlock>
         
       </div>
 
@@ -155,13 +155,13 @@ console.log(E); // 2.71828`}</SyntaxHighlighter>
 
         <h4>6.1 Using dynamic imports</h4>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`// file: main.js
+          <CodeBlock language="javascript" style={atomDark}>{`// file: main.js
 async function loadGreetModule() {
     const module = await import('./greet.js');
     console.log(module.default('Dynamic World')); // Hello, Dynamic World!
 }
 
-loadGreetModule();`}</SyntaxHighlighter>
+loadGreetModule();`}</CodeBlock>
         
       </div>
 
@@ -178,13 +178,13 @@ loadGreetModule();`}</SyntaxHighlighter>
 
         <h4>8.1 Importing all exports</h4>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`// file: main.js
+          <CodeBlock language="javascript" style={atomDark}>{`// file: main.js
 import * as MathConstants from './math.js';
 
 console.log(MathConstants.pi); // 3.14159
 console.log(MathConstants.add(2, 3)); // 5
 const myCircle = new MathConstants.Circle(5);
-console.log(myCircle.area()); // 78.53975`}</SyntaxHighlighter>
+console.log(myCircle.area()); // 78.53975`}</CodeBlock>
         
       </div>
 
@@ -193,14 +193,14 @@ console.log(myCircle.area()); // 78.53975`}</SyntaxHighlighter>
 
         <h4>9.1 Conditionally importing modules</h4>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`// file: main.js
+          <CodeBlock language="javascript" style={atomDark}>{`// file: main.js
 const condition = true;
 
 if (condition) {
     import('./math.js').then((module) => {
         console.log(module.pi); // 3.14159
     });
-}`}</SyntaxHighlighter>
+}`}</CodeBlock>
         
       </div>
 
@@ -209,21 +209,21 @@ if (condition) {
 
         <h4>10.1 CommonJS modules (Node.js)</h4>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`// file: math.cjs
+          <CodeBlock language="javascript" style={atomDark}>{`// file: math.cjs
 const pi = 3.14159;
 const add = (a, b) => a + b;
-module.exports = { pi, add };`}</SyntaxHighlighter>
+module.exports = { pi, add };`}</CodeBlock>
         
 
         <h4>10.2 Mixing CommonJS and ES6 modules</h4>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`
+          <CodeBlock language="javascript" style={atomDark}>{`
 import { createRequire } from 'module'; // type : "module" 
 const require = createRequire(import.meta.url); // type : "commonjs" 
 const { pi, add } = require('./math.cjs'); // type : "commonjs" 
 
 console.log(pi); // 3.14159
-console.log(add(2, 3)); // 5`}</SyntaxHighlighter>
+console.log(add(2, 3)); // 5`}</CodeBlock>
         
       </div>
     </div>

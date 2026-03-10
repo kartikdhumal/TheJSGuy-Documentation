@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function NextJSMetadata() {
@@ -17,7 +17,7 @@ function NextJSMetadata() {
       </p>
       <div className="method-section">
         <h2 className="method-title">Static metadata</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// app/layout.js or app/page.js
 export const metadata = {
   title: 'My App',
@@ -32,11 +32,11 @@ export const metadata = {
 export default function Page() {
   return <div>...</div>;
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
       <div className="method-section">
         <h2 className="method-title">Dynamic metadata</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`export async function generateMetadata({ params }) {
   const post = await getPost(params.slug);
   return {
@@ -44,7 +44,7 @@ export default function Page() {
     description: post.excerpt,
   };
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

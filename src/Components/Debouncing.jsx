@@ -1,5 +1,5 @@
 import React from 'react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import DebounceExample from './DebounceExample';
 import ThrottleExample from './ThrottleExample';
@@ -17,7 +17,7 @@ function Debouncing() {
           It delays the execution until a certain time has passed since the last trigger.
           Common use-case: search input or autocomplete.
         </p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`import React, { useRef } from 'react';
 
 function debounce(func, delay) {
@@ -35,7 +35,7 @@ const handleDebouncedSearch = debounce((value) => {
 }, 500);
 
 <input onChange={(e) => handleDebouncedSearch(e.target.value)} />`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
       </section>
 
@@ -43,12 +43,12 @@ const handleDebouncedSearch = debounce((value) => {
 
       <section className="example-section">
         <h2>Debouncing by Package (Using Lodash)</h2>
-        <SyntaxHighlighter language="bash" style={atomDark}>
+        <CodeBlock language="bash" style={atomDark}>
           {`npm install lodash`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
         <h2>Lodash Debouncing Example</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`import { debounce } from 'lodash';
 
 const debouncedFunction = debounce((value) => {
@@ -56,7 +56,7 @@ const debouncedFunction = debounce((value) => {
 }, 500);
 
 <input onChange={(e) => debouncedFunction(e.target.value)} />`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
 
 
@@ -67,7 +67,7 @@ const debouncedFunction = debounce((value) => {
           even if it's triggered multiple times.
           Common use-case: Prevent users from sending OTP again and again by clicking the button rapidly.
         </p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const [message, setMessage] = useState('');
 const lastClickTimeRef = useRef(0);
 
@@ -87,7 +87,7 @@ const handleClick = () => {
     setMessage('Throttled! Wait for 3 seconds.');
   }
 };`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
       </section>
 
@@ -95,12 +95,12 @@ const handleClick = () => {
 
       <section className="example-section">
         <h2>Throttling by Package (Using Lodash)</h2>
-        <SyntaxHighlighter language="bash" style={atomDark}>
+        <CodeBlock language="bash" style={atomDark}>
           {`npm install lodash`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
         <h2>Lodash Throttle Example</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`import { throttle } from 'lodash';
 
 const throttledFunction = throttle(() => {
@@ -108,7 +108,7 @@ const throttledFunction = throttle(() => {
 }, 2000);
 
 window.addEventListener('resize', throttledFunction);`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
 
     </div>

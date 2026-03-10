@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function RestAPI() {
@@ -24,7 +24,7 @@ function RestAPI() {
                             <span className="file-name">routes/api.js</span>
                         </div>
                         <div className="code-content">
-                            <SyntaxHighlighter language="javascript" style={atomDark}>{`const express = require('express');
+                            <CodeBlock language="javascript" style={atomDark}>{`const express = require('express');
 const router = express.Router();
 
 // GET /api/users - Get all users
@@ -52,7 +52,7 @@ router.delete('/users/:id', (req, res) => {
     res.json({ message: 'User deleted' });
 });
 
-module.exports = router;`}</SyntaxHighlighter>
+module.exports = router;`}</CodeBlock>
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,7 @@ module.exports = router;`}</SyntaxHighlighter>
                             <span className="file-name">middleware/errorHandler.js</span>
                         </div>
                         <div className="code-content">
-                            <SyntaxHighlighter language="javascript" style={atomDark}>{`const errorHandler = (err, req, res, next) => {
+                            <CodeBlock language="javascript" style={atomDark}>{`const errorHandler = (err, req, res, next) => {
     console.error(err.stack);
     
     res.status(err.status || 500).json({
@@ -78,7 +78,7 @@ module.exports = router;`}</SyntaxHighlighter>
     });
 };
 
-module.exports = errorHandler;`}</SyntaxHighlighter>
+module.exports = errorHandler;`}</CodeBlock>
                         </div>
                     </div>
                 </div>

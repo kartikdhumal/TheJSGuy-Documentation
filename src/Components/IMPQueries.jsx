@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function IMPQueries() {
@@ -187,12 +187,12 @@ function IMPQueries() {
 
                     <div className="query-solution-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
                         <div className="query-block">
-                            <SyntaxHighlighter language="sql" style={atomDark}>
+                            <CodeBlock language="sql" style={atomDark}>
                                 {q.mysql}
-                            </SyntaxHighlighter>
-                            <SyntaxHighlighter language="javascript" style={atomDark}>
+                            </CodeBlock>
+                            <CodeBlock language="javascript" style={atomDark}>
                                 {formatMongoQuery(q.mongo)}
-                            </SyntaxHighlighter>
+                            </CodeBlock>
                         </div>
                     </div>
                 </div>

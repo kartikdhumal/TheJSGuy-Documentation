@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function RequestResponse() {
@@ -17,7 +17,7 @@ function RequestResponse() {
 
       <div className="method-section">
         <h2 className="method-title">Request (req) – params, query, body, headers</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// GET /users/42?role=admin
 // req.params  → { id: '42' }
 // req.query   → { role: 'admin' }
@@ -38,19 +38,19 @@ app.post('/users', (req, res) => {
 // Headers
 const token = req.headers.authorization;
 const contentType = req.headers['content-type'];`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
 
       <div className="method-section">
         <h2 className="method-title">Response (res) – status, send, json, redirect</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`res.status(200).send('OK');
 res.status(201).json({ id: 1, name: 'John' });
 res.status(404).send('Not Found');
 res.redirect(302, '/login');
 res.set('X-Custom-Header', 'value');
 res.cookie('name', 'value', { maxAge: 3600000 });`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
     </div>
   );

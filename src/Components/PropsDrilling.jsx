@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import '../styles/debouncing.css'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function PropsDrilling() {
@@ -18,7 +18,7 @@ function PropsDrilling() {
       </p>
 
       <h2>Example</h2>
-      <SyntaxHighlighter language="javascript" style={atomDark}>
+      <CodeBlock language="javascript" style={atomDark}>
         {`
 // Parent Component
 import React, { useState } from 'react';
@@ -62,7 +62,7 @@ function GrandChildComponent({ text, setText }) {
 
 export default GrandChildComponent;
         `}
-      </SyntaxHighlighter>
+      </CodeBlock>
 
       <hr />
 
@@ -75,7 +75,7 @@ export default GrandChildComponent;
       </p>
 
       <h2>Example</h2>
-      <SyntaxHighlighter language="javascript" style={atomDark}>
+      <CodeBlock language="javascript" style={atomDark}>
         {`
 // Parent Component
 import React, { useState } from 'react';
@@ -107,7 +107,7 @@ function ChildComponent({ count, setCount }) {
 
 export default ChildComponent;
         `}
-      </SyntaxHighlighter>
+      </CodeBlock>
     </div>
   );
 }

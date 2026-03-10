@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function PerformanceOptimization() {
@@ -62,22 +62,22 @@ function PerformanceOptimization() {
         <p className="com-text">
           <strong>useMemo</strong> memoizes a computed value. React recomputes it only when the dependencies in the dependency array change. Use it when a calculation is expensive and you want to avoid doing it on every render.
         </p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const sortedList = useMemo(() => {
   return items.slice().sort((a, b) => a.name.localeCompare(b.name));
 }, [items]);  // only recompute when items changes`}
-        </SyntaxHighlighter>
+        </CodeBlock>
         <p className="com-text">
           <strong>useCallback</strong> memoizes a function. It returns the same function reference when dependencies do not change. Use it when you pass a callback to a child that is wrapped in React.memo, so the child does not re-render unnecessarily.
         </p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const handleClick = useCallback(() => {
   doSomething(id);
 }, [id]);  // same function reference unless id changes
 
 // Pass to memoized child – child won't re-render when parent re-renders if handleClick is stable
 <MemoizedChild onClick={handleClick} />`}
-        </SyntaxHighlighter>
+        </CodeBlock>
         <p className="com-text"><strong>When to use:</strong> Use useMemo for expensive computations; use useCallback for callbacks passed to memoized children or used in effect dependencies. Do not overuse: only when you measure a real performance problem.</p>
       </section>
 
@@ -86,7 +86,7 @@ function PerformanceOptimization() {
         <p className="com-text">
           <strong>React.memo</strong> is a higher-order component that memoizes a component. The component re-renders only when its props change (shallow comparison). Use it for components that render often with the same props.
         </p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const ExpensiveList = React.memo(function ExpensiveList({ items }) {
   return (
     <ul>
@@ -95,7 +95,7 @@ function PerformanceOptimization() {
   );
 });
 // Parent can re-render without re-rendering ExpensiveList if items is the same reference`}
-        </SyntaxHighlighter>
+        </CodeBlock>
         <p className="com-text">Combine with useCallback when the parent passes a function as a prop; otherwise a new function reference every render will cause the memoized child to re-render anyway.</p>
       </section>
 
@@ -105,7 +105,7 @@ function PerformanceOptimization() {
         <p className="com-text">
           Splitting code lets you load parts of the app only when needed. React.lazy and Suspense let you lazy-load component code, reducing the initial bundle size and improving LCP and TTI.
         </p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`import { lazy, Suspense } from 'react';
 
 const HeavyChart = lazy(() => import('./HeavyChart'));
@@ -117,7 +117,7 @@ function Dashboard() {
     </Suspense>
   );
 }`}
-        </SyntaxHighlighter>
+        </CodeBlock>
         <p className="com-text">Use lazy for route-level or heavy below-the-fold components. The fallback is shown until the chunk loads. This improves initial load and keeps the main bundle smaller.</p>
       </section>
 
@@ -129,7 +129,7 @@ function Dashboard() {
         </p>
         <div className="sub-section">
           <h3 className="com-subtitle">Debouncing (e.g. search input)</h3>
-          <SyntaxHighlighter language="javascript" style={atomDark}>
+          <CodeBlock language="javascript" style={atomDark}>
             {`function debounce(func, wait) {
   let timeout;
   return function (...args) {
@@ -138,11 +138,11 @@ function Dashboard() {
   };
 }
 // Usage: call debounced function on every keystroke; it runs only after user stops typing for wait ms`}
-          </SyntaxHighlighter>
+          </CodeBlock>
         </div>
         <div className="sub-section">
           <h3 className="com-subtitle">Throttling (e.g. scroll handler)</h3>
-          <SyntaxHighlighter language="javascript" style={atomDark}>
+          <CodeBlock language="javascript" style={atomDark}>
             {`function throttle(func, limit) {
   let lastRan;
   return function (...args) {
@@ -153,7 +153,7 @@ function Dashboard() {
   };
 }
 // Usage: handler runs at most once every limit ms`}
-          </SyntaxHighlighter>
+          </CodeBlock>
         </div>
       </section>
 
@@ -163,7 +163,7 @@ function Dashboard() {
         <p className="com-text">
           Load images only when they are near or in the viewport. This improves LCP for the main image and saves bandwidth. Use the native <code>loading="lazy"</code> attribute or IntersectionObserver for more control.
         </p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// Native (simple)
 <img src="photo.jpg" loading="lazy" alt="Photo" />
 
@@ -178,7 +178,7 @@ const imageObserver = new IntersectionObserver((entries) => {
   });
 });
 document.querySelectorAll('img[data-src]').forEach((img) => imageObserver.observe(img));`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
 
       {/* ========== AVOID INLINE OBJECTS/FUNCTIONS IN JSX ========== */}
@@ -187,7 +187,7 @@ document.querySelectorAll('img[data-src]').forEach((img) => imageObserver.observ
         <p className="com-text">
           Passing a new object or function every render makes React think props changed, so memoized children re-render. Define objects and callbacks outside the component or with useMemo/useCallback when passing to React.memo children.
         </p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// Bad: new object every render -> Child re-renders every time
 <Child style={{ margin: 10 }} onClick={() => doSomething()} />
 
@@ -195,7 +195,7 @@ document.querySelectorAll('img[data-src]').forEach((img) => imageObserver.observ
 const style = useMemo(() => ({ margin: 10 }), []);
 const handleClick = useCallback(() => doSomething(), []);
 <Child style={style} onClick={handleClick} />`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
 
       {/* ========== VIRTUALIZATION ========== */}
@@ -212,7 +212,7 @@ const handleClick = useCallback(() => doSomething(), []);
         <p className="com-text">
           Clean up subscriptions, timers, and listeners in useEffect’s cleanup so components do not leak memory or update after unmount.
         </p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`useEffect(() => {
   const id = setInterval(() => setCount((c) => c + 1), 1000);
   const sub = store.subscribe(handler);
@@ -221,7 +221,7 @@ const handleClick = useCallback(() => doSomething(), []);
     sub.unsubscribe();
   };
 }, []);`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
 
       {/* ========== PROFILING ========== */}
@@ -230,14 +230,14 @@ const handleClick = useCallback(() => doSomething(), []);
         <p className="com-text">
           Use React DevTools Profiler to see which components re-render and how long they take. Use Chrome DevTools Performance tab for LCP, CLS, and long tasks. Measure Core Web Vitals with Lighthouse or the web-vitals library.
         </p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// Measure Web Vitals in your app
 import { getCLS, getFID, getLCP } from 'web-vitals';
 
 getCLS(console.log);
 getLCP(console.log);
 getFID(console.log);  // or getINP when available`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
 
       {/* ========== QUICK RECAP ========== */}

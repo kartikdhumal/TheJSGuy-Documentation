@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import 'prismjs/themes/prism.css';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function NextJSMiddleware() {
@@ -17,7 +17,7 @@ function NextJSMiddleware() {
       </p>
       <div className="method-section">
         <h2 className="method-title">Basic middleware</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// middleware.js (at root)
 import { NextResponse } from 'next/server';
 
@@ -32,7 +32,7 @@ export function middleware(request) {
 export const config = {
   matcher: ['/dashboard/:path*', '/api/protected/:path*'],
 };`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </div>
       <div className="method-section">
         <h2 className="method-title">Matcher</h2>

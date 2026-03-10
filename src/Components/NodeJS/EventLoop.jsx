@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function EventLoop() {
@@ -50,7 +50,7 @@ function EventLoop() {
         <p>
           Normal (synchronous) code runs first, line by line. Then things you scheduled for “later” run. But “later” has an order too: <strong>Promises (and other microtasks)</strong> run before <strong>setTimeout</strong> (and other macrotasks), even if the timer is 0 ms.
         </p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`console.log('1');
 
 setTimeout(() => console.log('2'), 0);
@@ -58,7 +58,7 @@ setTimeout(() => console.log('2'), 0);
 Promise.resolve().then(() => console.log('3'));
 
 console.log('4');`}
-        </SyntaxHighlighter>
+        </CodeBlock>
         <p><strong>Output:</strong> <code>1</code>, then <code>4</code>, then <code>3</code>, then <code>2</code>.</p>
         <p><strong>Why?</strong></p>
         <ul>
@@ -97,7 +97,7 @@ console.log('4');`}
         <p>
           <strong>setImmediate(callback):</strong> Runs in the “check” phase of the event loop, after I/O and timers. So it runs after the current code and after microtasks, but in the same round as other “check” callbacks.
         </p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`console.log('Start');
 
 process.nextTick(() => console.log('nextTick'));
@@ -107,7 +107,7 @@ setImmediate(() => console.log('setImmediate'));
 Promise.resolve().then(() => console.log('Promise'));
 
 console.log('End');`}
-        </SyntaxHighlighter>
+        </CodeBlock>
         <p><strong>Output:</strong> <code>Start</code>, <code>End</code>, <code>nextTick</code>, <code>Promise</code>, <code>setImmediate</code>.</p>
         <p>So: sync code first, then nextTick, then other microtasks (Promise), then setImmediate.</p>
       </div>
@@ -120,7 +120,7 @@ console.log('End');`}
 
         <h3>1. Callbacks (old style)</h3>
         <p>You pass a function that runs when the task is done. First argument is often an error (if any), second is the result.</p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const fs = require('fs');
 
 fs.readFile('notes.txt', 'utf8', (err, data) => {
@@ -132,12 +132,12 @@ fs.readFile('notes.txt', 'utf8', (err, data) => {
 });
 
 console.log('This runs first, before the file is read');`}
-        </SyntaxHighlighter>
+        </CodeBlock>
         <p>So: “Read the file; when done, run this function. Until then, run the next line.” So you see “This runs first…” and then, when the file is read, “File content: …”.</p>
 
         <h3>2. Promises</h3>
         <p>Same idea, but you use <code>.then()</code> for success and <code>.catch()</code> for errors. Easier to chain many steps.</p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const fs = require('fs').promises;
 
 fs.readFile('notes.txt', 'utf8')
@@ -149,11 +149,11 @@ fs.readFile('notes.txt', 'utf8')
   });
 
 console.log('This runs first');`}
-        </SyntaxHighlighter>
+        </CodeBlock>
 
         <h3>3. Async/await (easiest to read)</h3>
         <p>You write code that looks like normal “wait for this, then do that,” but it doesn’t block the rest of the app. Node runs other code while waiting.</p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const fs = require('fs').promises;
 
 async function showFile() {
@@ -167,7 +167,7 @@ async function showFile() {
 
 showFile();
 console.log('This runs first');`}
-        </SyntaxHighlighter>
+        </CodeBlock>
         <p>Here too, “This runs first” appears before the file content, because <code>await</code> only pauses the <code>showFile</code> function, not the whole program. The event loop keeps running other code.</p>
       </div>
 
@@ -176,7 +176,7 @@ console.log('This runs first');`}
         <p>
           Say you want to read two files and then combine their contents. With async/await it stays readable:
         </p>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`const fs = require('fs').promises;
 
 async function mergeTwoFiles() {
@@ -192,7 +192,7 @@ async function mergeTwoFiles() {
 }
 
 mergeTwoFiles();`}
-        </SyntaxHighlighter>
+        </CodeBlock>
         <p>Node reads the first file, then the second (or in parallel if you use <code>Promise.all</code>), and only when both are done it runs the rest. Meanwhile the event loop can handle other requests. That’s the power of async: many tasks in progress, one thread, no blocking.</p>
       </div>
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from '../CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function ReduxToolkit() {
@@ -23,7 +23,7 @@ function ReduxToolkit() {
       </section>
       <section className="method-section">
         <h2 className="method-title">Example: configureStore + createSlice</h2>
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// store.js
 import { configureStore } from '@reduxjs/toolkit';
 import counterReducer from './counterSlice';
@@ -49,7 +49,7 @@ const counterSlice = createSlice({
 
 export const { increment, decrement, incrementByAmount } = counterSlice.actions;
 export default counterSlice.reducer;`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       </section>
       <section className="method-section">
         <h2 className="method-title">Why use RTK?</h2>

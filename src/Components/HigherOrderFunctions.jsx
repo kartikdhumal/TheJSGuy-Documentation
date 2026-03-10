@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function HigherOrderFunctions() {
@@ -23,7 +23,7 @@ function HigherOrderFunctions() {
       <div className="method-section">
         <h3>Example of a Higher-Order Function</h3>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`function myName(title) {
+          <CodeBlock language="javascript" style={atomDark}>{`function myName(title) {
     title();
     console.log(" Guddu Pandit ");
 }
@@ -33,7 +33,7 @@ function title() {
 }
 
 myName(title); // Output: ---- My Name ----
-                  //          Guddu Pandit`}</SyntaxHighlighter>
+                  //          Guddu Pandit`}</CodeBlock>
         
         <p>
           In this example, myName is a higher-order function because it takes another function title as its argument.
@@ -43,7 +43,7 @@ myName(title); // Output: ---- My Name ----
       <div className="method-section">
         <h3>Calculating Area and Diameter of Circles</h3>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`const radius = [1, 2, 3];
+          <CodeBlock language="javascript" style={atomDark}>{`const radius = [1, 2, 3];
 
 const area = function (radius) {
     return Math.PI * radius * radius;
@@ -62,7 +62,7 @@ const calculate = function (radius, logic) {
 }
 
 console.log(calculate(radius, area));    // Output: [3.141592653589793, 12.566370614359172, 28.274333882308138]
-console.log(calculate(radius, diameter)); // Output: [2, 4, 6]`}</SyntaxHighlighter>
+console.log(calculate(radius, diameter)); // Output: [2, 4, 6]`}</CodeBlock>
         
         <p>
           This demonstrates the flexibility and reusability of higher-order functions in JavaScript.
@@ -74,14 +74,14 @@ console.log(calculate(radius, diameter)); // Output: [2, 4, 6]`}</SyntaxHighligh
 
         <h4>1. Map</h4>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`let arr = [12, 21, 54, 64];
+          <CodeBlock language="javascript" style={atomDark}>{`let arr = [12, 21, 54, 64];
 
 function square(x) {
     return x * x;
 }
 
 const squares = arr.map((x) => square(x));
-console.log(squares); // Output: [144, 441, 2916, 4096]`}</SyntaxHighlighter>
+console.log(squares); // Output: [144, 441, 2916, 4096]`}</CodeBlock>
         
         <p>
           The map function creates a new array populated with the results of calling a provided function on every element in the calling array.
@@ -89,9 +89,9 @@ console.log(squares); // Output: [144, 441, 2916, 4096]`}</SyntaxHighlighter>
 
         <h4>2. forEach</h4>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`arr.forEach((value) => {
+          <CodeBlock language="javascript" style={atomDark}>{`arr.forEach((value) => {
     console.log(value);
-}); // Output: 12 21 54 64`}</SyntaxHighlighter>
+}); // Output: 12 21 54 64`}</CodeBlock>
         
         <p>
           The forEach method executes a provided function once for each array element. Unlike map, it does not return a new array.
@@ -99,8 +99,8 @@ console.log(squares); // Output: [144, 441, 2916, 4096]`}</SyntaxHighlighter>
 
         <h4>3. Filter</h4>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`const evens = arr.filter(x => x % 2 == 0);
-console.log(evens); // Output: [12, 54, 64]`}</SyntaxHighlighter>
+          <CodeBlock language="javascript" style={atomDark}>{`const evens = arr.filter(x => x % 2 == 0);
+console.log(evens); // Output: [12, 54, 64]`}</CodeBlock>
         
         <p>
           The filter method creates a new array with all elements that pass the test implemented by the provided function.
@@ -108,10 +108,10 @@ console.log(evens); // Output: [12, 54, 64]`}</SyntaxHighlighter>
 
         <h4>4. Reduce</h4>
         
-          <SyntaxHighlighter language="javascript" style={atomDark}>{`const sum = arr.reduce((acc, curr) => {
+          <CodeBlock language="javascript" style={atomDark}>{`const sum = arr.reduce((acc, curr) => {
     return acc + curr;
 }, 0);
-console.log(sum); // Output: 151`}</SyntaxHighlighter>
+console.log(sum); // Output: 151`}</CodeBlock>
         
         <p>
           The reduce method executes a reducer function (that you provide) on each element of the array, resulting in a single output value.

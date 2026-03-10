@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import '../styles/debouncing.css';
 
 import 'prismjs/themes/prism.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function WebAPIs() {
@@ -19,24 +19,24 @@ function WebAPIs() {
       <p>Web Storage allows saving key/value pairs in the browser.</p>
 
       <h3>LocalStorage</h3>
-      <SyntaxHighlighter language="javascript" style={atomDark}>
+      <CodeBlock language="javascript" style={atomDark}>
         {`// localStorage - persists even after browser is closed
 localStorage.setItem("userid", "734824643");
 console.log(localStorage.getItem("userid")); // "734824643"
 localStorage.removeItem("userid");`}
-      </SyntaxHighlighter>
+      </CodeBlock>
 
       <h3>SessionStorage</h3>
-      <SyntaxHighlighter language="javascript" style={atomDark}>
+      <CodeBlock language="javascript" style={atomDark}>
         {`// sessionStorage - clears when browser/tab is closed
 sessionStorage.setItem("userid", "734824643");
 console.log(sessionStorage.getItem("userid")); // "734824643"
 sessionStorage.removeItem("userid");`}
-      </SyntaxHighlighter>
+      </CodeBlock>
 
       <h2>2. Fetch API</h2>
       <p>Fetch is used to make HTTP requests to servers and returns a Promise.</p>
-      <SyntaxHighlighter language="javascript" style={atomDark}>
+      <CodeBlock language="javascript" style={atomDark}>
         {`const getData = async () => {
   try {
     const response = await fetch('https://jsonplaceholder.typicode.com/users');
@@ -49,11 +49,11 @@ sessionStorage.removeItem("userid");`}
 };
 
 getData();`}
-      </SyntaxHighlighter>
+      </CodeBlock>
 
       <h2>3. Geolocation API</h2>
       <p>Get user’s geographic location if allowed.</p>
-      <SyntaxHighlighter language="javascript" style={atomDark}>
+      <CodeBlock language="javascript" style={atomDark}>
         {`if ("geolocation" in navigator) {
   navigator.geolocation.getCurrentPosition((position) => {
     console.log("Latitude:", position.coords.latitude);
@@ -62,11 +62,11 @@ getData();`}
 } else {
   console.log("Geolocation not supported");
 }`}
-      </SyntaxHighlighter>
+      </CodeBlock>
 
       <h2>4. Notification API</h2>
       <p>Send system-level notifications to the user.</p>
-      <SyntaxHighlighter language="javascript" style={atomDark}>
+      <CodeBlock language="javascript" style={atomDark}>
         {`if (window.Notification.permission === "granted") {
   new Notification("Hello, Guddu!");
 } else if (Notification.permission !== "denied") {
@@ -76,11 +76,11 @@ getData();`}
     }
   });
 }`}
-      </SyntaxHighlighter>
+      </CodeBlock>
 
       <h2>5. Cookie API (via document.cookie)</h2>
       <p>Store small pieces of data sent with each HTTP request.</p>
-      <SyntaxHighlighter language="javascript" style={atomDark}>
+      <CodeBlock language="javascript" style={atomDark}>
         {`// Set a cookie
 document.cookie = "username=Guddu; expires=Fri, 31 Dec 2025 23:59:59 GMT";
 
@@ -89,7 +89,7 @@ console.log(document.cookie); // Shows all cookies
 
 // Delete cookie (set past expiry date)
 document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 GMT";`}
-      </SyntaxHighlighter>
+      </CodeBlock>
 
       <h2>🔍 Difference Between Web APIs</h2>
       <li className="faq-item">

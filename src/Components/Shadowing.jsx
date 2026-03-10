@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function Shadowing() {
@@ -19,7 +19,7 @@ function Shadowing() {
 
       <h2>Example Code:</h2>
       
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// Shadowing Example
 var x = 50;
 
@@ -30,39 +30,39 @@ function myFunc(){
 
 myFunc();
 console.log(x); // Output: 50`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       
 
       <h2>Explanation:</h2>
       <ul>
         <li>
-          In the example above, there is a global variable <SyntaxHighlighter language="javascript" style={atomDark}>x</SyntaxHighlighter> initialized to <SyntaxHighlighter language="javascript" style={atomDark}>50</SyntaxHighlighter>.
+          In the example above, there is a global variable <CodeBlock language="javascript" style={atomDark}>x</CodeBlock> initialized to <CodeBlock language="javascript" style={atomDark}>50</CodeBlock>.
         </li>
         <li>
-          Inside the function myFunc(), a local variable <SyntaxHighlighter language="javascript" style={atomDark}>x</SyntaxHighlighter> is declared with a value of <SyntaxHighlighter language="javascript" style={atomDark}>20</SyntaxHighlighter>, shadowing the global <SyntaxHighlighter language="javascript" style={atomDark}>x</SyntaxHighlighter>.
+          Inside the function myFunc(), a local variable <CodeBlock language="javascript" style={atomDark}>x</CodeBlock> is declared with a value of <CodeBlock language="javascript" style={atomDark}>20</CodeBlock>, shadowing the global <CodeBlock language="javascript" style={atomDark}>x</CodeBlock>.
         </li>
         <li>
-          When console.log(x) myFunc(), it logs the local <SyntaxHighlighter language="javascript" style={atomDark}>x</SyntaxHighlighter> value of <SyntaxHighlighter language="javascript" style={atomDark}>20</SyntaxHighlighter>, not the global one.
+          When console.log(x) myFunc(), it logs the local <CodeBlock language="javascript" style={atomDark}>x</CodeBlock> value of <CodeBlock language="javascript" style={atomDark}>20</CodeBlock>, not the global one.
         </li>
       </ul>
 
       <h2>Illegal Shadowing:</h2>
       <p>
-        JavaScript disallows certain types of shadowing when the variable declarations use incompatible keywords within the same scope. This results in a <SyntaxHighlighter language="javascript" style={atomDark}>SyntaxError</SyntaxHighlighter>.
+        JavaScript disallows certain types of shadowing when the variable declarations use incompatible keywords within the same scope. This results in a <CodeBlock language="javascript" style={atomDark}>SyntaxError</CodeBlock>.
       </p>
 
-      <h3>Example 1: Illegal Shadowing with <SyntaxHighlighter language="javascript" style={atomDark}>var</SyntaxHighlighter> and <SyntaxHighlighter language="javascript" style={atomDark}>let</SyntaxHighlighter></h3>
+      <h3>Example 1: Illegal Shadowing with <CodeBlock language="javascript" style={atomDark}>var</CodeBlock> and <CodeBlock language="javascript" style={atomDark}>let</CodeBlock></h3>
       
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`// var x = 50;
 // let x = 20; // SyntaxError: Identifier 'x' has already been declared`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       
-      <p>This results in a <SyntaxHighlighter language="javascript" style={atomDark}>SyntaxError</SyntaxHighlighter> because <SyntaxHighlighter language="javascript" style={atomDark}>x</SyntaxHighlighter> is being redeclared with <SyntaxHighlighter language="javascript" style={atomDark}>let</SyntaxHighlighter> in the same scope where it was previously declared with <SyntaxHighlighter language="javascript" style={atomDark}>var</SyntaxHighlighter>.</p>
+      <p>This results in a <CodeBlock language="javascript" style={atomDark}>SyntaxError</CodeBlock> because <CodeBlock language="javascript" style={atomDark}>x</CodeBlock> is being redeclared with <CodeBlock language="javascript" style={atomDark}>let</CodeBlock> in the same scope where it was previously declared with <CodeBlock language="javascript" style={atomDark}>var</CodeBlock>.</p>
 
-      <h3>Example 2: Legal Shadowing with <SyntaxHighlighter language="javascript" style={atomDark}>var</SyntaxHighlighter> and <SyntaxHighlighter language="javascript" style={atomDark}>let</SyntaxHighlighter></h3>
+      <h3>Example 2: Legal Shadowing with <CodeBlock language="javascript" style={atomDark}>var</CodeBlock> and <CodeBlock language="javascript" style={atomDark}>let</CodeBlock></h3>
       
-        <SyntaxHighlighter language="javascript" style={atomDark}>
+        <CodeBlock language="javascript" style={atomDark}>
           {`var y = 40;
 
 function myFunc() {
@@ -72,22 +72,22 @@ function myFunc() {
 
 myFunc();
 console.log(y); // Output: 40`}
-        </SyntaxHighlighter>
+        </CodeBlock>
       
       <p>
-        In this case, <SyntaxHighlighter language="javascript" style={atomDark}>y</SyntaxHighlighter> is declared using <SyntaxHighlighter language="javascript" style={atomDark}>var</SyntaxHighlighter> globally and <SyntaxHighlighter language="javascript" style={atomDark}>let</SyntaxHighlighter> inside the function. This is valid because <SyntaxHighlighter language="javascript" style={atomDark}>let</SyntaxHighlighter> creates a block-scoped variable that doesn't interfere with the outer <SyntaxHighlighter language="javascript" style={atomDark}>y</SyntaxHighlighter>.
+        In this case, <CodeBlock language="javascript" style={atomDark}>y</CodeBlock> is declared using <CodeBlock language="javascript" style={atomDark}>var</CodeBlock> globally and <CodeBlock language="javascript" style={atomDark}>let</CodeBlock> inside the function. This is valid because <CodeBlock language="javascript" style={atomDark}>let</CodeBlock> creates a block-scoped variable that doesn't interfere with the outer <CodeBlock language="javascript" style={atomDark}>y</CodeBlock>.
       </p>
 
       <h2>Key Points:</h2>
       <ul>
         <li>
-          Shadowing is allowed, but care must be taken to avoid illegal redeclarations (e.g., mixing <SyntaxHighlighter language="javascript" style={atomDark}>var</SyntaxHighlighter> and <SyntaxHighlighter language="javascript" style={atomDark}>let</SyntaxHighlighter> in the same scope).
+          Shadowing is allowed, but care must be taken to avoid illegal redeclarations (e.g., mixing <CodeBlock language="javascript" style={atomDark}>var</CodeBlock> and <CodeBlock language="javascript" style={atomDark}>let</CodeBlock> in the same scope).
         </li>
         <li>
           Function and block-level scoping play a crucial role in how shadowing behaves.
         </li>
         <li>
-          Illegal shadowing typically results in a <SyntaxHighlighter language="javascript" style={atomDark}>SyntaxError</SyntaxHighlighter>, especially when using <SyntaxHighlighter language="javascript" style={atomDark}>let</SyntaxHighlighter> and <SyntaxHighlighter language="javascript" style={atomDark}>const</SyntaxHighlighter>.
+          Illegal shadowing typically results in a <CodeBlock language="javascript" style={atomDark}>SyntaxError</CodeBlock>, especially when using <CodeBlock language="javascript" style={atomDark}>let</CodeBlock> and <CodeBlock language="javascript" style={atomDark}>const</CodeBlock>.
         </li>
       </ul>
     </div>
