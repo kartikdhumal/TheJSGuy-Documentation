@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import '../styles/debouncing.css';
 
 function OperatingSystem() {
+    useEffect(() => {
+        const hash = window.location.hash;
+        if (hash) {
+            const el = document.querySelector(hash);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            window.scrollTo(0, 0);
+        }
+    }, []);
+
     return (
         <div className='debounce-container'>
             <h1 className="section-title">Operating System</h1>
 
-            <div className="faq-item">
+            <div id="process-and-thread" className="faq-item">
                 <h3 className="faq-question">What is the difference between a process and a thread?</h3>
                 <p className="faq-answer">
                     <div>
@@ -16,7 +26,7 @@ function OperatingSystem() {
                 </p>
             </div>
 
-            <div className="faq-item">
+            <div id="process-states" className="faq-item">
                 <h3 className="faq-question">What are the different states of a process?</h3>
                 <p className="faq-answer">
                     <div>
@@ -29,7 +39,7 @@ function OperatingSystem() {
                 </p>
             </div>
 
-            <div className="faq-item">
+            <div id="context-switching" className="faq-item">
                 <h3 className="faq-question">What is context switching?</h3>
                 <p className="faq-answer">
                     <div>
@@ -38,7 +48,7 @@ function OperatingSystem() {
                 </p>
             </div>
 
-            <div className="faq-item">
+            <div id="scheduling" className="faq-item">
                 <h3 className="faq-question">Explain scheduling algorithms.</h3>
                 <p className="faq-answer">
                     <div>
@@ -51,7 +61,7 @@ function OperatingSystem() {
                 </p>
             </div>
 
-            <div className="faq-item">
+            <div id="deadlock" className="faq-item">
                 <h3 className="faq-question">What is deadlock and how can it be prevented?</h3>
                 <p className="faq-answer">
                     <div>
@@ -67,7 +77,7 @@ function OperatingSystem() {
                 </p>
             </div>
 
-            <div className="faq-item">
+            <div id="memory-management" className="faq-item">
                 <h3 className="faq-question">Explain memory management techniques.</h3>
                 <p className="faq-answer">
                     <div>
@@ -79,7 +89,7 @@ function OperatingSystem() {
                 </p>
             </div>
 
-            <div className="faq-item">
+            <div id="synchronization" className="faq-item">
                 <h3 className="faq-question">What are semaphores and mutexes?</h3>
                 <p className="faq-answer">
                     <div>
@@ -89,7 +99,7 @@ function OperatingSystem() {
                 </p>
             </div>
 
-            <div className="faq-item">
+            <div id="file-systems" className="faq-item">
                 <h3 className="faq-question">Explain types of file systems.</h3>
                 <p className="faq-answer">
                     <div>
@@ -99,7 +109,7 @@ function OperatingSystem() {
                 </p>
             </div>
 
-            <div className="faq-item">
+            <div id="io-management" className="faq-item">
                 <h3 className="faq-question">Explain I/O management and scheduling.</h3>
                 <p className="faq-answer">
                     <div>
@@ -109,7 +119,7 @@ function OperatingSystem() {
                 </p>
             </div>
 
-            <div className="faq-item">
+            <div id="practical-examples" className="faq-item">
                 <h3 className="faq-question">Practical OS interview examples</h3>
                 <p className="faq-answer">
                     <div>

@@ -1,13 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import '../styles/debouncing.css';
 
 function Networking() {
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const el = document.querySelector(hash);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
   return (
     <div className='debounce-container'>
       {/* Networking Section */}
-      <h1 className="section-title">Networking</h1>
+      <h1 id="overview" className="section-title">Networking</h1>
 
-      <div className="faq-item">
+      <div id="osi-model" className="faq-item">
         <h3 className="faq-question">What are the layers of the OSI model?</h3>
         <p className="faq-answer">
           The OSI model consists of seven layers:
@@ -23,7 +33,7 @@ function Networking() {
         </p>
       </div>
 
-      <div>
+      <div id="protocols">
         <h2>What are different networking protocols and their definitions?</h2>
         <li className="faq-item">
           <h3 className="faq-question">1. What is HTTP (HyperText Transfer Protocol)?</h3>
@@ -136,7 +146,7 @@ function Networking() {
       </div>
 
 
-      <div className="faq-item">
+      <div id="subnetting" className="faq-item">
         <h3 className="faq-question">What is subnetting?</h3>
         <p className="faq-answer">
           Subnetting is the practice of dividing a network into smaller logical subnetworks (subnets). It improves network performance and security by reducing broadcast domains and organizing the network structure.

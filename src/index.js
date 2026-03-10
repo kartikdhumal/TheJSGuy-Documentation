@@ -14,7 +14,6 @@ import DOM from './Components/DOM';
 import HooksFAQ from './Components/Hooks';
 import ReactRouter from './Components/ReactRouter';
 import PropsDrilling from './Components/PropsDrilling';
-import ReactRedux from './Components/ReactRedux';
 import ContextAPI from './Components/ContextAPI';
 import TemplateLiteral from './Components/TemplateLiteral';
 import Testing from './Components/Testing';
@@ -46,12 +45,24 @@ import Promises from './Components/Promises';
 import ScopeChain from './Components/ScopeChain';
 import Shadowing from './Components/Shadowing';
 import StringMethods from './Components/StringMethods';
+import StringCoercion from './Components/StringCoercion';
 import ThisKeywords from './Components/ThisKeywords';
 import Variables from './Components/Variables';
 import WebAPIs from './Components/WebAPIs';
 import DataStrcture from './Components/DataStrcture';
 import MongoDB from './Components/MongoDB';
-import DSA from './Components/DSA';
+import DSABasics from './Components/DSABasics';
+import DSABubbleSort from './Components/DSABubbleSort';
+import DSASelectionSort from './Components/DSASelectionSort';
+import DSAInsertionSort from './Components/DSAInsertionSort';
+import DSAQuickSort from './Components/DSAQuickSort';
+import DSAMergeSort from './Components/DSAMergeSort';
+import DSAStack from './Components/DSAStack';
+import DSAQueue from './Components/DSAQueue';
+import DSALinkedList from './Components/DSALinkedList';
+import DSADoublyLinkedList from './Components/DSADoublyLinkedList';
+import DSATree from './Components/DSATree';
+import DSAGraph from './Components/DSAGraph';
 import NodeIntroduction from './Components/NodeJS/Introduction';
 import NodeModules from './Components/NodeJS/Modules';
 import NodeFileSystem from './Components/NodeJS/FileSystem';
@@ -62,14 +73,74 @@ import NodeMongoDB from './Components/NodeJS/MongoDB';
 import NodeAuth from './Components/NodeJS/Authentication';
 import NodeAPIs from './Components/NodeJS/RestAPI';
 import NodeDeployment from './Components/NodeJS/Deployment';
+import NodeEventLoop from './Components/NodeJS/EventLoop';
+import NodeBuffersStreams from './Components/NodeJS/BuffersStreams';
+import NodeHTTPModule from './Components/NodeJS/HTTPModule';
+import NodePathProcess from './Components/NodeJS/PathProcess';
+import NodeErrorHandling from './Components/NodeJS/ErrorHandling';
+import RequestResponse from './Components/NodeJS/RequestResponse';
+import ExpressErrorHandling from './Components/NodeJS/ExpressErrorHandling';
+import StaticCORS from './Components/NodeJS/StaticCORS';
+import BodyValidation from './Components/NodeJS/BodyValidation';
+import Security from './Components/NodeJS/Security';
 import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 import Debouncing from './Components/Debouncing';
+import MemoryObjectReferences from './Components/MemoryObjectReferences';
 import ErrorBoundaryInfo from './Components/ErrorBoundaryInfo';
 import PropsInfo from './Components/PropsInfo';
 import ReactBestPractises from './Components/ReactBestPractises';
 import Networking from './Components/Networking';
 import OperatingSystem from './Components/OperatingSystem';
 import IMPQueries from './Components/IMPQueries';
+import MySQLIntroduction from './Components/MySQLIntroduction';
+import MySQLBasics from './Components/MySQLBasics';
+import MySQLNormalization from './Components/MySQLNormalization';
+import MySQLACID from './Components/MySQLACID';
+import MySQLJoins from './Components/MySQLJoins';
+import MySQLQueries from './Components/MySQLQueries';
+import MySQLAggregate from './Components/MySQLAggregate';
+import MySQLIndexes from './Components/MySQLIndexes';
+
+// Redux
+import ReduxIntroduction from './Components/Redux/Introduction';
+import ReduxStore from './Components/Redux/Store';
+import ReduxActions from './Components/Redux/Actions';
+import ReduxReducers from './Components/Redux/Reducers';
+import ReduxToolkit from './Components/Redux/ReduxToolkit';
+import ReduxRTKQuery from './Components/Redux/RTKQuery';
+import ReduxMiddleware from './Components/Redux/Middleware';
+import ReduxSelectors from './Components/Redux/Selectors';
+import ReduxReact from './Components/Redux/ReactIntegration';
+import ReduxQuestions from './Components/Redux/Questions';
+
+// Next.js
+import NextJSIntroduction from './Components/NextJS/Introduction';
+import NextJSAppRouter from './Components/NextJS/AppRouter';
+import NextJSFileRouting from './Components/NextJS/FileRouting';
+import NextJSServerClientComponents from './Components/NextJS/ServerClientComponents';
+import NextJSDataFetching from './Components/NextJS/DataFetching';
+import NextJSSSGSSRISR from './Components/NextJS/SSGSSRISR';
+import NextJSDynamicRoutes from './Components/NextJS/DynamicRoutes';
+import NextJSAPIRoutes from './Components/NextJS/APIRoutes';
+import NextJSMiddleware from './Components/NextJS/Middleware';
+import NextJSImage from './Components/NextJS/Image';
+import NextJSEnv from './Components/NextJS/Env';
+import NextJSMetadata from './Components/NextJS/Metadata';
+import NextJSLoadingError from './Components/NextJS/LoadingError';
+import NextJSCaching from './Components/NextJS/Caching';
+
+// TypeScript
+import TypeScriptIntroduction from './Components/TypeScript/Introduction';
+import TypeScriptBasicTypes from './Components/TypeScript/BasicTypes';
+import TypeScriptInterfaces from './Components/TypeScript/Interfaces';
+import TypeScriptTypeAliases from './Components/TypeScript/TypeAliases';
+import TypeScriptUnionLiteral from './Components/TypeScript/UnionLiteral';
+import TypeScriptGenerics from './Components/TypeScript/Generics';
+import TypeScriptEnums from './Components/TypeScript/Enums';
+import TypeScriptTypeAssertions from './Components/TypeScript/TypeAssertions';
+import TypeScriptUtilityTypes from './Components/TypeScript/UtilityTypes';
+import TypeScriptTypeGuards from './Components/TypeScript/TypeGuards';
+import TypeScriptConfig from './Components/TypeScript/Config';
 
 const LazyLoading = lazy(() => import('./Components/LazyLoading'));
 
@@ -170,12 +241,92 @@ export const myRouter = createBrowserRouter([
     element: <Modules />,
   },
   {
-   path:'/dsa',
-   element:<DSA/>
+   path: '/dsa',
+   element: <DSABasics />,
+  },
+  {
+    path: '/dsa-basics',
+    element: <DSABasics />,
+  },
+  {
+    path: '/dsa-bubble-sort',
+    element: <DSABubbleSort />,
+  },
+  {
+    path: '/dsa-selection-sort',
+    element: <DSASelectionSort />,
+  },
+  {
+    path: '/dsa-insertion-sort',
+    element: <DSAInsertionSort />,
+  },
+  {
+    path: '/dsa-quick-sort',
+    element: <DSAQuickSort />,
+  },
+  {
+    path: '/dsa-merge-sort',
+    element: <DSAMergeSort />,
+  },
+  {
+    path: '/dsa-stack',
+    element: <DSAStack />,
+  },
+  {
+    path: '/dsa-queue',
+    element: <DSAQueue />,
+  },
+  {
+    path: '/dsa-linked-list',
+    element: <DSALinkedList />,
+  },
+  {
+    path: '/dsa-doubly-linked-list',
+    element: <DSADoublyLinkedList />,
+  },
+  {
+    path: '/dsa-tree',
+    element: <DSATree />,
+  },
+  {
+    path: '/dsa-graph',
+    element: <DSAGraph />,
   },
   {
    path:'/impqueries',
    element:<IMPQueries/>
+  },
+  {
+    path: '/mysql-introduction',
+    element: <MySQLIntroduction />,
+  },
+  {
+    path: '/mysql-basics',
+    element: <MySQLBasics />,
+  },
+  {
+    path: '/mysql-normalization',
+    element: <MySQLNormalization />,
+  },
+  {
+    path: '/mysql-acid',
+    element: <MySQLACID />,
+  },
+  {
+    path: '/mysql-joins',
+    element: <MySQLJoins />,
+  },
+  {
+    path: '/mysql-queries',
+    element: <MySQLQueries />,
+  },
+  {
+    path: '/mysql-aggregate',
+    element: <MySQLAggregate />,
+  },
+  {
+    path: '/mysql-indexes',
+    element: <MySQLIndexes />,
   },
   {
     path: '/object-methods',
@@ -204,6 +355,10 @@ export const myRouter = createBrowserRouter([
   {
     path: '/string-methods',
     element: <StringMethods />,
+  },
+  {
+    path: '/string-coercion',
+    element: <StringCoercion />,
   },
   {
     path: '/this-keyword',
@@ -257,6 +412,46 @@ export const myRouter = createBrowserRouter([
     path: '/nodejs-deployment',
     element: <NodeDeployment />,
   },
+  {
+    path: '/nodejs-eventloop',
+    element: <NodeEventLoop />,
+  },
+  {
+    path: '/nodejs-buffers-streams',
+    element: <NodeBuffersStreams />,
+  },
+  {
+    path: '/nodejs-http',
+    element: <NodeHTTPModule />,
+  },
+  {
+    path: '/nodejs-path-process',
+    element: <NodePathProcess />,
+  },
+  {
+    path: '/nodejs-error-handling',
+    element: <NodeErrorHandling />,
+  },
+  {
+    path: '/nodejs-request-response',
+    element: <RequestResponse />,
+  },
+  {
+    path: '/nodejs-express-error-handling',
+    element: <ExpressErrorHandling />,
+  },
+  {
+    path: '/nodejs-static-cors',
+    element: <StaticCORS />,
+  },
+  {
+    path: '/nodejs-body-validation',
+    element: <BodyValidation />,
+  },
+  {
+    path: '/nodejs-security',
+    element: <Security />,
+  },
   // Existing Routes
   {
     path: '/package',
@@ -292,7 +487,47 @@ export const myRouter = createBrowserRouter([
   },
   {
     path: '/redux',
-    element: <ReactRedux />,
+    element: <ReduxIntroduction />,
+  },
+  {
+    path: '/redux-introduction',
+    element: <ReduxIntroduction />,
+  },
+  {
+    path: '/redux-store',
+    element: <ReduxStore />,
+  },
+  {
+    path: '/redux-actions',
+    element: <ReduxActions />,
+  },
+  {
+    path: '/redux-reducers',
+    element: <ReduxReducers />,
+  },
+  {
+    path: '/redux-toolkit',
+    element: <ReduxToolkit />,
+  },
+  {
+    path: '/redux-rtk-query',
+    element: <ReduxRTKQuery />,
+  },
+  {
+    path: '/redux-middleware',
+    element: <ReduxMiddleware />,
+  },
+  {
+    path: '/redux-selectors',
+    element: <ReduxSelectors />,
+  },
+  {
+    path: '/redux-react',
+    element: <ReduxReact />,
+  },
+  {
+    path: '/redux-questions',
+    element: <ReduxQuestions />,
   },
   {
     path: '/testing',
@@ -314,6 +549,37 @@ export const myRouter = createBrowserRouter([
     path: '/debouncing',
     element: <Debouncing />,
   },
+  {
+    path: '/memory-object-references',
+    element: <MemoryObjectReferences />,
+  },
+  // Next.js
+  { path: '/nextjs-introduction', element: <NextJSIntroduction /> },
+  { path: '/nextjs-app-router', element: <NextJSAppRouter /> },
+  { path: '/nextjs-file-routing', element: <NextJSFileRouting /> },
+  { path: '/nextjs-server-client-components', element: <NextJSServerClientComponents /> },
+  { path: '/nextjs-data-fetching', element: <NextJSDataFetching /> },
+  { path: '/nextjs-ssg-ssr-isr', element: <NextJSSSGSSRISR /> },
+  { path: '/nextjs-dynamic-routes', element: <NextJSDynamicRoutes /> },
+  { path: '/nextjs-api-routes', element: <NextJSAPIRoutes /> },
+  { path: '/nextjs-middleware', element: <NextJSMiddleware /> },
+  { path: '/nextjs-image', element: <NextJSImage /> },
+  { path: '/nextjs-env', element: <NextJSEnv /> },
+  { path: '/nextjs-metadata', element: <NextJSMetadata /> },
+  { path: '/nextjs-loading-error', element: <NextJSLoadingError /> },
+  { path: '/nextjs-caching', element: <NextJSCaching /> },
+  // TypeScript
+  { path: '/typescript-introduction', element: <TypeScriptIntroduction /> },
+  { path: '/typescript-basic-types', element: <TypeScriptBasicTypes /> },
+  { path: '/typescript-interfaces', element: <TypeScriptInterfaces /> },
+  { path: '/typescript-type-aliases', element: <TypeScriptTypeAliases /> },
+  { path: '/typescript-union-literal', element: <TypeScriptUnionLiteral /> },
+  { path: '/typescript-generics', element: <TypeScriptGenerics /> },
+  { path: '/typescript-enums', element: <TypeScriptEnums /> },
+  { path: '/typescript-type-assertions', element: <TypeScriptTypeAssertions /> },
+  { path: '/typescript-utility-types', element: <TypeScriptUtilityTypes /> },
+  { path: '/typescript-type-guards', element: <TypeScriptTypeGuards /> },
+  { path: '/typescript-config', element: <TypeScriptConfig /> },
   {
     path: '/lazyloading',
     element: (

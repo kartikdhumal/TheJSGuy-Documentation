@@ -1,304 +1,307 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useEffect } from 'react';
 import '../styles/debouncing.css';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function Component() {
-  const [count, setCount] = useState(0);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="debounce-container">
-      <h1 className="com-title">Understanding Components in React</h1>
-
-      <h2 className="com-subtitle">What is a Component?</h2>
+      <h1 className="title">Components</h1>
       <p className="com-text">
-        A component in React is a reusable piece of the user interface. Components can be thought of as custom, reusable HTML elements that can be used to build complex interfaces out of simpler building blocks.
+        In React, a component is a reusable piece of the user interface. You can think of it as a custom building block that can receive input (props) and return what should appear on the screen (JSX). React has two main ways to write components: <strong>functional components</strong> and <strong>class components</strong>. Today, functional components with Hooks are the recommended approach.
       </p>
 
-      <h2 className="com-subtitle">Types of Components</h2>
-      <div className="com-list">
-        <div className="com-list-item">
-          Functional Components: These are JavaScript functions that return JSX. They can accept props as arguments and return a React element. Functional components are also known as stateless components because they do not manage their own state.
-          <SyntaxHighlighter language="javascript" style={atomDark}>
-            {`
-import React, { useState } from 'react';
+      {/* ========== FUNCTIONAL COMPONENTS ========== */}
+      <section className="method-section">
+        <h2 className="method-title">Functional Components</h2>
+        <p className="com-text">
+          A functional component is a plain JavaScript function that takes <code>props</code> as an argument and returns JSX (what to render). It does not use the <code>class</code> keyword or <code>this</code>. Before Hooks, functional components could not hold state or use lifecycle logic; now they can do everything class components can, using Hooks.
+        </p>
+
+        <h3 className="com-subtitle">How to Write a Functional Component</h3>
+        <SyntaxHighlighter language="javascript" style={atomDark}>
+          {`function Welcome(props) {
+  return <h1>Hello, {props.name}</h1>;
+}
+
+// Or with arrow function
+const Welcome = (props) => <h1>Hello, {props.name}</h1>;`}
+        </SyntaxHighlighter>
+
+        <h3 className="com-subtitle">State in Functional Components (useState)</h3>
+        <p className="com-text">
+          Use the <code>useState</code> hook to keep local state. It returns the current value and a function to update it. Each time you call the updater, React re-renders the component with the new state.
+        </p>
+        <SyntaxHighlighter language="javascript" style={atomDark}>
+          {`import React, { useState } from 'react';
 
 function Counter() {
-const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0);
 
-return (
-  <div>
-    <p>Count: {count}</p>
-    <button onClick={() => setCount(count + 1)}>Increment</button>
-  </div>
-);
-}
-            `}
-          </SyntaxHighlighter>
-        </div>
-        <div className="com-list-item">
-          Class Components:
-          <p>These are ES6 classes that extend from React.Component . They can manage their own state and lifecycle methods. Class components are also known as stateful components.</p>
-
-          <p>Common lifecycle methods used in class components include:</p>
-          <div>
-            <div>
-              componentDidMount: This method is called once the component has been rendered in the DOM. It is typically used for initiating network requests, subscriptions, or any other side effects.
-            </div>
-            <div>
-              componentDidUpdate: This method is called after the component has been updated. It is useful for responding to prop or state changes, such as making network requests based on the updated state.
-            </div>
-            <div>
-              componentWillUnmount: This method is called just before the component is removed from the DOM. It is typically used for cleaning up resources like timers, network requests, or subscriptions.
-            </div>
-          </div>
-
-          <SyntaxHighlighter language="javascript" style={atomDark}>
-            {`
-import React from 'react';
-
-export default class ClassCompo extends React.Component {
-constructor(props) {
-  super(props);
-  this.state = {
-    name: '',
-    age: ''
-  };
-}
-
-render() {
   return (
     <div>
-      <form>
-        <label>Name</label>
-        <input type='text' onChange={(e) => { this.setState({ name: e.target.value }) }}></input>
-        <label>Age</label>
-        <input type='number' onChange={(e) => { this.setState({ age: e.target.value }) }}></input>
-        <input type='submit' value={'Submit'} onClick={(e) => {
-          e.preventDefault();
-          console.log("Name: " + this.  state.name);
-          console.log("Age: " + this.state.age);
-        }}></input>
-      </form>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
     </div>
   );
-}
-}
-            `}
-          </SyntaxHighlighter>
-        </div>
-        <div className="com-list-item">
-          Higher-Order Components (HOCs): These are functions that take a component and return a new component. HOCs are used for reusing component logic.
-          <SyntaxHighlighter language="javascript" style={atomDark}>
+}`}
+        </SyntaxHighlighter>
 
-            {`
-import React from 'react'
+        <h3 className="com-subtitle">Lifecycle in Functional Components (useEffect)</h3>
+        <p className="com-text">
+          In class components you use lifecycle methods like <code>componentDidMount</code> and <code>componentWillUnmount</code>. In functional components you use the <code>useEffect</code> hook to run code at the right time. You can mimic mount, update, and unmount with one hook.
+        </p>
+        <ul className="com-list" style={{ listStyle: 'disc', paddingLeft: '1.5rem' }}>
+          <li><strong>Mount (after first render):</strong> Run logic in <code>useEffect</code> with an empty dependency array <code>[]</code>. This runs once when the component appears on the screen.</li>
+          <li><strong>Update (when props/state change):</strong> Put the values you care about in the dependency array. The effect runs after every render where one of those values changed.</li>
+          <li><strong>Unmount (cleanup when component is removed):</strong> Return a function from <code>useEffect</code>. React calls that function when the component is removed or before the effect runs again.</li>
+        </ul>
+        <SyntaxHighlighter language="javascript" style={atomDark}>
+          {`import React, { useEffect, useState } from 'react';
 
-function HigherOrder() {
-  return (
+function UserProfile({ userId }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Runs after first render (like componentDidMount)
+    const controller = new AbortController();
+    fetch(\`/api/users/\${userId}\`, { signal: controller.signal })
+      .then(res => res.json())
+      .then(setUser);
+
+    return () => {
+      // Cleanup when component unmounts (like componentWillUnmount)
+      controller.abort();
+    };
+  }, [userId]); // Re-run when userId changes (like componentDidUpdate)
+
+  if (!user) return <p>Loading...</p>;
+  return <p>{user.name}</p>;
+}`}
+        </SyntaxHighlighter>
+
+        <h3 className="com-subtitle">Pros and Cons of Functional Components</h3>
+        <p className="com-text"><strong>Pros:</strong> Less code, no <code>this</code>, easier to read and test. Hooks let you reuse stateful logic without class hierarchies. React team recommends them for new code. Better tree-shaking and often slightly better performance.</p>
+        <p className="com-text"><strong>Cons:</strong> You must follow the Rules of Hooks (only call Hooks at the top level, not inside loops or conditions). If you are used to classes, the mental model is different.</p>
+      </section>
+
+      {/* ========== CLASS COMPONENTS ========== */}
+      <section className="method-section">
+        <h2 className="method-title">Class Components</h2>
+        <p className="com-text">
+          A class component is an ES6 class that extends <code>React.Component</code> (or <code>React.PureComponent</code>). It must have a <code>render()</code> method that returns JSX. State is held in <code>this.state</code> and updated with <code>this.setState()</code>. Lifecycle is handled by special methods like <code>componentDidMount</code> and <code>componentWillUnmount</code>.
+        </p>
+
+        <h3 className="com-subtitle">How to Write a Class Component</h3>
+        <SyntaxHighlighter language="javascript" style={atomDark}>
+          {`import React from 'react';
+
+class Welcome extends React.Component {
+  render() {
+    return <h1>Hello, {this.props.name}</h1>;
+  }
+}`}
+        </SyntaxHighlighter>
+
+        <h3 className="com-subtitle">State in Class Components</h3>
+        <p className="com-text">
+          State is a single object on <code>this.state</code>, usually set in the <code>constructor</code>. You update it with <code>{'this.setState({ key: value })'}</code>. React merges the object you pass into the existing state and re-renders.
+        </p>
+        <SyntaxHighlighter language="javascript" style={atomDark}>
+          {`class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { count: 0 };
+  }
+
+  render() {
+    return (
       <div>
-          <h1> Thank you for visiting me </h1>
+        <p>Count: {this.state.count}</p>
+        <button onClick={() => this.setState({ count: this.state.count + 1 })}>
+          Increment
+        </button>
       </div>
-  )
-}
+    );
+  }
+}`}
+        </SyntaxHighlighter>
 
-export default HigherOrder
+        <h3 className="com-subtitle">Lifecycle Methods in Class Components</h3>
+        <p className="com-text">
+          Class components have well-defined phases: mounting (added to the DOM), updating (re-rendered due to props/state change), and unmounting (removed from the DOM). You hook into these with lifecycle methods.
+        </p>
 
-export const HighOrderComponent = (HigherOrder) => {
-  return (props) => (
-      <>
-         <h2>I am Higher order component</h2> 
-          <HigherOrder {...props} />
-      </>
-  )
-}
-
-export const EnhancedOrder = HighOrderComponent(HigherOrder);
-            `}
-          </SyntaxHighlighter>
+        <div className="faq-item">
+          <h4 className="faq-question">Mounting (component is being created and inserted into the DOM)</h4>
+          <ul style={{ color: '#e2e8f0', paddingLeft: '1.5rem', margin: 0 }}>
+            <li><code>constructor(props)</code> – Runs first. Use it to set initial <code>this.state</code> and bind methods. Call <code>super(props)</code> before using <code>this</code>.</li>
+            <li><code>static getDerivedStateFromProps(props, state)</code> – Runs before every render (including first). Use it to sync state with props. Rare; often you do not need it.</li>
+            <li><code>render()</code> – Returns JSX. Must be pure (no side effects).</li>
+            <li><code>componentDidMount()</code> – Runs once after the component is in the DOM. Use it for network requests, subscriptions, or DOM measurements.</li>
+          </ul>
         </div>
-        <div className="com-list-item">
-          Uncontrolled Components: These are components that maintain their own state and use refs to access the DOM.
-          <SyntaxHighlighter language="javascript" style={atomDark}>
 
-            {`
-import React, { useRef } from 'react';
-
-function UncontrolledComponent() {
-const inputRef = useRef(null);
-
-const handleSubmit = (e) => {
-  e.preventDefault();
-  alert(inputRef.current.value);
-};
-
-return (
-  <form onSubmit={handleSubmit}>
-    <input type="text" ref={inputRef} />
-    <button type="submit">Submit</button>
-  </form>
-);
-}
-
-export default UncontrolledComponent;
-            `}
-          </SyntaxHighlighter>
+        <div className="faq-item">
+          <h4 className="faq-question">Updating (props or state changed)</h4>
+          <ul style={{ color: '#e2e8f0', paddingLeft: '1.5rem', margin: 0 }}>
+            <li><code>static getDerivedStateFromProps(props, state)</code> – Same as above.</li>
+            <li><code>shouldComponentUpdate(nextProps, nextState)</code> – Return <code>false</code> to skip the render (optimization). Default is <code>true</code>.</li>
+            <li><code>render()</code> – Same as above.</li>
+            <li><code>getSnapshotBeforeUpdate(prevProps, prevState)</code> – Runs right before the DOM is updated. Return a value that is passed to <code>componentDidUpdate</code>. Used rarely (e.g. scroll position).</li>
+            <li><code>componentDidUpdate(prevProps, prevState, snapshot)</code> – Runs after the update. Use it to react to prop/state changes (e.g. refetch data when an ID changes). Be careful not to cause infinite loops with <code>setState</code>.</li>
+          </ul>
         </div>
-      </div>
 
-      <h2 className="com-subtitle">React Lifecycle Methods</h2>
-      <SyntaxHighlighter language="javascript" style={atomDark}>
+        <div className="faq-item">
+          <h4 className="faq-question">Unmounting (component is being removed)</h4>
+          <ul style={{ color: '#e2e8f0', paddingLeft: '1.5rem', margin: 0 }}>
+            <li><code>componentWillUnmount()</code> – Runs once before the component is removed. Use it to cancel network requests, clear timers, or remove event listeners.</li>
+          </ul>
+        </div>
 
-        {`
-Parent class Constructor
-Parent class Render
+        <h3 className="com-subtitle">Full Class Component Example with Lifecycle</h3>
+        <SyntaxHighlighter language="javascript" style={atomDark}>
+          {`class UserProfile extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { user: null };
+  }
 
-Child class 1 constructor 
-Child class 1 render
+  componentDidMount() {
+    fetch(\`/api/users/\${this.props.userId}\`)
+      .then(res => res.json())
+      .then(user => this.setState({ user }));
+  }
 
-Child class 2 constructor 
-Child class 2 render
+  componentDidUpdate(prevProps) {
+    if (prevProps.userId !== this.props.userId) {
+      fetch(\`/api/users/\${this.props.userId}\`)
+        .then(res => res.json())
+        .then(user => this.setState({ user }));
+    }
+  }
 
-Child class 1 ComponentDidMount
-Child class 2 ComponentDidMount
+  componentWillUnmount() {
+    // Cancel any pending requests or subscriptions
+  }
 
-Parent class ComponentDidMount
-        `}
-      </SyntaxHighlighter>
-      <div className="com-iframe">
-        <iframe
-          src="https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/"
-          title="React Lifecycle Methods Diagram"
-          width="100%"
-          height="500px"
-        />
-      </div>
+  render() {
+    if (!this.state.user) return <p>Loading...</p>;
+    return <p>{this.state.user.name}</p>;
+  }
+}`}
+        </SyntaxHighlighter>
 
-      <h2 className="com-subtitle">What are Fragments in React?</h2>
-      <p className="com-text">
-        It's a common pattern in React to return multiple elements from a component. Fragments let you group a list of children without adding extra nodes to the DOM.
-      </p>
-      <SyntaxHighlighter language="javascript" style={atomDark}>
-        {`
-<React.Fragment>
-<h1>Title</h1>
-<p>Paragraph</p>
-</React.Fragment>
-        `}
-      </SyntaxHighlighter>
-      <p className="com-text">We can also write in short:</p>
-      <SyntaxHighlighter language="javascript" style={atomDark}>
+        <h3 className="com-subtitle">Pros and Cons of Class Components</h3>
+        <p className="com-text"><strong>Pros:</strong> Familiar if you know classes. Lifecycle methods have clear names (mount, update, unmount). Error boundaries today must be class components.</p>
+        <p className="com-text"><strong>Cons:</strong> More boilerplate (<code>this</code>, <code>bind</code>, <code>super</code>). <code>this</code> can be confusing. Reusing logic often leads to HOCs or render props. React recommends functional components with Hooks for new code.</p>
+      </section>
 
-        {`
-<>
+      {/* ========== DIFFERENCES ========== */}
+      <section className="method-section">
+        <h2 className="method-title">Difference Between Functional and Class Components</h2>
+        <div className="table-wrapper">
+          <table className="comparison-table">
+            <thead>
+              <tr>
+                <th>Aspect</th>
+                <th>Functional Component</th>
+                <th>Class Component</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Syntax</strong></td>
+                <td>JavaScript function that returns JSX</td>
+                <td>ES6 class extending React.Component with a render() method</td>
+              </tr>
+              <tr>
+                <td><strong>State</strong></td>
+                <td>useState hook</td>
+                <td>this.state and this.setState()</td>
+              </tr>
+              <tr>
+                <td><strong>Lifecycle</strong></td>
+                <td>useEffect (and other hooks) for side effects and cleanup</td>
+                <td>componentDidMount, componentDidUpdate, componentWillUnmount, getDerivedStateFromProps, etc.</td>
+              </tr>
+              <tr>
+                <td><strong>Props</strong></td>
+                <td>First argument: function MyComponent(props)</td>
+                <td>this.props</td>
+              </tr>
+              <tr>
+                <td><strong>this</strong></td>
+                <td>No this; no binding needed</td>
+                <td>Uses this; often need to bind event handlers in constructor or use arrow functions</td>
+              </tr>
+              <tr>
+                <td><strong>Code size</strong></td>
+                <td>Usually shorter and simpler</td>
+                <td>More boilerplate</td>
+              </tr>
+              <tr>
+                <td><strong>React recommendation</strong></td>
+                <td>Preferred for new code</td>
+                <td>Still supported; use when you need an Error Boundary or existing codebase is class-based</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* ========== WHEN TO USE WHICH ========== */}
+      <section className="method-section">
+        <h2 className="method-title">When to Use Which?</h2>
+        <p className="com-text">
+          <strong>Use functional components with Hooks</strong> for almost all new components. They are easier to write, read, and test, and React's docs and examples focus on them. Use <strong>class components</strong> when you have to (e.g. you need <code>componentDidCatch</code> for an Error Boundary, or you are maintaining an old codebase that uses classes). You can mix both in the same project: functional components can render class components and vice versa.
+        </p>
+      </section>
+
+      {/* ========== EXTRA: JSX & FRAGMENTS ========== */}
+      <section className="method-section">
+        <h2 className="method-title">JSX and Fragments (Brief)</h2>
+        <p className="com-text">
+          <strong>JSX</strong> is a syntax that looks like HTML but is JavaScript. React compiles it to <code>React.createElement</code> calls. You can embed expressions with <code>{'{}'}</code>. Component names must start with a capital letter so React treats them as components, not HTML tags.
+        </p>
+        <p className="com-text">
+          <strong>Fragments</strong> let you return multiple elements without wrapping them in an extra DOM node. Use <code>&lt;React.Fragment&gt;</code> or the short form <code>&lt;&gt;...&lt;/&gt;</code>.
+        </p>
+        <SyntaxHighlighter language="javascript" style={atomDark}>
+          {`<>
   <h1>Title</h1>
   <p>Paragraph</p>
-</>
-    `}
-      </SyntaxHighlighter>
+</>`}
+        </SyntaxHighlighter>
+      </section>
 
-      <h2 className="com-subtitle">JSX and Its Importance</h2>
-      <p className="com-text">
-        JSX stands for JavaScript XML. It is a syntax extension for JavaScript, used with React to describe what the UI should look like. JSX may look like HTML, but it is transformed into JavaScript function calls by Babel.
-      </p>
-      <p className="com-text">
-        Importance of JSX:
-        <div className="com-list">
-          <div className="com-list-item">
-            Declarative Syntax:
-            <p className="faq-answer">JSX provides a clear and expressive syntax for defining UI components, making the code more readable and maintainable.</p>
-          </div>
-          <div className="com-list-item">
-            Integration with JavaScript:
-            <p className="faq-answer">Since JSX is a syntactic sugar for React.createElement, it integrates seamlessly with JavaScript, allowing you to embed JavaScript expressions within the markup.</p>
-          </div>
-          <div className="com-list-item">
-            Prevents Injection Attacks:
-            <p className="faq-answer">JSX automatically escapes any values embedded in the markup, preventing cross-site scripting (XSS) attacks.</p>
-          </div>
-          <div className="com-list-item">
-            Tooling Support:
-            <p className="faq-answer">Tools like Babel can transform JSX into optimized JavaScript code, allowing you to use the latest features of JavaScript and React.</p>
-          </div>
-        </div>
-
-      </p>
-      <h2 className="com-subtitle">Interview Questions</h2>
-      <ol className="com-list">
+      {/* ========== INTERVIEW-STYLE Q&A ========== */}
+      <section className="method-section">
+        <h2 className="method-title">Quick Recap (Interview Style)</h2>
         <div className="faq-item">
-          <h6>What is JSX, and why is it used in React?</h6>
+          <h4 className="faq-question">What is the difference between functional and class components?</h4>
           <p className="faq-answer">
-            JSX stands for JavaScript XML. It is a syntax extension for JavaScript used in React to describe UI elements.
-            JSX makes the code more readable and maintainable by providing a declarative syntax for defining UI components.
-            It integrates seamlessly with JavaScript and prevents injection attacks by automatically escaping values embedded in the markup.
+            Functional components are functions that return JSX; they use Hooks (useState, useEffect) for state and lifecycle. Class components are classes that extend React.Component, use this.state and this.setState, and lifecycle methods like componentDidMount and componentWillUnmount. React recommends functional components for new code.
           </p>
         </div>
-
         <div className="faq-item">
-          <h6>What is the difference between functional and class components?</h6>
+          <h4 className="faq-question">How do you mimic componentDidMount in a functional component?</h4>
           <p className="faq-answer">
-            Functional components are JavaScript functions that return JSX. They are simpler and don't have their own state or lifecycle methods.
-            Class components are ES6 classes that extend React.Component. They can manage their own state and have lifecycle methods.
+            Use useEffect with an empty dependency array: <code>{'useEffect(() => { /* run once */ }, [])'}</code>. The function runs once after the first render, similar to componentDidMount.
           </p>
         </div>
-
         <div className="faq-item">
-          <h6>How do you define a state in a functional component?</h6>
+          <h4 className="faq-question">How do you mimic componentWillUnmount in a functional component?</h4>
           <p className="faq-answer">
-            You can define a state in a functional component using the useState hook provided by React.
-            For example, const [count, setCount] = useState(0) initializes a state variable called count with an initial value of 0,
-            and setCount is a function used to update the count state.
+            Return a cleanup function from useEffect. React calls it when the component unmounts or before the effect runs again. Example: <code>{'useEffect(() => { const id = setInterval(...); return () => clearInterval(id); }, [])'}</code>.
           </p>
         </div>
-
-        <div className="faq-item">
-          <h6>Explain the useState hook and its purpose.</h6>
-          <p className="faq-answer">
-            The useState hook is a built-in React hook that allows functional components to manage state.
-            It takes an initial state value as an argument and returns an array containing the current state value and a function to update that state.
-            It enables functional components to have local state without using class components.
-          </p>
-        </div>
-
-        <div className="faq-item">
-          <h6>What are props in React, and how do you pass them to components?</h6>
-          <p className="faq-answer">
-            Props (short for properties) are a way to pass data from parent to child components in React.
-            They are read-only and help make components reusable and customizable.
-            Props are passed as attributes to components in JSX. For example, &lt;MyComponent name='John' /&gt; passes a prop called name with the value 'John' to the MyComponent component.
-          </p>
-        </div>
-
-        <div className="faq-item">
-          <h6>Can you explain the concept of lifting state up in React?</h6>
-          <p className="faq-answer">
-            Lifting state up is a pattern in React where you move the state from a child component to its parent component.
-            This allows multiple child components to share the same state and synchronize their state with each other through their parent component.
-            It helps maintain a single source of truth for the shared state.
-          </p>
-        </div>
-
-        <div className="faq-item">
-          <h6>What are the lifecycle methods of a class component?</h6>
-          <p className="faq-answer">
-            Class components in React have several lifecycle methods, including componentDidMount, componentDidUpdate, and componentWillUnmount.
-            These methods allow you to perform actions at different stages of a component's lifecycle,
-            such as initializing state, fetching data, and cleaning up resources.
-          </p>
-        </div>
-
-        <div className="faq-item">
-          <h6>How do you handle events in React?</h6>
-          <p className="faq-answer">
-            In React, you can handle events using JSX syntax similar to HTML.
-            You pass a function as the event handler to the onEvent attribute of the JSX element.
-            For example, &lt;button onClick={`handleClick`}&gt;Click me&lt;/button&gt; attaches a click event handler to the button,
-            calling the handleClick function when clicked.
-          </p>
-        </div>
-      </ol>
-
-
+      </section>
     </div>
   );
 }
