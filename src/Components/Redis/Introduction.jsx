@@ -15,11 +15,13 @@ function RedisIntroduction() {
 
       <section className="method-section">
         <h2 className="method-title">Why is Redis so fast?</h2>
+        <ol className="com-list">
+          <li className="com-list-item">The data is in RAM. Redis does not have to read the disk for every request.</li>
+          <li className="com-list-item">Commands run on one main thread. So there are no locks, and no time is lost switching between threads.</li>
+          <li className="com-list-item">It uses an event loop that never sits and waits (the same idea as Node.js). One thread can serve thousands of clients.</li>
+          <li className="com-list-item">Its data structures (hash tables, skip lists, compact lists) are built so most commands take O(1) or O(log n) time. In simple words: they stay fast even when you have lots of data.</li>
+        </ol>
         <p className="com-text">
-          1. The data is in RAM. Redis does not have to read the disk for every request.
-          <br />2. Commands run on one main thread. So there are no locks, and no time is lost switching between threads.
-          <br />3. It uses an event loop that never sits and waits (the same idea as Node.js). One thread can serve thousands of clients.
-          <br />4. Its data structures (hash tables, skip lists, compact lists) are built so most commands take O(1) or O(log n) time. In simple words: they stay fast even when you have lots of data.
           Since Redis 6, extra threads can help with reading and writing network data. But the commands themselves still run one by one on the main thread.
         </p>
       </section>

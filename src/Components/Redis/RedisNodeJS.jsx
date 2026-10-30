@@ -92,14 +92,14 @@ export class ProductsService {
 
       <section className="method-section">
         <h2 className="method-title">Good habits for production</h2>
-        <p className="com-text">
-          1. Never use KEYS * in production. It looks at every key, and Redis is stuck until it finishes. Use SCAN instead. It goes through keys in small batches.
-          <br />2. Always set a TTL on cache keys. Also set maxmemory with a good eviction policy (the rule for what to delete when memory is full).
-          <br />3. Avoid big keys, like a hash with millions of fields or a 50 MB string. Reading or deleting them blocks Redis. For big keys, use UNLINK instead of DEL (it frees the memory in the background).
-          <br />4. Keep Redis safe: set a password (or ACL users), never open port 6379 to the internet, and use TLS for remote connections.
-          <br />5. Plan for Redis being down. For a cache, read from the database instead of crashing.
-          <br />6. Keep an eye on memory (INFO memory), slow commands (SLOWLOG GET) and hit rate (how often the cache had the answer).
-        </p>
+        <ol className="com-list">
+          <li className="com-list-item">Never use KEYS * in production. It looks at every key, and Redis is stuck until it finishes. Use SCAN instead. It goes through keys in small batches.</li>
+          <li className="com-list-item">Always set a TTL on cache keys. Also set maxmemory with a good eviction policy (the rule for what to delete when memory is full).</li>
+          <li className="com-list-item">Avoid big keys, like a hash with millions of fields or a 50 MB string. Reading or deleting them blocks Redis. For big keys, use UNLINK instead of DEL (it frees the memory in the background).</li>
+          <li className="com-list-item"><strong>Keep Redis safe:</strong> set a password (or ACL users), never open port 6379 to the internet, and use TLS for remote connections.</li>
+          <li className="com-list-item">Plan for Redis being down. For a cache, read from the database instead of crashing.</li>
+          <li className="com-list-item">Keep an eye on memory (INFO memory), slow commands (SLOWLOG GET) and hit rate (how often the cache had the answer).</li>
+        </ol>
         <CodeBlock language="javascript" style={atomDark}>
           {`// SCAN instead of KEYS: delete all cache keys safely in batches
 const stream = redis.scanStream({ match: 'cache:*', count: 100 });

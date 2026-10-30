@@ -33,13 +33,13 @@ Response`}
 
       <section className="method-section">
         <h2 className="method-title">One job per layer</h2>
-        <p className="com-text">
-          1. Middleware: basic work on the raw request. It doesn't need to know which handler (route method) will run. For example: logging, request id, reading cookies, helmet.
-          <br />2. Guard: asks "is this request allowed in?" and answers true or false. Used for login checks, roles and permissions. It runs after middleware because, by then, Nest knows the exact handler and its metadata (the extra info from decorators).
-          <br />3. Interceptor: wraps around the handler. It can run code before and after it. For example: changing the response, timing, caching, timeouts.
-          <br />4. Pipe: checks and cleans the input. For example: DTO validation, or turning the string "5" into the number 5.
-          <br />5. Exception Filter: catches errors and builds the error response.
-        </p>
+        <ol className="com-list">
+          <li className="com-list-item"><strong>Middleware:</strong> basic work on the raw request. It doesn't need to know which handler (route method) will run. For example: logging, request id, reading cookies, helmet.</li>
+          <li className="com-list-item"><strong>Guard:</strong> asks "is this request allowed in?" and answers true or false. Used for login checks, roles and permissions. It runs after middleware because, by then, Nest knows the exact handler and its metadata (the extra info from decorators).</li>
+          <li className="com-list-item"><strong>Interceptor:</strong> wraps around the handler. It can run code before and after it. For example: changing the response, timing, caching, timeouts.</li>
+          <li className="com-list-item"><strong>Pipe:</strong> checks and cleans the input. For example: DTO validation, or turning the string "5" into the number 5.</li>
+          <li className="com-list-item"><strong>Exception Filter:</strong> catches errors and builds the error response.</li>
+        </ol>
       </section>
 
       <section className="method-section">

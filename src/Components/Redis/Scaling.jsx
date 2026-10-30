@@ -11,9 +11,13 @@ function RedisScaling() {
       <h1 className="title">Replication, Sentinel &amp; Cluster</h1>
       <p className="com-text">
         One Redis server has two limits:
-          <br />1. If it dies, everything stops. (This is about availability.)
-          <br />2. It can only hold as much data as its RAM. (This is about capacity.)
-          Replication and Sentinel fix the first problem. Cluster fixes the second.
+      </p>
+      <ol className="com-list">
+        <li className="com-list-item">If it dies, everything stops. (This is about availability.)</li>
+        <li className="com-list-item">It can only hold as much data as its RAM. (This is about capacity.)</li>
+      </ol>
+      <p className="com-text">
+        Replication and Sentinel fix the first problem. Cluster fixes the second.
       </p>
 
       <section className="method-section">

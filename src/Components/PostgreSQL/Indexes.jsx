@@ -95,15 +95,15 @@ SELECT * FROM orders WHERE customer_id = 5;
 
       <section className="method-section">
         <h2 className="method-title">Simple performance tips</h2>
-        <p className="com-text">
-          1. Do not use SELECT * in app code, pick the columns you need.
-          <br />2. Index columns used in WHERE, JOIN and ORDER BY.
-          <br />3. A function on a column (WHERE LOWER(email) = ...) skips a normal index; use an expression index.
-          <br />4. LIKE '%abc' (starting with %) cannot use a B-tree index; use pg_trgm or full-text search.
-          <br />5. For deep pagination, use keyset pagination (WHERE id &gt; last_id LIMIT 20) instead of a big OFFSET.
-          <br />6. Use a connection pool (pg Pool or PgBouncer); opening a new connection each time is slow.
-          <br />7. Run ANALYZE after big data changes so the planner has fresh statistics.
-        </p>
+        <ol className="com-list">
+          <li className="com-list-item">Do not use SELECT * in app code, pick the columns you need.</li>
+          <li className="com-list-item">Index columns used in WHERE, JOIN and ORDER BY.</li>
+          <li className="com-list-item">A function on a column (WHERE LOWER(email) = ...) skips a normal index; use an expression index.</li>
+          <li className="com-list-item">LIKE '%abc' (starting with %) cannot use a B-tree index; use pg_trgm or full-text search.</li>
+          <li className="com-list-item">For deep pagination, use keyset pagination (WHERE id &gt; last_id LIMIT 20) instead of a big OFFSET.</li>
+          <li className="com-list-item">Use a connection pool (pg Pool or PgBouncer); opening a new connection each time is slow.</li>
+          <li className="com-list-item">Run ANALYZE after big data changes so the planner has fresh statistics.</li>
+        </ol>
       </section>
     </div>
   );

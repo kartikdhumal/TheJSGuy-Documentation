@@ -11,10 +11,12 @@ function RedisTransactionsLua() {
       <h1 className="title">Transactions, Pipelining &amp; Lua</h1>
       <p className="com-text">
         One Redis command is always atomic (it happens fully, and nothing can sneak in between). But real work often needs a few commands together. For example: "decrease the stock and add the item to the order". Redis gives you three tools for this:
-          <br />1. Pipelining: for speed.
-          <br />2. Transactions: to run commands together.
-          <br />3. Lua scripts: for logic that must be fully atomic.
       </p>
+      <ol className="com-list">
+        <li className="com-list-item"><strong>Pipelining:</strong> for speed.</li>
+        <li className="com-list-item"><strong>Transactions:</strong> to run commands together.</li>
+        <li className="com-list-item"><strong>Lua scripts:</strong> for logic that must be fully atomic.</li>
+      </ol>
 
       <section className="method-section">
         <h2 className="method-title">Pipelining (speed)</h2>
@@ -36,9 +38,11 @@ const results = await pipeline.exec();
         <p className="com-text">
           MULTI starts a transaction. The commands after it wait in a line. EXEC runs them all together, and nothing from other clients can run in between.
           This is not the same as a SQL transaction:
-          <br />1. There is no rollback (no undo). If one command fails while running (for example INCR on a text value), the others still run.
-          <br />2. Inside the transaction, you can't use the result of one command to decide the next one.
         </p>
+        <ol className="com-list">
+          <li className="com-list-item">There is no rollback (no undo). If one command fails while running (for example INCR on a text value), the others still run.</li>
+          <li className="com-list-item">Inside the transaction, you can't use the result of one command to decide the next one.</li>
+        </ol>
         <CodeBlock language="bash" style={atomDark}>
           {`MULTI
 DECR stock:5

@@ -36,8 +36,12 @@ function NestJSDatabase() {
         <h2 className="method-title">Entities and how tables connect</h2>
         <p className="com-text">
           An entity is just a class that stands for a table. Each property is a column. Relations are links between tables, like "one user has many orders". You write the link on both classes:
-          <br />1. @ManyToOne goes on the side that holds the foreign key column (here, each order stores its userId).
-          <br />2. @OneToMany goes on the other side (the user), so you can reach the orders from the user.
+        </p>
+        <ol className="com-list">
+          <li className="com-list-item">@ManyToOne goes on the side that holds the foreign key column (here, each order stores its userId).</li>
+          <li className="com-list-item">@OneToMany goes on the other side (the user), so you can reach the orders from the user.</li>
+        </ol>
+        <p className="com-text">
           To read and write rows, you use a repository. A repository is a helper object for one table, with ready-made methods like find, save and softDelete. You register the entity with forFeature() in its module, then ask for the repository in your service (see below).
         </p>
         <CodeBlock language="typescript" style={atomDark}>
@@ -196,9 +200,11 @@ constructor(@InjectModel(Product.name) private readonly productModel: Model<Prod
         <h2 className="method-title">Avoid the N+1 problem</h2>
         <p className="com-text">
           Say you load 50 users, then run one more query for each user's orders. That's 51 queries for one page. It's slow. Fix it in one of two ways:
-          <br />1. Load the orders in the same query (with the relations option, or a join in the query builder).
-          <br />2. Or get all the orders with one WHERE userId IN (...) query, and group them in your code.
         </p>
+        <ol className="com-list">
+          <li className="com-list-item">Load the orders in the same query (with the relations option, or a join in the query builder).</li>
+          <li className="com-list-item">Or get all the orders with one WHERE userId IN (...) query, and group them in your code.</li>
+        </ol>
       </section>
     </div>
   );

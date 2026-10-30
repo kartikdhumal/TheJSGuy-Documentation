@@ -11,9 +11,13 @@ function NestJSControllers() {
       <h1 className="title">Controllers &amp; Routing</h1>
       <p className="com-text">
         A controller takes the request in and sends the response back. Its only job is the HTTP part:
-        <br />1. Read the params, query and body.
-        <br />2. Call the service.
-        <br />3. Return the result.
+      </p>
+      <ol className="com-list">
+        <li className="com-list-item">Read the params, query and body.</li>
+        <li className="com-list-item">Call the service.</li>
+        <li className="com-list-item">Return the result.</li>
+      </ol>
+      <p className="com-text">
         Keep your main app logic out of it, that belongs in the service. Whatever you return is sent as JSON for you. If the method is async, Nest waits for the promise for you too.
       </p>
 

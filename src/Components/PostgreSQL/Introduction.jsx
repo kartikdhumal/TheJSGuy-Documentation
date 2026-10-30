@@ -15,13 +15,15 @@ function PostgreSQLIntroduction() {
 
       <section className="method-section">
         <h2 className="method-title">Why is PostgreSQL used?</h2>
+        <ol className="com-list">
+          <li className="com-list-item"><strong>Data safety:</strong> it is fully ACID, so your data does not get half-saved or lost.</li>
+          <li className="com-list-item"><strong>Strong SQL:</strong> joins, subqueries, CTEs (WITH), window functions all work very well.</li>
+          <li className="com-list-item"><strong>JSONB:</strong> you can store JSON in a column and query it fast, so you get some MongoDB-like flexibility inside a SQL database.</li>
+          <li className="com-list-item"><strong>Many readers and writers at the same time:</strong> it uses MVCC, so reads do not block writes.</li>
+          <li className="com-list-item"><strong>Extensions:</strong> PostGIS (maps and locations), pgvector (AI embeddings), pg_trgm (fuzzy search) and many more.</li>
+          <li className="com-list-item">Free and open source, with no single company owning it.</li>
+        </ol>
         <p className="com-text">
-          1. Data safety: it is fully ACID, so your data does not get half-saved or lost.
-          <br />2. Strong SQL: joins, subqueries, CTEs (WITH), window functions all work very well.
-          <br />3. JSONB: you can store JSON in a column and query it fast, so you get some MongoDB-like flexibility inside a SQL database.
-          <br />4. Many readers and writers at the same time: it uses MVCC, so reads do not block writes.
-          <br />5. Extensions: PostGIS (maps and locations), pgvector (AI embeddings), pg_trgm (fuzzy search) and many more.
-          <br />6. Free and open source, with no single company owning it.
           This is why many companies pick PostgreSQL as their main database for web apps, fintech, analytics and SaaS products.
         </p>
       </section>

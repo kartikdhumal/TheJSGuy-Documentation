@@ -114,12 +114,12 @@ BullModule.forRootAsync({
 
       <section className="method-section">
         <h2 className="method-title">Rules for secrets</h2>
-        <p className="com-text">
-          1. Never commit your .env file. Commit a .env.example with fake values instead.
-          <br />2. In production, don't ship a .env file. Set the real env variables on the platform (Docker, Kubernetes secrets, AWS Secrets Manager).
-          <br />3. Don't print the config object in your logs.
-          <br />4. Use a different secret for each environment, and change (rotate) them from time to time.
-        </p>
+        <ol className="com-list">
+          <li className="com-list-item">Never commit your .env file. Commit a .env.example with fake values instead.</li>
+          <li className="com-list-item">In production, don't ship a .env file. Set the real env variables on the platform (Docker, Kubernetes secrets, AWS Secrets Manager).</li>
+          <li className="com-list-item">Don't print the config object in your logs.</li>
+          <li className="com-list-item">Use a different secret for each environment, and change (rotate) them from time to time.</li>
+        </ol>
       </section>
     </div>
   );

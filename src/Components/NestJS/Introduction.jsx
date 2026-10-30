@@ -15,13 +15,13 @@ function NestJSIntroduction() {
 
       <section className="method-section">
         <h2 className="method-title">Why pick NestJS over plain Express?</h2>
-        <p className="com-text">
-          1. Clear structure: your code is split into modules (users, orders, auth). So even a big app stays tidy.
-          <br />2. Dependency Injection: you don't write new everywhere to make objects. Nest makes them and hands them to the classes that need them. This also makes testing easy.
-          <br />3. TypeScript first: types, decorators and DTOs are built in from the start, not added later.
-          <br />4. Lots of ready-made tools: validation, guards (auth), interceptors, config, TypeORM/Mongoose, Swagger, BullMQ, WebSockets, microservices and testing all have official packages.
-          <br />5. It is still Express underneath. So any Express middleware you already know still works.
-        </p>
+        <ol className="com-list">
+          <li className="com-list-item"><strong>Clear structure:</strong> your code is split into modules (users, orders, auth). So even a big app stays tidy.</li>
+          <li className="com-list-item"><strong>Dependency Injection:</strong> you don't write new everywhere to make objects. Nest makes them and hands them to the classes that need them. This also makes testing easy.</li>
+          <li className="com-list-item"><strong>TypeScript first:</strong> types, decorators and DTOs are built in from the start, not added later.</li>
+          <li className="com-list-item"><strong>Lots of ready-made tools:</strong> validation, guards (auth), interceptors, config, TypeORM/Mongoose, Swagger, BullMQ, WebSockets, microservices and testing all have official packages.</li>
+          <li className="com-list-item">It is still Express underneath. So any Express middleware you already know still works.</li>
+        </ol>
       </section>
 
       <section className="method-section">

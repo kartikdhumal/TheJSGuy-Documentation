@@ -17,9 +17,13 @@ function NestJSInterceptors() {
         <h2 className="method-title">How it works</h2>
         <p className="com-text">
           Everything happens inside intercept(context, next):
-          <br />1. Code you write before next.handle() runs before the controller.
-          <br />2. next.handle() calls the handler and gives you its result as an Observable.
-          <br />3. Operators inside .pipe() (map, tap, catchError, timeout) run after the handler.
+        </p>
+        <ol className="com-list">
+          <li className="com-list-item">Code you write before next.handle() runs before the controller.</li>
+          <li className="com-list-item">next.handle() calls the handler and gives you its result as an Observable.</li>
+          <li className="com-list-item">Operators inside .pipe() (map, tap, catchError, timeout) run after the handler.</li>
+        </ol>
+        <p className="com-text">
           If you never call next.handle(), the handler doesn't run at all. That is exactly how caching works.
         </p>
         <CodeBlock language="typescript" style={atomDark}>

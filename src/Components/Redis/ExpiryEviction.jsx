@@ -11,9 +11,11 @@ function RedisExpiryEviction() {
       <h1 className="title">Expiry (TTL) &amp; Eviction</h1>
       <p className="com-text">
         RAM is limited. So Redis gives you two ways to remove data:
-          <br />1. Expiry: you decide that a key should disappear after some time.
-          <br />2. Eviction: Redis itself deletes keys when memory is full.
       </p>
+      <ol className="com-list">
+        <li className="com-list-item"><strong>Expiry:</strong> you decide that a key should disappear after some time.</li>
+        <li className="com-list-item"><strong>Eviction:</strong> Redis itself deletes keys when memory is full.</li>
+      </ol>
 
       <section className="method-section">
         <h2 className="method-title">TTL (Time To Live)</h2>

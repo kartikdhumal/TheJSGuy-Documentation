@@ -11,8 +11,12 @@ function NestJSPipesValidation() {
       <h1 className="title">Pipes, DTOs &amp; Validation</h1>
       <p className="com-text">
         A pipe runs right before your controller method. It checks and cleans the input before it reaches you, like washing vegetables before cooking. It does one of two things:
-        <br />1. Transform: change the input, like the string "5" → the number 5.
-        <br />2. Validate: check the input, and throw 400 Bad Request if it is wrong.
+      </p>
+      <ol className="com-list">
+        <li className="com-list-item"><strong>Transform:</strong> change the input, like the string "5" → the number 5.</li>
+        <li className="com-list-item"><strong>Validate:</strong> check the input, and throw 400 Bad Request if it is wrong.</li>
+      </ol>
+      <p className="com-text">
         The pipe you will use most is ValidationPipe. It checks the request body against a DTO class.
       </p>
 
@@ -53,11 +57,11 @@ export class CreateUserDto {
 
       <section className="method-section">
         <h2 className="method-title">ValidationPipe settings for the whole app</h2>
-        <p className="com-text">
-          1. whitelist: true removes any field that has no decorator in the DTO. This stops users from sneaking in something like role: 'admin'.
-          <br />2. forbidNonWhitelisted: true sends back a 400 error instead of quietly removing extra fields.
-          <br />3. transform: true turns the plain body into a real DTO object. It also converts types (query "10" → 10 for a number field).
-        </p>
+        <ol className="com-list">
+          <li className="com-list-item"><strong>whitelist:</strong> true removes any field that has no decorator in the DTO. This stops users from sneaking in something like role: 'admin'.</li>
+          <li className="com-list-item"><strong>forbidNonWhitelisted:</strong> true sends back a 400 error instead of quietly removing extra fields.</li>
+          <li className="com-list-item"><strong>transform:</strong> true turns the plain body into a real DTO object. It also converts types (query "10" → 10 for a number field).</li>
+        </ol>
         <CodeBlock language="typescript" style={atomDark}>
           {`app.useGlobalPipes(
   new ValidationPipe({

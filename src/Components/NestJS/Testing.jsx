@@ -11,9 +11,11 @@ function NestJSTesting() {
       <h1 className="title">Testing</h1>
       <p className="com-text">
         Testing is where dependency injection really helps. A service just asks for the things it needs. So in a test, you can hand it fakes instead of the real database or mail server. New Nest projects already come with Jest set up:
-          <br />1. Unit tests (testing one class on its own) sit next to the code, in *.spec.ts files.
-          <br />2. End-to-end tests (testing the whole app, from request to response) sit in the test folder, in *.e2e-spec.ts files.
       </p>
+      <ol className="com-list">
+        <li className="com-list-item">Unit tests (testing one class on its own) sit next to the code, in *.spec.ts files.</li>
+        <li className="com-list-item">End-to-end tests (testing the whole app, from request to response) sit in the test folder, in *.e2e-spec.ts files.</li>
+      </ol>
 
       <section className="method-section">
         <h2 className="method-title">Unit test a service</h2>

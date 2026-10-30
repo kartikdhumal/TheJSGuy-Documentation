@@ -150,11 +150,13 @@ const worker = new Worker('emails', processEmail, { connection });`}
         <h2 className="method-title">BullMQ in NestJS</h2>
         <p className="com-text">
           @nestjs/bullmq lets you use BullMQ the NestJS way:
-          <br />1. Register the connection once.
-          <br />2. Register each queue.
-          <br />3. Inject the queue where you want to add jobs.
-          <br />4. Write a processor class that extends WorkerHost.
         </p>
+        <ol className="com-list">
+          <li className="com-list-item">Register the connection once.</li>
+          <li className="com-list-item">Register each queue.</li>
+          <li className="com-list-item">Inject the queue where you want to add jobs.</li>
+          <li className="com-list-item">Write a processor class that extends WorkerHost.</li>
+        </ol>
         <CodeBlock language="typescript" style={atomDark}>
           {`// app.module.ts
 BullModule.forRoot({ connection: { host: 'localhost', port: 6379 } }),

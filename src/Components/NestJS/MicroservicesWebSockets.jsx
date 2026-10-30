@@ -53,8 +53,12 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
         <h2 className="method-title">Scaling WebSockets</h2>
         <p className="com-text">
           Say you run 2 or more copies of your server. A user connected to server A won't get messages sent from server B. To fix this:
-          <br />1. Use the Socket.IO Redis adapter. All servers then share events through Redis Pub/Sub, like a group chat between the servers.
-          <br />2. Turn on sticky sessions on the load balancer, so each user keeps talking to the same server.
+        </p>
+        <ol className="com-list">
+          <li className="com-list-item">Use the Socket.IO Redis adapter. All servers then share events through Redis Pub/Sub, like a group chat between the servers.</li>
+          <li className="com-list-item">Turn on sticky sessions on the load balancer, so each user keeps talking to the same server.</li>
+        </ol>
+        <p className="com-text">
           For login, check the user in handleConnection (or in a WS guard). Verify the JWT the client sends when it first connects (the handshake).
         </p>
       </section>
@@ -74,9 +78,11 @@ progress(@Param('id') id: string): Observable<MessageEvent> {
         <h2 className="method-title">Microservices</h2>
         <p className="com-text">
           A microservice is a Nest app that listens on a transport instead of HTTP. A transport is just the road the messages travel on, like Redis, TCP or RabbitMQ. There are two ways to send messages:
-          <br />1. Request-response (@MessagePattern + client.send): the caller waits for an answer, like asking a question.
-          <br />2. Event-based (@EventPattern + client.emit): send it and move on, no answer. Like dropping a note in a letterbox.
         </p>
+        <ol className="com-list">
+          <li className="com-list-item">Request-response (@MessagePattern + client.send): the caller waits for an answer, like asking a question.</li>
+          <li className="com-list-item">Event-based (@EventPattern + client.emit): send it and move on, no answer. Like dropping a note in a letterbox.</li>
+        </ol>
         <CodeBlock language="typescript" style={atomDark}>
           {`// orders-service/main.ts
 const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {

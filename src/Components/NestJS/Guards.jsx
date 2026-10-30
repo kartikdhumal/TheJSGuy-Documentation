@@ -11,8 +11,12 @@ function NestJSGuards() {
       <h1 className="title">Guards &amp; Authorization</h1>
       <p className="com-text">
         A guard is like a security guard at the gate. It answers one question: "should this request get in and reach the handler?" It has a canActivate() method:
-        <br />1. Return true, and the request goes on.
-        <br />2. Return false, and Nest throws 403 Forbidden.
+      </p>
+      <ol className="com-list">
+        <li className="com-list-item">Return true, and the request goes on.</li>
+        <li className="com-list-item">Return false, and Nest throws 403 Forbidden.</li>
+      </ol>
+      <p className="com-text">
         You can also throw your own error, like UnauthorizedException (401). Guards are used for two things: authentication (who are you?) and authorization (are you allowed to do this?).
       </p>
 
@@ -43,8 +47,12 @@ export class InternalController {}`}
         <h2 className="method-title">Checking roles (admin, user...)</h2>
         <p className="com-text">
           The guard needs to know which roles a route needs. Here is how it finds out:
-          <br />1. We stick that info onto the route with our own decorator (made with SetMetadata or Reflector.createDecorator). This info is called metadata.
-          <br />2. Inside the guard, we read it back with Reflector (a Nest helper for reading metadata).
+        </p>
+        <ol className="com-list">
+          <li className="com-list-item">We stick that info onto the route with our own decorator (made with SetMetadata or Reflector.createDecorator). This info is called metadata.</li>
+          <li className="com-list-item">Inside the guard, we read it back with Reflector (a Nest helper for reading metadata).</li>
+        </ol>
+        <p className="com-text">
           getAllAndOverride looks at the method first, then the controller. So a route's own setting wins over its controller's setting.
         </p>
         <CodeBlock language="typescript" style={atomDark}>

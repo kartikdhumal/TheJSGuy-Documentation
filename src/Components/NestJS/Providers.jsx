@@ -47,11 +47,13 @@ export class OrdersService {
         <h2 className="method-title">Custom providers</h2>
         <p className="com-text">
           Writing providers: [UsersService] is a short way of writing {'{ provide: UsersService, useClass: UsersService }'}. The long way lets you choose exactly what gets handed over:
-          <br />1. useValue: a fixed value or object (like config, or a mock).
-          <br />2. useClass: pick which class to use (for example, a different one for each environment).
-          <br />3. useFactory: build it with a function. The function can be async and can ask for other providers.
-          <br />4. useExisting: a second name (alias) for a provider that already exists.
         </p>
+        <ol className="com-list">
+          <li className="com-list-item"><strong>useValue:</strong> a fixed value or object (like config, or a mock).</li>
+          <li className="com-list-item"><strong>useClass:</strong> pick which class to use (for example, a different one for each environment).</li>
+          <li className="com-list-item"><strong>useFactory:</strong> build it with a function. The function can be async and can ask for other providers.</li>
+          <li className="com-list-item"><strong>useExisting:</strong> a second name (alias) for a provider that already exists.</li>
+        </ol>
         <CodeBlock language="typescript" style={atomDark}>
           {`providers: [
   // useValue
@@ -102,11 +104,11 @@ constructor(@Inject(PAYMENT_GATEWAY) private readonly gateway: PaymentGateway) {
 
       <section className="method-section">
         <h2 className="method-title">Provider scopes (how many copies get made)</h2>
-        <p className="com-text">
-          1. DEFAULT (singleton): one copy for the whole app. Use this 99% of the time. It is the fastest.
-          <br />2. REQUEST: a new copy for every request. Handy for data that changes per request (tenant, current user). But it is slower. It also spreads upward: any class that asks for a request-scoped provider becomes request-scoped too.
-          <br />3. TRANSIENT: a new copy for every class that asks for it. Each class gets its own.
-        </p>
+        <ol className="com-list">
+          <li className="com-list-item">DEFAULT (singleton): one copy for the whole app. Use this 99% of the time. It is the fastest.</li>
+          <li className="com-list-item"><strong>REQUEST:</strong> a new copy for every request. Handy for data that changes per request (tenant, current user). But it is slower. It also spreads upward: any class that asks for a request-scoped provider becomes request-scoped too.</li>
+          <li className="com-list-item"><strong>TRANSIENT:</strong> a new copy for every class that asks for it. Each class gets its own.</li>
+        </ol>
         <CodeBlock language="typescript" style={atomDark}>
           {`@Injectable({ scope: Scope.REQUEST })
 export class TenantContext {
@@ -136,9 +138,13 @@ export class TenantContext {
         <h2 className="method-title">Common error: "Nest can't resolve dependencies"</h2>
         <p className="com-text">
           You will see this error a lot: "Nest can't resolve dependencies of the AuthService (?). Please make sure that the argument UsersService at index [0] is available in the AuthModule context". In plain words, Nest can't find UsersService for AuthService. It is almost always one of these three:
-          <br />1. UsersService is not in the providers of its own module.
-          <br />2. UsersModule does not export UsersService.
-          <br />3. AuthModule does not import UsersModule.
+        </p>
+        <ol className="com-list">
+          <li className="com-list-item">UsersService is not in the providers of its own module.</li>
+          <li className="com-list-item">UsersModule does not export UsersService.</li>
+          <li className="com-list-item">AuthModule does not import UsersModule.</li>
+        </ol>
+        <p className="com-text">
           If those look fine, check for a missing @Injectable(). Or a circular import that ends up as undefined.
         </p>
       </section>

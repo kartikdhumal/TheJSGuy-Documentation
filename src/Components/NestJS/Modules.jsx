@@ -15,11 +15,13 @@ function NestJSModules() {
 
       <section className="method-section">
         <h2 className="method-title">The 4 properties of @Module()</h2>
+        <ol className="com-list">
+          <li className="com-list-item"><strong>imports:</strong> other modules this module needs things from.</li>
+          <li className="com-list-item"><strong>controllers:</strong> the controllers in this module (they handle the routes).</li>
+          <li className="com-list-item"><strong>providers:</strong> the services and other classes Nest should create for this module.</li>
+          <li className="com-list-item"><strong>exports:</strong> the providers this module shares. Other modules can use them after they import this module.</li>
+        </ol>
         <p className="com-text">
-          1. imports: other modules this module needs things from.
-          <br />2. controllers: the controllers in this module (they handle the routes).
-          <br />3. providers: the services and other classes Nest should create for this module.
-          <br />4. exports: the providers this module shares. Other modules can use them after they import this module.
           By default, a provider stays private inside its own module. If you don't export it, no other module can ask for it.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
@@ -37,9 +39,11 @@ export class UsersModule {}`}
         <h2 className="method-title">Sharing a service between modules</h2>
         <p className="com-text">
           Say AuthService needs UsersService. Don't add UsersService to the providers of AuthModule. That would make a second, separate copy. Instead, do two things:
-          <br />1. Export UsersService from UsersModule.
-          <br />2. Import UsersModule in AuthModule.
         </p>
+        <ol className="com-list">
+          <li className="com-list-item">Export UsersService from UsersModule.</li>
+          <li className="com-list-item">Import UsersModule in AuthModule.</li>
+        </ol>
         <CodeBlock language="typescript" style={atomDark}>
           {`@Module({
   imports: [UsersModule],          // brings in everything UsersModule exports

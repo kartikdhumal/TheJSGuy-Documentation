@@ -47,9 +47,13 @@ await sub.psubscribe('order:*');`}
         <p className="com-text">
           A stream is a log where you can only add to the end. Each entry gets an ID based on time, like 1730107200000-0. Consumers can start reading from any point, so nothing is lost while they are offline.
           With consumer groups, several workers share the work:
-          <br />1. Each message goes to only one worker in the group.
-          <br />2. The worker must say "done" (acknowledge it with XACK).
-          <br />3. Messages that are not acknowledged stay in a Pending list, so they can be tried again.
+        </p>
+        <ol className="com-list">
+          <li className="com-list-item">Each message goes to only one worker in the group.</li>
+          <li className="com-list-item">The worker must say "done" (acknowledge it with XACK).</li>
+          <li className="com-list-item">Messages that are not acknowledged stay in a Pending list, so they can be tried again.</li>
+        </ol>
+        <p className="com-text">
           This gives "at-least-once" delivery: every message is handled at least one time. It works like a small, simple Kafka.
         </p>
         <CodeBlock language="bash" style={atomDark}>

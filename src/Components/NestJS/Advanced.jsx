@@ -38,9 +38,13 @@ remove() {}`}
         <h2 className="method-title">Lifecycle hooks</h2>
         <p className="com-text">
           Lifecycle hooks are methods that Nest calls for you at certain moments, like when the app starts or stops. You add them to your providers and modules:
-          <br />1. onModuleInit(): runs when the module's dependencies are ready. Good for filling a cache or checking a connection.
-          <br />2. onApplicationBootstrap(): runs when all modules are set up, just before the app starts listening for requests.
-          <br />3. onModuleDestroy() / beforeApplicationShutdown() / onApplicationShutdown(signal): run when the app shuts down. Good for closing connections and finishing jobs.
+        </p>
+        <ol className="com-list">
+          <li className="com-list-item">onModuleInit(): runs when the module's dependencies are ready. Good for filling a cache or checking a connection.</li>
+          <li className="com-list-item">onApplicationBootstrap(): runs when all modules are set up, just before the app starts listening for requests.</li>
+          <li className="com-list-item">onModuleDestroy() / beforeApplicationShutdown() / onApplicationShutdown(signal): run when the app shuts down. Good for closing connections and finishing jobs.</li>
+        </ol>
+        <p className="com-text">
           Watch out: the shutdown hooks only run if you call app.enableShutdownHooks() in main.ts.
         </p>
         <CodeBlock language="typescript" style={atomDark}>

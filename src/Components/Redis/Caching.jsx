@@ -15,10 +15,12 @@ function RedisCaching() {
 
       <section className="method-section">
         <h2 className="method-title">Cache-aside (lazy loading) - the one you will use most</h2>
+        <ol className="com-list">
+          <li className="com-list-item">The app looks in Redis first.</li>
+          <li className="com-list-item">If the data is there (a cache hit), return it.</li>
+          <li className="com-list-item">If not (a cache miss), read it from the database, save it in Redis with a TTL (an expiry time), and return it.</li>
+        </ol>
         <p className="com-text">
-          1. The app looks in Redis first.
-          <br />2. If the data is there (a cache hit), return it.
-          <br />3. If not (a cache miss), read it from the database, save it in Redis with a TTL (an expiry time), and return it.
           This way the cache only fills up with data that people really ask for.
         </p>
         <CodeBlock language="javascript" style={atomDark}>

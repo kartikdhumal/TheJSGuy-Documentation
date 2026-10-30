@@ -90,10 +90,12 @@ app.use(cookieParser());`}
         <p className="com-text">
           Middleware doesn't know which handler will run, or what decorators it has. So it can't check @Roles('admin') or @Public(). That is a guard's job. Middleware also can't see the data the handler returns. If you want to change the response, use an interceptor.
           Easy rule to remember:
-          <br />1. Middleware: basic work on the raw request.
-          <br />2. Guards: who is allowed in.
-          <br />3. Interceptors: wrapping around the handler.
         </p>
+        <ol className="com-list">
+          <li className="com-list-item"><strong>Middleware:</strong> basic work on the raw request.</li>
+          <li className="com-list-item"><strong>Guards:</strong> who is allowed in.</li>
+          <li className="com-list-item"><strong>Interceptors:</strong> wrapping around the handler.</li>
+        </ol>
       </section>
     </div>
   );

@@ -18,10 +18,14 @@ function BullMQIntroduction() {
         <p className="com-text">
           Without a queue, the user waits while the API sends 500 emails. And if the server restarts in the middle, the work is lost.
           With a queue:
-          <br />1. The API adds a job (it takes milliseconds) and replies "Processing started".
-          <br />2. The job is saved in Redis, so a restart does not lose it.
-          <br />3. Workers pick it up and try again if it fails.
-          <br />4. When there is more work, you just run more workers.
+        </p>
+        <ol className="com-list">
+          <li className="com-list-item">The API adds a job (it takes milliseconds) and replies "Processing started".</li>
+          <li className="com-list-item">The job is saved in Redis, so a restart does not lose it.</li>
+          <li className="com-list-item">Workers pick it up and try again if it fails.</li>
+          <li className="com-list-item">When there is more work, you just run more workers.</li>
+        </ol>
+        <p className="com-text">
           The heavy work never slows down your API.
         </p>
       </section>
@@ -89,11 +93,13 @@ worker.on('failed', (job, err) => console.error(\`Job \${job?.id} failed:\`, err
         <h2 className="method-title">Real-life example</h2>
         <p className="com-text">
           Adding a new customer in a SaaS app:
-          <br />1. The API saves the customer with status PENDING, adds a "provision" job, and replies right away.
-          <br />2. A worker creates the database, runs migrations, adds default data, and sets the status to ACTIVE.
-          <br />3. If any step fails, BullMQ tries the job again by itself, waiting a bit longer each time (exponential backoff).
-          <br />4. The frontend keeps asking for the status (or listens with SSE) to show progress.
         </p>
+        <ol className="com-list">
+          <li className="com-list-item">The API saves the customer with status PENDING, adds a "provision" job, and replies right away.</li>
+          <li className="com-list-item">A worker creates the database, runs migrations, adds default data, and sets the status to ACTIVE.</li>
+          <li className="com-list-item">If any step fails, BullMQ tries the job again by itself, waiting a bit longer each time (exponential backoff).</li>
+          <li className="com-list-item">The frontend keeps asking for the status (or listens with SSE) to show progress.</li>
+        </ol>
       </section>
     </div>
   );
