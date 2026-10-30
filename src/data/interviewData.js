@@ -304,6 +304,75 @@ const required = this.reflector.getAllAndOverride<Role[]>('roles', [ctx.getHandl
     ],
   },
   {
+    title: "PostgreSQL",
+    questions: [
+      { q: "What is PostgreSQL?", a: "PostgreSQL is a free, open-source relational database. Data is stored in tables and you use SQL to work with it. It is known for being reliable (fully ACID), following the SQL standard closely, and having extra features like JSONB, arrays, full-text search, window functions and extensions." },
+      { q: "Why would you choose PostgreSQL for a project?", a: "When data has relations (users, orders, payments), when correctness matters (money, bookings), when you need complex queries and reports, or when you want SQL plus some flexible JSON data in one database. It is also free, has a big community, and every cloud gives managed PostgreSQL." },
+      { q: "Difference between PostgreSQL and MySQL", a: "Both are SQL databases with tables. PostgreSQL follows the SQL standard more strictly and has more features: JSONB with indexes, arrays, FULL OUTER JOIN, RETURNING, partial and expression indexes, better full-text search, custom types and extensions like PostGIS and pgvector. MySQL is simpler and very common for simple read-heavy web apps. For complex queries and data safety, PostgreSQL is usually preferred.", code: `-- auto increment
+MySQL:      id INT AUTO_INCREMENT PRIMARY KEY
+PostgreSQL: id SERIAL PRIMARY KEY
+
+-- upsert
+MySQL:      ON DUPLICATE KEY UPDATE qty = VALUES(qty)
+PostgreSQL: ON CONFLICT (product_id) DO UPDATE SET qty = EXCLUDED.qty` },
+      { q: "Difference between PostgreSQL and MongoDB", a: "PostgreSQL is relational: fixed tables, strong joins, foreign keys and ACID transactions. MongoDB is a NoSQL document database: each record is a JSON-like document, the shape can change freely, and sharding across servers is built in, but joins are weak. PostgreSQL with JSONB can also store flexible JSON, so it covers many cases where people used MongoDB before." },
+      { q: "What are the ACID properties?", a: "Atomicity: all queries in a transaction succeed or none do. Consistency: data always follows the rules (keys, NOT NULL, CHECK). Isolation: transactions running together do not see each other's half-done work. Durability: after COMMIT the data is safe even if the server crashes, because it is first written to the WAL (write-ahead log)." },
+      { q: "What is MVCC?", a: "Multi-Version Concurrency Control. On UPDATE, PostgreSQL does not overwrite the row; it writes a new version and marks the old one dead. Each transaction sees the version that was valid for its snapshot. So readers do not block writers and writers do not block readers. Dead rows are later cleaned by VACUUM." },
+      { q: "What is VACUUM and why is it needed?", a: "Because of MVCC, updates and deletes leave dead rows behind. VACUUM marks that space as free to reuse, and ANALYZE refreshes statistics for the planner. Autovacuum does this automatically and should stay on. VACUUM FULL rewrites the table and returns space to the disk, but it locks the table. Without vacuum, tables bloat and queries get slow." },
+      { q: "What are the isolation levels in PostgreSQL?", a: "Read Committed (default): each query sees data committed before it started. Repeatable Read: the whole transaction sees one snapshot; a conflicting update fails and must be retried. Serializable: transactions behave as if run one by one; PostgreSQL may throw a serialization error (40001) and the app retries. Read Uncommitted behaves like Read Committed in PostgreSQL, so dirty reads never happen." },
+      { q: "SERIAL vs IDENTITY vs UUID for primary keys", a: "SERIAL is the old shortcut for an auto-increment integer using a sequence. GENERATED ALWAYS AS IDENTITY is the modern SQL-standard way and is recommended for new tables. UUID (gen_random_uuid()) is a random 128-bit id: good when ids should not be guessable or are created on many servers, but bigger and a bit slower for indexes.", code: `id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY
+id UUID PRIMARY KEY DEFAULT gen_random_uuid()` },
+      { q: "JSON vs JSONB", a: "JSON stores the exact text, so inserting is fast but searching is slow. JSONB stores a binary version (no extra spaces, no duplicate keys, key order not kept), so it is much faster to query and supports GIN indexes. Use JSONB in almost all cases." },
+      { q: "How do you query a JSONB column?", a: "-> returns JSON, ->> returns text, #>> reads a nested path, @> checks if it contains some JSON, ? checks if a key exists. Add a GIN index for fast @> and ? searches.", code: `SELECT attributes->>'brand' FROM products;
+SELECT * FROM products WHERE attributes @> '{"brand": "Apple"}';
+CREATE INDEX ON products USING GIN (attributes);` },
+      { q: "What is an index and when should you NOT add one?", a: "An index is a separate structure that helps PostgreSQL find rows without reading the whole table. Do not add one on small tables, on columns you rarely filter by, or on columns with very few different values (like a boolean) unless it is a partial index. Every index slows down INSERT/UPDATE/DELETE and uses disk space." },
+      { q: "What types of indexes does PostgreSQL have?", a: "B-tree (default, for =, <, >, BETWEEN, ORDER BY), Hash (only =), GIN (JSONB, arrays, full-text search), GiST (geometry, ranges, PostGIS), SP-GiST (special tree data) and BRIN (tiny index for huge tables stored in natural order, like logs by time)." },
+      { q: "What is a partial index and an expression index?", a: "A partial index covers only rows matching a WHERE, so it is smaller and faster. An expression index stores the result of a function, so queries using that same function can use it.", code: `CREATE INDEX ON orders (created_at) WHERE status = 'pending';
+CREATE INDEX ON users (LOWER(email));` },
+      { q: "How does a composite index work?", a: "An index on (a, b) is sorted by a, then by b. It helps queries filtering on a, or on a and b together, but not on b alone (leftmost prefix rule). Put the column used with = first and the range or sort column after it." },
+      { q: "How do you find and fix a slow query?", a: "Run EXPLAIN ANALYZE to see the real plan and time. Look for Seq Scan on big tables, bad row estimates and expensive sorts. Fixes: add the right index, select fewer columns, rewrite the query, run ANALYZE to refresh statistics, use keyset pagination instead of big OFFSET. pg_stat_statements helps find the slowest queries overall." },
+      { q: "Difference between WHERE and HAVING", a: "WHERE filters single rows before GROUP BY. HAVING filters groups after GROUP BY, so it can use aggregate functions like COUNT or SUM.", code: `SELECT department, COUNT(*)
+FROM employees
+WHERE salary > 30000
+GROUP BY department
+HAVING COUNT(*) > 5;` },
+      { q: "Explain the types of JOINs.", a: "INNER JOIN: only matching rows from both tables. LEFT JOIN: all rows from the left table, NULL where the right has no match. RIGHT JOIN: the opposite. FULL OUTER JOIN: all rows from both, NULL where no match (MySQL does not support it). CROSS JOIN: every combination. SELF JOIN: a table joined with itself, like employee and manager." },
+      { q: "What is a CTE and a recursive CTE?", a: "A CTE (WITH ...) is a named temporary result used in the next query, which makes long SQL easier to read. A recursive CTE refers to itself and is used for tree data like categories, comment replies or org charts.", code: `WITH RECURSIVE tree AS (
+  SELECT id, name, parent_id FROM categories WHERE parent_id IS NULL
+  UNION ALL
+  SELECT c.id, c.name, c.parent_id FROM categories c JOIN tree t ON c.parent_id = t.id
+)
+SELECT * FROM tree;` },
+      { q: "What are window functions?", a: "Functions that calculate over a set of related rows but still return every row, unlike GROUP BY which collapses rows. Examples: ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD, and SUM/AVG with OVER(). Used for rankings, running totals and top N per group.", code: `SELECT name, department, salary,
+       RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS rnk
+FROM employees;` },
+      { q: "RANK vs DENSE_RANK vs ROW_NUMBER", a: "For salaries 100, 90, 90, 80: ROW_NUMBER gives 1, 2, 3, 4 (always unique). RANK gives 1, 2, 2, 4 (same rank for ties, then skips). DENSE_RANK gives 1, 2, 2, 3 (same rank for ties, no skip)." },
+      { q: "How do you find the second (or Nth) highest salary?", a: "Use DENSE_RANK so ties are handled correctly, or ORDER BY with OFFSET on distinct values.", code: `SELECT salary FROM (
+  SELECT salary, DENSE_RANK() OVER (ORDER BY salary DESC) AS r FROM employees
+) t WHERE r = 2 LIMIT 1;` },
+      { q: "How do you delete duplicate rows?", a: "Use DELETE ... USING to join the table with itself and delete the row with the bigger id where the duplicate column matches. Then add a UNIQUE constraint so it does not happen again.", code: `DELETE FROM users a USING users b
+WHERE a.email = b.email AND a.id > b.id;` },
+      { q: "What does RETURNING do?", a: "It returns rows changed by INSERT, UPDATE or DELETE in the same query, so you get the new id or updated values without a second SELECT. MySQL does not have it.", code: `INSERT INTO users (name) VALUES ('Kartik') RETURNING id;` },
+      { q: "How do you do an UPSERT in PostgreSQL?", a: "Use INSERT ... ON CONFLICT on a unique column. DO UPDATE changes the existing row (EXCLUDED holds the new values), DO NOTHING skips it. PostgreSQL 15+ also has MERGE.", code: `INSERT INTO stock (product_id, qty) VALUES (1, 10)
+ON CONFLICT (product_id) DO UPDATE SET qty = stock.qty + EXCLUDED.qty;` },
+      { q: "View vs materialized view", a: "A view is a saved query that runs every time you select from it, so data is always fresh. A materialized view stores the result on disk, so reading is fast, but you must run REFRESH MATERIALIZED VIEW to update it. Use materialized views for heavy reports and dashboards." },
+      { q: "What is SELECT ... FOR UPDATE and SKIP LOCKED?", a: "FOR UPDATE locks the selected rows until the transaction ends, so no one else can change them in between (prevents race conditions like double booking). SKIP LOCKED skips rows already locked by others, which lets many workers pick different jobs from a table-based queue without waiting." },
+      { q: "What is a deadlock and how do you avoid it?", a: "Two transactions each hold a lock the other needs, so both wait forever. PostgreSQL detects it and cancels one with error 40P01. Avoid it by locking rows in the same order everywhere, keeping transactions short, and retrying the cancelled one." },
+      { q: "How do you prevent SQL injection in Node.js with pg?", a: "Always use parameterized queries ($1, $2) and pass values in an array. pg sends the values separately from the SQL, so user input can never change the query. Never build SQL with template literals or string concatenation.", code: `pool.query('SELECT * FROM users WHERE email = $1', [email]);` },
+      { q: "Why use a connection pool?", a: "Opening a PostgreSQL connection is slow and each one uses server memory (each connection is a separate process). A pool keeps a few connections open and reuses them. In Node.js use pg.Pool; for many app servers or serverless, put PgBouncer in front so total connections stay low." },
+      { q: "How do you run a transaction with node-postgres?", a: "Take one client with pool.connect(), run BEGIN, your queries and COMMIT on that same client, ROLLBACK in catch, and client.release() in finally. Using pool.query() for each step may use different connections, which breaks the transaction." },
+      { q: "What is normalization?", a: "Organizing tables to remove repeated data. 1NF: one value per cell, no repeating groups. 2NF: every column depends on the whole primary key. 3NF: no column depends on another non-key column. It avoids update mistakes. Sometimes we denormalize on purpose for faster reads." },
+      { q: "What is WAL?", a: "Write-Ahead Log. Every change is first written to the WAL file on disk, and only then to the data files. If the server crashes, PostgreSQL replays the WAL to recover. WAL is also used for streaming replication and point-in-time recovery." },
+      { q: "How does replication work in PostgreSQL?", a: "Streaming replication sends WAL records from the primary to replicas, which apply them and stay almost up to date. Replicas can serve read-only queries and can be promoted to primary if it fails. It is asynchronous by default; synchronous replication waits for a replica before COMMIT returns. Logical replication copies selected tables instead of the whole server." },
+      { q: "What is table partitioning?", a: "Splitting one big table into smaller child tables by range (like month), list (like country) or hash. Queries that filter on the partition key read only the needed partitions, and old data can be removed by dropping a partition instead of a slow DELETE." },
+      { q: "DELETE vs TRUNCATE vs DROP", a: "DELETE removes rows one by one, can use WHERE, fires triggers and can be rolled back. TRUNCATE removes all rows at once, very fast, no WHERE (in PostgreSQL it can also be rolled back inside a transaction). DROP TABLE removes the whole table including its structure." },
+      { q: "What are schemas in PostgreSQL?", a: "A schema is a folder inside a database that holds tables, views and functions. The default is public. Schemas help separate things like app tables and reporting tables, or one schema per tenant. In MySQL, schema and database mean the same thing; in PostgreSQL they are different levels." },
+      { q: "How do you take a backup and restore?", a: "pg_dump makes a logical backup of one database and pg_restore loads it. For the whole server with point-in-time recovery, use pg_basebackup plus WAL archiving, or the managed backups of your cloud provider.", code: `pg_dump -U postgres -d shopdb -F c -f shopdb.dump
+pg_restore -U postgres -d shopdb_new shopdb.dump` },
+    ],
+  },
+  {
     title: "DSA - Array",
     questions: [
       { q: "Reverse an array", a: "Swap elements from both ends moving inward using two pointers (left and right).", code: `function reverse(arr) {\n  let left = 0, right = arr.length - 1;\n  while (left < right) {\n    [arr[left], arr[right]] = [arr[right], arr[left]];\n    left++; right--;\n  }\n  return arr;\n}` },

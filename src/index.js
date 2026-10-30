@@ -178,6 +178,20 @@ import NestJSMicroservicesWebSockets from './Components/NestJS/MicroservicesWebS
 import NestJSBestPractices from './Components/NestJS/BestPractices';
 import NestJSQuestions from './Components/NestJS/Questions';
 
+// PostgreSQL
+import PostgreSQLIntroduction from './Components/PostgreSQL/Introduction';
+import PostgreSQLComparison from './Components/PostgreSQL/Comparison';
+import PostgreSQLDataTypes from './Components/PostgreSQL/DataTypes';
+import PostgreSQLQueries from './Components/PostgreSQL/Queries';
+import PostgreSQLJoinsCTE from './Components/PostgreSQL/JoinsCTE';
+import PostgreSQLIndexes from './Components/PostgreSQL/Indexes';
+import PostgreSQLTransactions from './Components/PostgreSQL/Transactions';
+import PostgreSQLJSONB from './Components/PostgreSQL/JSONB';
+import PostgreSQLAdvanced from './Components/PostgreSQL/Advanced';
+import PostgreSQLNodeJS from './Components/PostgreSQL/PostgreSQLNodeJS';
+import PostgreSQLExamples from './Components/PostgreSQL/Examples';
+import PostgreSQLQuestions from './Components/PostgreSQL/Questions';
+
 const LazyLoading = lazy(() => import('./Components/LazyLoading'));
 
 export const userContext = createContext();
@@ -650,6 +664,19 @@ export const myRouter = createBrowserRouter([
   { path: '/nestjs-microservices-websockets', element: <NestJSMicroservicesWebSockets /> },
   { path: '/nestjs-best-practices', element: <NestJSBestPractices /> },
   { path: '/nestjs-questions', element: <NestJSQuestions /> },
+  { path: '/postgresql', element: <PostgreSQLIntroduction /> },
+  { path: '/postgresql-introduction', element: <PostgreSQLIntroduction /> },
+  { path: '/postgresql-comparison', element: <PostgreSQLComparison /> },
+  { path: '/postgresql-data-types', element: <PostgreSQLDataTypes /> },
+  { path: '/postgresql-queries', element: <PostgreSQLQueries /> },
+  { path: '/postgresql-joins-cte', element: <PostgreSQLJoinsCTE /> },
+  { path: '/postgresql-indexes', element: <PostgreSQLIndexes /> },
+  { path: '/postgresql-transactions', element: <PostgreSQLTransactions /> },
+  { path: '/postgresql-jsonb', element: <PostgreSQLJSONB /> },
+  { path: '/postgresql-advanced', element: <PostgreSQLAdvanced /> },
+  { path: '/postgresql-nodejs', element: <PostgreSQLNodeJS /> },
+  { path: '/postgresql-examples', element: <PostgreSQLExamples /> },
+  { path: '/postgresql-questions', element: <PostgreSQLQuestions /> },
   {
     path: '/lazyloading',
     element: (
