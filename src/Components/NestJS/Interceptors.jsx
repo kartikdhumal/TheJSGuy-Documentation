@@ -10,13 +10,17 @@ function NestJSInterceptors() {
     <div className="debounce-container">
       <h1 className="title">Interceptors</h1>
       <p className="com-text">
-        An interceptor wraps the route handler, so it can run code before the handler and after it. It gets the result as an RxJS Observable from next.handle(), which lets you change the response, measure time, add a timeout, cache, or map errors. Think of it as "around" logic, like a decorator around the whole handler.
+        An interceptor wraps around your route handler. So it can run code before the handler, and after it too. Think of it like gift wrapping around a box: it is on both sides of what's inside. It gets the handler's result from next.handle() as an RxJS Observable (a stream of values you can change with operators like map). With that you can change the response, measure time, add a timeout, cache, or change errors.
       </p>
 
       <section className="method-section">
         <h2 className="method-title">How it works</h2>
         <p className="com-text">
-          intercept(context, next): code before next.handle() runs before the controller. next.handle() returns an Observable of the handler's result. Operators in .pipe() (map, tap, catchError, timeout) run after. If you never call next.handle(), the handler does not run at all (that is how caching works).
+          Everything happens inside intercept(context, next):
+          <br />1. Code you write before next.handle() runs before the controller.
+          <br />2. next.handle() calls the handler and gives you its result as an Observable.
+          <br />3. Operators inside .pipe() (map, tap, catchError, timeout) run after the handler.
+          If you never call next.handle(), the handler doesn't run at all. That is exactly how caching works.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`@Injectable()
@@ -40,7 +44,7 @@ export class LoggingInterceptor implements NestInterceptor {
       <section className="method-section">
         <h2 className="method-title">Wrapping every response</h2>
         <p className="com-text">
-          A common requirement: every API response should look the same, like {'{ success: true, data: ... }'}. Do it once in an interceptor instead of in every controller.
+          A common need: every API response should look the same, like {'{ success: true, data: ... }'}. Do it once in an interceptor, not again and again in every controller.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`export interface ApiResponse<T> {
@@ -63,7 +67,7 @@ providers: [{ provide: APP_INTERCEPTOR, useClass: TransformInterceptor }]`}
       <section className="method-section">
         <h2 className="method-title">Hiding fields: ClassSerializerInterceptor</h2>
         <p className="com-text">
-          Never send the password hash back. Mark it with @Exclude() on the entity and enable ClassSerializerInterceptor. It runs class-transformer on the returned class instance and removes excluded fields. It only works when you return class instances (entities), not plain objects.
+          Never send the password hash back to the user. Mark that field with @Exclude() on the entity. Then turn on ClassSerializerInterceptor. It runs class-transformer on what you return and removes the fields you excluded. One catch: it only works when you return class objects (entities), not plain objects.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`@Entity()
@@ -110,7 +114,7 @@ export class TimeoutInterceptor implements NestInterceptor {
       <section className="method-section">
         <h2 className="method-title">Response caching</h2>
         <p className="com-text">
-          @nestjs/cache-manager ships a CacheInterceptor that caches GET responses. Under the hood it skips next.handle() when there is a cache hit. Use Redis as the store when you run more than one instance.
+          @nestjs/cache-manager comes with a CacheInterceptor. It saves GET responses so it can reuse them. When the answer is already saved, it simply skips next.handle(), so the handler doesn't run. If you run more than one copy of your server, store the cache in Redis.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`@UseInterceptors(CacheInterceptor)
@@ -125,7 +129,9 @@ findAll() {
       <section className="method-section">
         <h2 className="method-title">Interceptor vs Middleware</h2>
         <p className="com-text">
-          Middleware runs before routing details are known and cannot see the handler's return value. An interceptor knows the exact handler (so it can read metadata) and receives the result, so it can transform it. Use middleware for raw request plumbing and interceptors for anything that touches the response.
+          Middleware runs before Nest knows which handler will run. It also can't see what the handler returns.
+          An interceptor knows the exact handler, so it can read its metadata. It also gets the result, so it can change it.
+          So: use middleware for basic work on the raw request. Use interceptors for anything that touches the response.
         </p>
       </section>
     </div>

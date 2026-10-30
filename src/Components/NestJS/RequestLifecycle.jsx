@@ -10,11 +10,11 @@ function NestJSRequestLifecycle() {
     <div className="debounce-container">
       <h1 className="title">Request Lifecycle</h1>
       <p className="com-text">
-        In Express everything is middleware. NestJS splits that work into 5 special layers, each with one job: Middleware, Guards, Interceptors, Pipes and Exception Filters. Knowing the order they run in is the most asked NestJS interview question, and it tells you where to put each piece of logic.
+        In Express, everything is middleware. NestJS splits that work into 5 layers, and each layer has one job: Middleware, Guards, Interceptors, Pipes and Exception Filters. Think of a request walking through a building, passing a few checkpoints before it reaches the right room. The order of these layers is the most asked NestJS interview question. It also tells you where each piece of your code should go.
       </p>
 
       <section className="method-section">
-        <h2 className="method-title">The order</h2>
+        <h2 className="method-title">The order things run in</h2>
         <CodeBlock language="bash" style={atomDark}>
           {`Incoming request
    │
@@ -34,18 +34,20 @@ Response`}
       <section className="method-section">
         <h2 className="method-title">One job per layer</h2>
         <p className="com-text">
-          1. Middleware: raw request work that does not need to know which handler runs (logging, request id, cookie parsing, helmet).
-          2. Guard: "is this request allowed?" Returns true or false (authentication, roles, permissions). Runs after middleware because it knows the exact handler and its metadata.
-          3. Interceptor: wraps the handler, can run code before and after it (response transform, timing, caching, timeout).
-          4. Pipe: transform and validate input (DTO validation, string "5" to number 5).
-          5. Exception Filter: catches errors and builds the error response.
+          1. Middleware: basic work on the raw request. It doesn't need to know which handler (route method) will run. For example: logging, request id, reading cookies, helmet.
+          <br />2. Guard: asks "is this request allowed in?" and answers true or false. Used for login checks, roles and permissions. It runs after middleware because, by then, Nest knows the exact handler and its metadata (the extra info from decorators).
+          <br />3. Interceptor: wraps around the handler. It can run code before and after it. For example: changing the response, timing, caching, timeouts.
+          <br />4. Pipe: checks and cleans the input. For example: DTO validation, or turning the string "5" into the number 5.
+          <br />5. Exception Filter: catches errors and builds the error response.
         </p>
       </section>
 
       <section className="method-section">
         <h2 className="method-title">Where to register them</h2>
         <p className="com-text">
-          Each layer (except middleware) can be bound at 3 levels: global, controller, or a single route. Use the Use* decorators for controller/route level. For global, prefer registering in a module with the APP_* tokens instead of app.useGlobal*() in main.ts, because then the class can inject other providers (ConfigService, Reflector, a repository).
+          Every layer except middleware can be attached at 3 levels: the whole app (global), one controller, or one route.
+          For a controller or a route, use the Use* decorators (@UseGuards, @UseInterceptors and so on).
+          For the whole app, you have two choices. You can call app.useGlobal*() in main.ts. Or you can register it inside a module with the APP_* tokens. Pick the module way. Then your class can ask for other providers (ConfigService, Reflector, a repository).
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`// Route / controller level
@@ -72,7 +74,7 @@ export class AppModule {}`}
       <section className="method-section">
         <h2 className="method-title">ExecutionContext</h2>
         <p className="com-text">
-          Guards, interceptors and filters receive a context object instead of (req, res, next). It works for HTTP, WebSockets and microservices. From it you can get the request, and also the handler and class, which is how guards read metadata like @Roles('admin').
+          Guards, interceptors and filters don't get (req, res, next). Instead, they get one context object, called ExecutionContext. It works the same for HTTP, WebSockets and microservices. From it you can get the request. You can also get the route method (handler) and its controller class. That is how a guard reads extra info like @Roles('admin').
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`const request = context.switchToHttp().getRequest();
@@ -83,14 +85,14 @@ const type = context.getType();         // 'http' | 'ws' | 'rpc'`}
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Quick decision table</h2>
+        <h2 className="method-title">Which one should I use?</h2>
         <p className="com-text">
-          Need to log every request? Middleware or interceptor.
-          Need to check a JWT or a role? Guard.
-          Need to wrap every response as {'{ success, data }'}? Interceptor.
-          Need to validate a body or convert a param? Pipe.
-          Need a consistent error JSON? Exception filter.
-          Need to measure handler time or add a timeout? Interceptor.
+          Want to log every request? Middleware or interceptor.
+          Want to check a JWT or a role? Guard.
+          Want every response to look like {'{ success, data }'}? Interceptor.
+          Want to check a body or convert a param? Pipe.
+          Want every error to have the same JSON shape? Exception filter.
+          Want to time the handler or add a timeout? Interceptor.
         </p>
       </section>
     </div>

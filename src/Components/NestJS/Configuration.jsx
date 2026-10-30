@@ -8,9 +8,9 @@ function NestJSConfiguration() {
 
   return (
     <div className="debounce-container">
-      <h1 className="title">Configuration &amp; Environment Variables</h1>
+      <h1 className="title">Config &amp; Environment Variables</h1>
       <p className="com-text">
-        @nestjs/config loads your .env file and gives you a ConfigService you can inject anywhere. Reading process.env directly all over the code works, but you lose validation, types and testability. The rule: read env in one place, validate it at startup, inject it everywhere else.
+        @nestjs/config reads your .env file for you. It gives you a ConfigService that you can ask for in any class. You could read process.env all over your code, and it would work. But then you get no checks, no types, and it's harder to test. So keep it simple: read env values in one place, check them when the app starts, and ask for them everywhere else.
       </p>
 
       <section className="method-section">
@@ -22,7 +22,7 @@ function NestJSConfiguration() {
           {`@Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true,                                        // no need to import in each module
+      isGlobal: true,                                        // no need to import it in every module
       envFilePath: ['.env.' + process.env.NODE_ENV, '.env'], // first found wins per key
       cache: true,
     }),
@@ -46,7 +46,7 @@ export class MailService {
       <section className="method-section">
         <h2 className="method-title">Validate env at startup</h2>
         <p className="com-text">
-          If DATABASE_URL is missing, you want the app to fail on boot with a clear message, not crash on the first query at 2 AM. Pass a validation schema (Joi or zod) or a validate function.
+          If DATABASE_URL is missing, you want the app to stop right when it starts, with a clear message. You don't want it to crash on the first database query at 2 AM. To do this, give Nest a validation schema (a list of rules, written with Joi or zod) or your own validate function.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`import * as Joi from 'joi';
@@ -65,9 +65,9 @@ ConfigModule.forRoot({
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Typed config namespaces</h2>
+        <h2 className="method-title">Grouped config with types</h2>
         <p className="com-text">
-          registerAs() groups related settings into a typed object. Inject it with its KEY and you get autocomplete and no string keys in your services.
+          registerAs() puts related settings together in one object that has types. For example, all JWT settings in one group. Ask for it using its KEY. Now your editor can autocomplete the values, and you don't have to type string keys in your services.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`// config/jwt.config.ts
@@ -92,7 +92,7 @@ this.jwt.accessTtl;   // typed`}
       <section className="method-section">
         <h2 className="method-title">Using config in other modules: forRootAsync</h2>
         <p className="com-text">
-          Library modules need config values at creation time. Use their async version with a factory that injects ConfigService.
+          Some library modules (like JwtModule or BullModule) need config values the moment they are created. For these, use their async version. You give it a factory (a small function that builds the settings), and that function gets ConfigService handed to it.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`JwtModule.registerAsync({
@@ -115,10 +115,10 @@ BullModule.forRootAsync({
       <section className="method-section">
         <h2 className="method-title">Rules for secrets</h2>
         <p className="com-text">
-          1. Never commit .env; commit a .env.example with dummy values.
-          2. In production, set real env variables from the platform (Docker, Kubernetes secrets, AWS Secrets Manager) instead of shipping a .env file.
-          3. Do not log the config object.
-          4. Different secret per environment, and rotate them.
+          1. Never commit your .env file. Commit a .env.example with fake values instead.
+          <br />2. In production, don't ship a .env file. Set the real env variables on the platform (Docker, Kubernetes secrets, AWS Secrets Manager).
+          <br />3. Don't print the config object in your logs.
+          <br />4. Use a different secret for each environment, and change (rotate) them from time to time.
         </p>
       </section>
     </div>

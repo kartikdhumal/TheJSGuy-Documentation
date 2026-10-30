@@ -10,7 +10,12 @@ function NestJSAuthentication() {
     <div className="debounce-container">
       <h1 className="title">JWT Authentication</h1>
       <p className="com-text">
-        The standard NestJS auth setup: the user logs in with email and password, gets a short-lived access token (JWT) and a long-lived refresh token. Every protected request sends the access token in the Authorization header. A guard verifies it and puts the user on req.user. Passport (@nestjs/passport) handles the token verification through a "strategy".
+        Here's the usual way to do login in Nest:
+          <br />1. The user logs in with email and password.
+          <br />2. They get two tokens: an access token (a JWT) that lasts a short time, and a refresh token that lasts longer.
+          <br />3. On every protected request, they send the access token in the Authorization header.
+          <br />4. A guard checks the token and puts the user on req.user.
+          A JWT is like a cinema ticket. You show it at the door, and the staff checks it's real and not expired. The checking is done by Passport (@nestjs/passport) using a "strategy", which is just the set of rules for how to check a token.
       </p>
 
       <section className="method-section">
@@ -46,7 +51,7 @@ export class AuthModule {}`}
       <section className="method-section">
         <h2 className="method-title">Login: verify password, sign tokens</h2>
         <p className="com-text">
-          Use the same error for "no such email" and "wrong password", so attackers cannot find out which emails are registered. Keep the payload small: user id (sub) and roles, never the password or personal data, because a JWT is only encoded, not encrypted.
+          Give the same error for "no such email" and "wrong password". If you don't, attackers can find out which emails have accounts. Keep the payload (the data inside the token) small: just the user id (sub) and roles. Never put the password or personal data in it. A JWT is only encoded, not encrypted, so anyone holding it can read what's inside.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`@Injectable()
@@ -76,9 +81,9 @@ export class AuthService {
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">JWT strategy: verify on every request</h2>
+        <h2 className="method-title">JWT strategy: check the token on every request</h2>
         <p className="com-text">
-          The strategy reads the token from the header, checks signature and expiry, then calls validate(). Whatever validate() returns becomes req.user.
+          The strategy takes the token from the header. It checks the signature (is it real?) and the expiry (is it still valid?). Then it calls validate(). Whatever validate() returns becomes req.user.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`@Injectable()
@@ -103,7 +108,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {}`}
 
       <section className="method-section">
         <h2 className="method-title">@CurrentUser() decorator</h2>
-        <p className="com-text">Instead of @Req() req and req.user everywhere, create a param decorator.</p>
+        <p className="com-text">Writing @Req() req and req.user everywhere gets messy. Instead, make your own param decorator that hands you the user directly.</p>
         <CodeBlock language="typescript" style={atomDark}>
           {`export const CurrentUser = createParamDecorator(
   (field: keyof AuthUser | undefined, ctx: ExecutionContext) => {
@@ -123,11 +128,11 @@ me(@CurrentUser() user: AuthUser) {
       <section className="method-section">
         <h2 className="method-title">Refresh token flow</h2>
         <p className="com-text">
-          1. Access token: 15 minutes, sent in the header, kept in memory on the client.
-          2. Refresh token: 7 days, stored in an httpOnly secure cookie (JavaScript cannot read it, so XSS cannot steal it).
-          3. When the access token expires, the client calls /auth/refresh; the server verifies the refresh token and issues a new pair.
-          4. Rotation: store a hash of the current refresh token in the DB. On refresh, compare and replace it. If an old token is used again, it was stolen: revoke all sessions of that user.
-          5. Logout deletes the stored hash, so the refresh token stops working even before it expires.
+          1. Access token: lives 15 minutes. It's sent in the header and kept in memory on the client.
+          <br />2. Refresh token: lives 7 days. It's kept in an httpOnly secure cookie. JavaScript can't read that cookie, so an XSS attack can't steal it.
+          <br />3. When the access token runs out, the client calls /auth/refresh. The server checks the refresh token and gives back a new pair of tokens.
+          <br />4. Rotation: save a hash of the current refresh token in the database. On each refresh, compare it and replace it with the new one. If an old token shows up again, someone stole it. So log that user out of all sessions.
+          <br />5. Logout deletes the saved hash. Now the refresh token stops working, even before it runs out.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`@Public()
@@ -150,12 +155,12 @@ async refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
       <section className="method-section">
         <h2 className="method-title">Security checklist</h2>
         <p className="com-text">
-          1. Hash passwords with bcrypt or argon2, never store plain text.
-          2. Long random JWT secrets from env, different for access and refresh tokens.
-          3. Short access token life; JWTs cannot be revoked before expiry without a blacklist.
-          4. Rate limit login and password-reset routes (ThrottlerGuard).
-          5. Protect everything by default with a global guard and @Public() exceptions.
-          6. Use HTTPS only, and set helmet() and a strict CORS origin.
+          1. Hash passwords with bcrypt or argon2. Never save them as plain text.
+          <br />2. Use long, random JWT secrets from env. Use a different one for access and refresh tokens.
+          <br />3. Keep the access token short-lived. You can't cancel a JWT before it expires unless you keep a blacklist.
+          <br />4. Limit how often people can hit the login and password-reset routes (ThrottlerGuard).
+          <br />5. Lock every route by default with a global guard. Mark the open ones with @Public().
+          <br />6. Use HTTPS only. Add helmet() and set a strict CORS origin.
         </p>
       </section>
     </div>

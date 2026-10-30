@@ -10,7 +10,11 @@ function NestJSControllers() {
     <div className="debounce-container">
       <h1 className="title">Controllers &amp; Routing</h1>
       <p className="com-text">
-        A controller receives the request and returns the response. Its only job is HTTP: read params, query and body, call the service, return the result. Keep business logic out of it. Whatever you return is sent as JSON automatically, and an async method's promise is awaited for you.
+        A controller takes the request in and sends the response back. Its only job is the HTTP part:
+        <br />1. Read the params, query and body.
+        <br />2. Call the service.
+        <br />3. Return the result.
+        Keep your main app logic out of it, that belongs in the service. Whatever you return is sent as JSON for you. If the method is async, Nest waits for the promise for you too.
       </p>
 
       <section className="method-section">
@@ -50,16 +54,23 @@ export class UsersController {
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Request decorators</h2>
+        <h2 className="method-title">Getting data out of the request</h2>
         <p className="com-text">
-          @Body() → req.body, @Param('id') → req.params.id, @Query() → req.query, @Headers('authorization') → a header, @Req() / @Res() → the raw Express request/response, @Ip() → client IP. You can pass a key to get one value (@Body('email')) or nothing to get the whole object.
+          These decorators pull parts of the request into your method:
+          @Body() → req.body
+          @Param('id') → req.params.id
+          @Query() → req.query
+          @Headers('authorization') → one header
+          @Req() / @Res() → the raw Express request and response
+          @Ip() → the client's IP address
+          Pass a key to get just one value, like @Body('email'). Pass nothing to get the whole object.
         </p>
       </section>
 
       <section className="method-section">
         <h2 className="method-title">Status codes and headers</h2>
         <p className="com-text">
-          POST returns 201 by default, everything else 200. Change it with @HttpCode(). Set headers with @Header() and redirect with @Redirect().
+          By default, POST sends back 201 and everything else sends back 200. You can change this with @HttpCode(). Use @Header() to set a header, and @Redirect() to send the user to another URL.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`@Post('login')
@@ -77,9 +88,9 @@ docs() {}`}
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Avoid @Res() unless you need it</h2>
+        <h2 className="method-title">Skip @Res() unless you really need it</h2>
         <p className="com-text">
-          If you inject @Res(), Nest stops sending the response for you: you must call res.json() yourself, and interceptors that change the response will not work. If you only need to set a cookie or header, use passthrough mode so Nest still handles the response.
+          Once you use @Res(), Nest stops sending the response for you. Now you have to call res.json() yourself. Also, interceptors that change the response will stop working. If you only want to set a cookie or a header, use passthrough mode. Then Nest still sends the response for you.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`@Post('login')
@@ -94,7 +105,7 @@ async login(@Body() dto: LoginDto, @Res({ passthrough: true }) res: Response) {
       <section className="method-section">
         <h2 className="method-title">Route order matters</h2>
         <p className="com-text">
-          Routes are matched in the order they are declared. If @Get(':id') comes before @Get('me'), a request to /users/me is caught by :id with id = "me". Put fixed paths before dynamic ones.
+          Nest checks routes from top to bottom, in the order you wrote them. Say @Get(':id') comes before @Get('me'). Then a request to /users/me gets caught by :id, with id = "me". Oops. So always put fixed paths (like 'me') above dynamic ones (like ':id').
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`@Get('me')        // first
@@ -108,7 +119,7 @@ findOne() { ... }`}
       <section className="method-section">
         <h2 className="method-title">API versioning</h2>
         <p className="com-text">
-          When you must change a response shape without breaking old mobile apps, enable versioning and keep both versions side by side.
+          Sometimes you need to change what a response looks like. But old mobile apps still expect the old shape. Turn on versioning and keep both versions running side by side. Old apps use v1, new apps use v2.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`// main.ts

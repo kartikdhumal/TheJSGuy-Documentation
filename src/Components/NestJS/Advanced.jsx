@@ -8,15 +8,15 @@ function NestJSAdvanced() {
 
   return (
     <div className="debounce-container">
-      <h1 className="title">Advanced Features</h1>
+      <h1 className="title">More Useful Features</h1>
       <p className="com-text">
-        The features you need once the CRUD is done: custom decorators, lifecycle hooks, cron jobs, events, background queues, file uploads and Swagger docs. All of them follow the same NestJS idea: a module to register, a decorator to use.
+        Once your basic CRUD works, you'll soon need a few more things: custom decorators, lifecycle hooks, cron jobs, events, background queues, file uploads and Swagger docs. The good news: they all work the same way in Nest. You register a module, then you use a decorator.
       </p>
 
       <section className="method-section">
         <h2 className="method-title">Combining decorators: applyDecorators</h2>
         <p className="com-text">
-          If every admin route repeats the same 4 decorators, merge them into one.
+          Do all your admin routes repeat the same 4 decorators? Put them together into one decorator, and use that instead.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`export function AdminOnly() {
@@ -37,11 +37,11 @@ remove() {}`}
       <section className="method-section">
         <h2 className="method-title">Lifecycle hooks</h2>
         <p className="com-text">
-          Nest calls these methods on providers and modules at specific moments:
-          1. onModuleInit(): after the module's dependencies are ready (warm a cache, check a connection).
-          2. onApplicationBootstrap(): after all modules are initialised, before listening.
-          3. onModuleDestroy() / beforeApplicationShutdown() / onApplicationShutdown(signal): on shutdown (close connections, finish jobs).
-          Shutdown hooks only run if you call app.enableShutdownHooks() in main.ts.
+          Lifecycle hooks are methods that Nest calls for you at certain moments, like when the app starts or stops. You add them to your providers and modules:
+          <br />1. onModuleInit(): runs when the module's dependencies are ready. Good for filling a cache or checking a connection.
+          <br />2. onApplicationBootstrap(): runs when all modules are set up, just before the app starts listening for requests.
+          <br />3. onModuleDestroy() / beforeApplicationShutdown() / onApplicationShutdown(signal): run when the app shuts down. Good for closing connections and finishing jobs.
+          Watch out: the shutdown hooks only run if you call app.enableShutdownHooks() in main.ts.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`@Injectable()
@@ -63,7 +63,7 @@ export class RedisService implements OnModuleInit, OnApplicationShutdown {
       <section className="method-section">
         <h2 className="method-title">Cron jobs: @nestjs/schedule</h2>
         <p className="com-text">
-          Good for simple timed tasks. But if you run 3 instances, the cron runs 3 times. For jobs that must run once across the cluster, use a BullMQ job scheduler or a Redis lock.
+          A cron job is a task that runs on a timer, like "every night at 12". This is good for simple timed tasks. But be careful: if you run 3 copies of your app, the cron runs 3 times. If a job must run only once across all copies, use a BullMQ job scheduler or a Redis lock.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`// app.module.ts
@@ -85,7 +85,8 @@ export class CleanupService {
       <section className="method-section">
         <h2 className="method-title">Events: @nestjs/event-emitter</h2>
         <p className="com-text">
-          Decouple side effects. UsersService emits "user.created" and does not need to know that mail, analytics and audit services react to it. Note: events are in-memory, so they are lost if the process crashes. For work that must not be lost, use a queue.
+          Events keep your services from being stuck together. UsersService just shouts "user.created". It doesn't need to know that the mail, analytics and audit services are listening and reacting. Think of a school bell: it rings, and everyone who cares does their own thing.
+          One catch: events live only in memory. If the app crashes, they are gone. For work you can't afford to lose, use a queue.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`imports: [EventEmitterModule.forRoot()]
@@ -104,7 +105,7 @@ async sendWelcomeMail(event: UserCreatedEvent) {
       <section className="method-section">
         <h2 className="method-title">Background jobs: @nestjs/bullmq</h2>
         <p className="com-text">
-          For slow or must-not-lose work (emails, PDFs, imports), add a job to a Redis-backed queue and return immediately. A processor class handles it with retries. See the Redis &amp; BullMQ section for the details.
+          Some work is slow, or must not get lost (emails, PDFs, imports). For that, add a job to a queue stored in Redis and reply to the user right away. A processor class picks up the job later and tries again if it fails. The Redis &amp; BullMQ section has all the details.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`imports: [BullModule.registerQueue({ name: 'emails' })]
@@ -126,7 +127,7 @@ export class EmailsProcessor extends WorkerHost {
       <section className="method-section">
         <h2 className="method-title">File uploads</h2>
         <p className="com-text">
-          FileInterceptor uses multer under the hood. Always validate size and type with ParseFilePipe. For big files, prefer letting the browser upload directly to S3 with a pre-signed URL so the API server does not carry the bytes.
+          FileInterceptor uses multer behind the scenes. Always check the file size and type with ParseFilePipe. For big files, it's better to let the browser upload straight to S3 with a pre-signed URL (a short-lived link that allows one upload). That way your API server doesn't have to carry all those bytes.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`@Post('avatar')
@@ -150,7 +151,7 @@ uploadAvatar(
       <section className="method-section">
         <h2 className="method-title">Swagger / OpenAPI docs</h2>
         <p className="com-text">
-          @nestjs/swagger reads your controllers and DTOs and builds interactive API docs. The CLI plugin can read DTO types automatically so you add fewer @ApiProperty() decorators.
+          @nestjs/swagger looks at your controllers and DTOs and makes API docs for you. You can even try the requests right on the docs page. The CLI plugin can read your DTO types by itself, so you write fewer @ApiProperty() decorators.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`// main.ts
@@ -174,7 +175,7 @@ export class CreateUserDto {
       <section className="method-section">
         <h2 className="method-title">Logging</h2>
         <p className="com-text">
-          The built-in Logger is fine for development. In production, use structured JSON logs (nestjs-pino or winston) so tools like Loki, Datadog or CloudWatch can search them, and include a request id in every line.
+          The built-in Logger is fine while you develop. In production, write your logs as JSON (with nestjs-pino or winston). Then tools like Loki, Datadog or CloudWatch can search them easily. Also add a request id to every log line.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`private readonly logger = new Logger(OrdersService.name);

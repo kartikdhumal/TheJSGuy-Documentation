@@ -10,13 +10,16 @@ function NestJSPipesValidation() {
     <div className="debounce-container">
       <h1 className="title">Pipes, DTOs &amp; Validation</h1>
       <p className="com-text">
-        A pipe runs just before the controller method and does one of two things with the input: transform it (string "5" → number 5) or validate it (throw 400 Bad Request if it is wrong). The most important pipe is ValidationPipe, which checks the request body against a DTO class.
+        A pipe runs right before your controller method. It checks and cleans the input before it reaches you, like washing vegetables before cooking. It does one of two things:
+        <br />1. Transform: change the input, like the string "5" → the number 5.
+        <br />2. Validate: check the input, and throw 400 Bad Request if it is wrong.
+        The pipe you will use most is ValidationPipe. It checks the request body against a DTO class.
       </p>
 
       <section className="method-section">
         <h2 className="method-title">What is a DTO?</h2>
         <p className="com-text">
-          DTO (Data Transfer Object) is a class that describes the shape of data coming in. With class-validator decorators on each field, the DTO becomes both the type and the validation rules. Use a class, not an interface, because interfaces do not exist at runtime and cannot be validated.
+          A DTO (Data Transfer Object) is a class that describes what the incoming data should look like. You put class-validator decorators on each field. Now the DTO does two jobs: it is the type, and it is the list of rules. Use a class, not an interface. Interfaces disappear when your code runs, so there is nothing to check against.
         </p>
         <CodeBlock language="bash" style={atomDark}>
           {`npm i class-validator class-transformer`}
@@ -49,11 +52,11 @@ export class CreateUserDto {
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Global ValidationPipe options</h2>
+        <h2 className="method-title">ValidationPipe settings for the whole app</h2>
         <p className="com-text">
-          1. whitelist: true removes any field that has no decorator in the DTO (stops users sending role: 'admin').
-          2. forbidNonWhitelisted: true returns 400 instead of silently removing extra fields.
-          3. transform: true turns the plain body into a DTO instance and converts types (query "10" → 10 for a number field).
+          1. whitelist: true removes any field that has no decorator in the DTO. This stops users from sneaking in something like role: 'admin'.
+          <br />2. forbidNonWhitelisted: true sends back a 400 error instead of quietly removing extra fields.
+          <br />3. transform: true turns the plain body into a real DTO object. It also converts types (query "10" → 10 for a number field).
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`app.useGlobalPipes(
@@ -75,9 +78,9 @@ export class CreateUserDto {
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Update DTOs with mapped types</h2>
+        <h2 className="method-title">Update DTOs without copy-paste</h2>
         <p className="com-text">
-          Do not copy the create DTO for update. PartialType makes every field optional and keeps the validation rules. PickType, OmitType and IntersectionType build other variations. Import them from @nestjs/swagger if you use Swagger (so docs stay correct), otherwise from @nestjs/mapped-types.
+          Don't copy your create DTO to make an update DTO. Use PartialType instead. It makes every field optional and keeps all the rules. PickType, OmitType and IntersectionType let you build other versions too. If you use Swagger, import them from @nestjs/swagger so your docs stay correct. If not, import them from @nestjs/mapped-types.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`export class UpdateUserDto extends PartialType(CreateUserDto) {}
@@ -89,9 +92,9 @@ export class UpdateProfileDto extends PartialType(
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Built-in pipes</h2>
+        <h2 className="method-title">Pipes that come with Nest</h2>
         <p className="com-text">
-          ParseIntPipe, ParseFloatPipe, ParseBoolPipe, ParseArrayPipe, ParseUUIDPipe, ParseEnumPipe, DefaultValuePipe and ParseFilePipe. Use them on params and query values.
+          Nest gives you these ready to use: ParseIntPipe, ParseFloatPipe, ParseBoolPipe, ParseArrayPipe, ParseUUIDPipe, ParseEnumPipe, DefaultValuePipe and ParseFilePipe. Use them on params and query values.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`@Get(':id')
@@ -106,7 +109,7 @@ findAll(
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Writing a custom pipe</h2>
+        <h2 className="method-title">Writing your own pipe</h2>
         <CodeBlock language="typescript" style={atomDark}>
           {`@Injectable()
 export class TrimPipe implements PipeTransform {
@@ -127,8 +130,8 @@ create(@Body(TrimPipe) dto: CreateUserDto) {}`}
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Custom validator</h2>
-        <p className="com-text">When a rule needs logic or the database (e.g. "email must not already exist"), write a validator constraint.</p>
+        <h2 className="method-title">Writing your own validation rule</h2>
+        <p className="com-text">Sometimes a rule needs real code or a database check, like "this email must not already exist". For that, write your own validator constraint (a class that holds your custom rule).</p>
         <CodeBlock language="typescript" style={atomDark}>
           {`@ValidatorConstraint({ name: 'isStrongPin' })
 export class IsStrongPin implements ValidatorConstraintInterface {

@@ -10,20 +10,21 @@ function BullMQJobsWorkers() {
     <div className="debounce-container">
       <h1 className="title">BullMQ Jobs, Options &amp; Workers</h1>
       <p className="com-text">
-        Most of BullMQ's power is in the options you pass when adding a job (retries, delay, priority, cleanup) and in how you configure the worker (concurrency, error handling).
+        Most of what BullMQ can do comes from two places. First, the options you pass when you add a job (retries, delay, priority, cleanup). Second, how you set up the worker (concurrency, error handling).
       </p>
 
       <section className="method-section">
-        <h2 className="method-title">Job lifecycle (states)</h2>
+        <h2 className="method-title">The life of a job (states)</h2>
         <p className="com-text">
-          waiting: in the queue, ready to be picked.
-          delayed: waiting until a future time (delay or backoff before a retry).
-          prioritized: waiting, but ordered by priority.
-          active: a worker is processing it right now.
-          completed: finished successfully.
-          failed: threw an error and has no retries left.
+          A job moves through a few states:
+          waiting: in the queue, ready to be picked up.
+          delayed: waiting for a time in the future (a delay, or a pause before a retry).
+          prioritized: waiting, but sorted by priority.
+          active: a worker is working on it right now.
+          completed: finished fine.
+          failed: it threw an error and has no retries left.
           waiting-children: a parent job waiting for its child jobs (flows).
-          Flow: add() goes to waiting (or delayed), then active, then completed. If it throws, it goes back to delayed for a retry, or to failed after the last attempt.
+          The usual path: add() puts it in waiting (or delayed), then active, then completed. If it throws an error, it goes back to delayed for a retry, or to failed after the last try.
         </p>
       </section>
 
@@ -41,19 +42,21 @@ function BullMQJobsWorkers() {
 });`}
         </CodeBlock>
         <p className="com-text">
-          attempts + backoff: automatic retries; exponential backoff waits longer each time so a struggling service can recover. A fixed backoff waits the same time every retry.
-          delay: run later (reminders, "send email in 1 hour").
+          attempts + backoff: try again by itself. Exponential backoff waits longer each time, so a service that is having trouble gets time to recover. A fixed backoff waits the same time before every retry.
+          delay: run it later (reminders, "send email in 1 hour").
           priority: a lower number runs first.
-          jobId: if a job with the same id already exists, the new add is ignored, which gives you simple de-duplication.
-          removeOnComplete / removeOnFail: without them, every finished job stays in Redis forever and memory grows. Always set them.
-          lifo: true processes the newest job first (stack instead of queue).
+          jobId: if a job with the same id already exists, the new add is ignored. This is an easy way to avoid duplicates.
+          removeOnComplete / removeOnFail: without these, every finished job stays in Redis forever and memory keeps growing. Always set them.
+          lifo: true runs the newest job first (like a stack of plates instead of a line).
         </p>
       </section>
 
       <section className="method-section">
         <h2 className="method-title">Worker and concurrency</h2>
         <p className="com-text">
-          A worker runs your processor function for each job. concurrency is how many jobs one worker runs at the same time. For I/O work (API calls, emails, DB queries), a higher concurrency like 10 to 50 is fine. For CPU-heavy work (image processing), keep it low and run more worker processes instead, because Node.js runs JavaScript on one thread.
+          A worker runs your processor function for each job. concurrency means how many jobs one worker runs at the same time.
+          For work that mostly waits (API calls, emails, DB queries), a higher number like 10 to 50 is fine.
+          For work that keeps the CPU busy (image processing), keep it low and run more worker processes instead. This is because Node.js runs JavaScript on one thread.
         </p>
         <CodeBlock language="javascript" style={atomDark}>
           {`const worker = new Worker('images', async (job) => {
@@ -71,7 +74,7 @@ function BullMQJobsWorkers() {
       <section className="method-section">
         <h2 className="method-title">Failing a job the right way</h2>
         <p className="com-text">
-          To fail a job, just throw an error inside the processor. BullMQ catches it, stores the reason in job.failedReason, and retries if attempts are left. If retrying is pointless (for example invalid data), throw UnrecoverableError so it fails immediately without using up the remaining retries.
+          To fail a job, just throw an error inside the processor. BullMQ catches it, saves the reason in job.failedReason, and tries again if there are attempts left. If trying again won't help (for example, the data is wrong), throw UnrecoverableError. Then the job fails right away and does not waste the remaining retries.
         </p>
         <CodeBlock language="javascript" style={atomDark}>
           {`import { Worker, UnrecoverableError } from 'bullmq';
@@ -89,7 +92,9 @@ new Worker('payments', async (job) => {
       <section className="method-section">
         <h2 className="method-title">Idempotent jobs (very important)</h2>
         <p className="com-text">
-          BullMQ guarantees a job runs at least once, not exactly once. A worker can crash after doing the work but before marking it done, so the job runs again. Write processors so running twice is safe: check "was this invoice already created?" before creating it, use upserts, and pass a unique key to payment APIs. This is called making the job idempotent.
+          BullMQ makes sure a job runs at least once. It does not promise exactly once. A worker can crash after doing the work but before marking it done, so the job runs again.
+          So write your processors so that running twice is safe. Check "was this invoice already created?" before creating it. Use upserts (update if it exists, insert if not). Pass a unique key to payment APIs.
+          This is called making the job idempotent: running it twice gives the same result as running it once. Like pressing a lift button twice, the lift still comes only once.
         </p>
       </section>
 

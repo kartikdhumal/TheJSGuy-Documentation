@@ -10,13 +10,16 @@ function RedisCaching() {
     <div className="debounce-container">
       <h1 className="title">Caching with Redis</h1>
       <p className="com-text">
-        Caching means keeping a copy of slow-to-get data in a fast place. Your database query takes 200 ms; reading the same result from Redis takes about 1 ms. So you save the result in Redis once, and the next thousand requests read from Redis instead of hitting the database.
+        Caching means keeping a copy of slow data in a fast place. It is like keeping a water bottle on your desk, so you don't walk to the kitchen every time you are thirsty. Say your database query takes 200 ms. Reading the same result from Redis takes about 1 ms. So you save the result in Redis once. The next thousand requests read it from Redis, and the database can relax.
       </p>
 
       <section className="method-section">
-        <h2 className="method-title">Cache-aside (lazy loading) - the most common pattern</h2>
+        <h2 className="method-title">Cache-aside (lazy loading) - the one you will use most</h2>
         <p className="com-text">
-          The app checks Redis first. If the data is there (cache hit), return it. If not (cache miss), read from the database, save it in Redis with a TTL, then return it. The cache only fills with data that is actually requested.
+          1. The app looks in Redis first.
+          <br />2. If the data is there (a cache hit), return it.
+          <br />3. If not (a cache miss), read it from the database, save it in Redis with a TTL (an expiry time), and return it.
+          This way the cache only fills up with data that people really ask for.
         </p>
         <CodeBlock language="javascript" style={atomDark}>
           {`async function getProduct(id) {
@@ -38,9 +41,11 @@ function RedisCaching() {
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Invalidation: keep the cache correct</h2>
+        <h2 className="method-title">Invalidation: keeping the cache up to date</h2>
         <p className="com-text">
-          When the data changes, the cached copy becomes stale (old). The simplest safe rule: update the database first, then delete the cache key. The next read will load the fresh value. Deleting is safer than updating the cache, because two parallel updates could write the cache in the wrong order. The TTL is your safety net: even if a delete is missed, stale data disappears after the TTL.
+          When the data changes, the copy in the cache becomes stale (old). Here is the simple, safe rule: update the database first, then delete the cache key. The next read will load the fresh value.
+          Why delete instead of updating the cache? Because two updates at the same time could write to the cache in the wrong order.
+          The TTL is your safety net. Even if you forget a delete, the old data goes away when the TTL runs out.
         </p>
         <CodeBlock language="javascript" style={atomDark}>
           {`async function updateProduct(id, changes) {
@@ -54,18 +59,18 @@ function RedisCaching() {
       <section className="method-section">
         <h2 className="method-title">Other caching patterns</h2>
         <p className="com-text">
-          Write-through: every write goes to the cache and the database at the same time, so the cache is always fresh, but writes are slower and you cache data nobody may read.
-          Write-behind (write-back): write to the cache now and save to the database later in batches. Very fast writes, but you can lose data if Redis crashes before saving.
-          Read-through: the cache layer itself loads from the database on a miss (the app only talks to the cache). Cache-aside is the same idea but the app does the loading.
+          Write-through: every write goes to the cache and the database together. The cache is always fresh. But writes are slower, and you may cache data that nobody reads.
+          Write-behind (write-back): write to the cache now, and save to the database later in batches. Writes are very fast. But if Redis crashes before saving, you lose that data.
+          Read-through: on a miss, the cache layer itself loads from the database. The app only talks to the cache. Cache-aside is the same idea, but there the app does the loading.
         </p>
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">3 classic cache problems</h2>
+        <h2 className="method-title">3 common cache problems</h2>
         <p className="com-text">
-          Cache stampede (dog-pile): a popular key expires and 1,000 requests all miss at the same time and all hit the database. Fix: a short lock so only one request rebuilds the cache, or refresh popular keys before they expire.
-          Cache penetration: requests for data that does not exist (for example id = -1) always miss and always hit the database. Fix: cache the "not found" result too, with a short TTL, and validate input.
-          Cache avalanche: many keys expire at the same moment (all set with the same TTL at startup). Fix: add a random jitter to the TTL so expiries spread out.
+          Cache stampede (dog-pile): a popular key expires. 1,000 requests miss at the same time, and they all hit the database. Fix: use a short lock so only one request rebuilds the cache. Or refresh popular keys before they expire.
+          Cache penetration: people ask for data that does not exist (for example id = -1). It is never in the cache, so every request hits the database. Fix: cache the "not found" answer too, with a short TTL, and check the input.
+          Cache avalanche: lots of keys expire at the same moment (for example, all were set with the same TTL at startup). Fix: add a little random time (jitter) to each TTL, so they expire at different times.
         </p>
         <CodeBlock language="javascript" style={atomDark}>
           {`// Jitter: 600s +/- up to 60s so keys don't all expire together
@@ -83,14 +88,16 @@ if (!product) {
       <section className="method-section">
         <h2 className="method-title">What to cache (and what not to)</h2>
         <p className="com-text">
-          Good to cache: data read often and changed rarely (product lists, settings, user profiles, expensive aggregations, third-party API responses). Avoid caching: data that must always be 100% up to date (account balance during payment), data that is different for every request, and huge objects that waste memory. Always set a TTL on cache keys.
+          Good to cache: data that is read a lot and changes rarely. For example product lists, settings, user profiles, heavy calculations, and responses from other companies' APIs.
+          Don't cache: data that must always be 100% correct right now (like an account balance during a payment), data that is different for every request, and huge objects that waste memory.
+          And always set a TTL on cache keys.
         </p>
       </section>
 
       <section className="method-section">
         <h2 className="method-title">Session storage</h2>
         <p className="com-text">
-          Storing sessions in Redis lets any server read them, so you can run many app servers behind a load balancer (sticky sessions are not needed). Each session is a key with a TTL that is refreshed on activity.
+          If you keep sessions in Redis, any of your servers can read them. So you can run many app servers behind a load balancer, and a user does not have to stick to one server (no sticky sessions needed). Each session is a key with a TTL. Every time the user does something, the TTL is pushed forward.
         </p>
         <CodeBlock language="javascript" style={atomDark}>
           {`await redis.set(\`session:\${sessionId}\`, JSON.stringify({ userId: 101 }), 'EX', 1800);

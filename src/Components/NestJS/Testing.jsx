@@ -10,13 +10,15 @@ function NestJSTesting() {
     <div className="debounce-container">
       <h1 className="title">Testing</h1>
       <p className="com-text">
-        Testing is where dependency injection pays off. Because a service only asks for its dependencies, a test can give it fakes instead of the real database or mail server. NestJS projects come with Jest set up: unit tests next to the code (*.spec.ts) and end-to-end tests in the test folder (*.e2e-spec.ts).
+        Testing is where dependency injection really helps. A service just asks for the things it needs. So in a test, you can hand it fakes instead of the real database or mail server. New Nest projects already come with Jest set up:
+          <br />1. Unit tests (testing one class on its own) sit next to the code, in *.spec.ts files.
+          <br />2. End-to-end tests (testing the whole app, from request to response) sit in the test folder, in *.e2e-spec.ts files.
       </p>
 
       <section className="method-section">
         <h2 className="method-title">Unit test a service</h2>
         <p className="com-text">
-          Test.createTestingModule() builds a small Nest module just for the test. Replace each dependency with a mock using useValue, then test only the service's own logic.
+          Test.createTestingModule() builds a tiny Nest module just for your test. Swap each dependency for a mock using useValue. A mock is a dummy version of something, like a crash-test dummy in place of a real driver. Then you test only the service's own logic.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`describe('UsersService', () => {
@@ -84,9 +86,9 @@ expect(usersService.findAll).toHaveBeenCalledWith({ page: 1, limit: 10 });`}
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">End-to-end test with supertest</h2>
+        <h2 className="method-title">End-to-end (e2e) test with supertest</h2>
         <p className="com-text">
-          E2E tests boot the real app (all modules, pipes, guards) and send real HTTP requests. Use a separate test database, or override only the external providers (payment, mail) with overrideProvider(). Apply the same global pipes as main.ts, otherwise validation will not run in tests.
+          E2E tests start the real app (all modules, pipes and guards) and send real HTTP requests to it. Use a separate database just for tests. Or swap out only the outside services (like payment and mail) with overrideProvider(). Also, add the same global pipes you have in main.ts. If you forget, validation won't run in your tests.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`describe('Users (e2e)', () => {
@@ -120,7 +122,7 @@ expect(usersService.findAll).toHaveBeenCalledWith({ page: 1, limit: 10 });`}
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Overriding guards in tests</h2>
+        <h2 className="method-title">Skipping guards in tests</h2>
         <CodeBlock language="typescript" style={atomDark}>
           {`const moduleRef = await Test.createTestingModule({ imports: [AppModule] })
   .overrideGuard(JwtAuthGuard)

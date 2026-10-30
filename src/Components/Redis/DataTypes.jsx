@@ -10,13 +10,13 @@ function RedisDataTypes() {
     <div className="debounce-container">
       <h1 className="title">Redis Data Types</h1>
       <p className="com-text">
-        Redis is not just "key = string". Every key holds a value of a specific type, and each type has its own commands. Picking the right type is the most important Redis skill, because it decides how fast and how simple your code will be.
+        Redis is not only "key = string". Every key holds a value of a certain type, and each type has its own commands. Picking the right type is the most important Redis skill. It decides how fast and how simple your code will be. Think of it like choosing the right box: a shoe box for shoes, a jewellery box for rings.
       </p>
 
       <section className="method-section">
         <h2 className="method-title">1. String</h2>
         <p className="com-text">
-          The simplest type. A string can hold text, a number, or even JSON (up to 512 MB). Numbers stored as strings can be incremented atomically. Use it for caching, counters and simple flags.
+          This is the simplest type. A string can hold text, a number, or even JSON (up to 512 MB). If you store a number, Redis can add to it atomically (in one safe step, nobody can change it in between). Use strings for caching, counters and simple on/off flags.
         </p>
         <CodeBlock language="bash" style={atomDark}>
           {`SET user:101:name "Kartik"
@@ -36,7 +36,7 @@ SET lock:job "server-1" NX EX 30    # set only if it does NOT exist`}
       <section className="method-section">
         <h2 className="method-title">2. Hash</h2>
         <p className="com-text">
-          A hash is like a small object inside one key: field-value pairs. Use it to store an object when you want to read or update one field without loading the whole thing (unlike a JSON string, where you must read, parse, change and write back).
+          A hash is like a small object inside one key. It holds field-value pairs. Use it when you want to read or change one field without loading the whole object. With a JSON string you can't do that. You must read it, parse it, change it and write it all back.
         </p>
         <CodeBlock language="bash" style={atomDark}>
           {`HSET user:101 name "Kartik" city "Surat" age 24
@@ -50,7 +50,7 @@ HDEL user:101 city`}
       <section className="method-section">
         <h2 className="method-title">3. List</h2>
         <p className="com-text">
-          A list is an ordered collection of strings (a linked list). You can push and pop from both ends in O(1). Use it for recent items (last 10 notifications), simple queues, or activity feeds.
+          A list is a group of strings kept in order (a linked list). You can add or remove items at both ends, and it is very fast (O(1), the same speed no matter how long the list is). Use it for recent items (last 10 notifications), simple queues, or activity feeds.
         </p>
         <CodeBlock language="bash" style={atomDark}>
           {`LPUSH notifications:101 "New message"    # add to the left (start)
@@ -66,7 +66,7 @@ BRPOP queue:emails 5      # blocking pop: wait up to 5s for an item`}
       <section className="method-section">
         <h2 className="method-title">4. Set</h2>
         <p className="com-text">
-          A set is an unordered collection of unique strings. Adding the same value twice keeps only one. Use it for unique visitors, tags, "who liked this post", and set operations like common friends.
+          A set is a group of unique strings, in no special order. If you add the same value twice, it is kept only once. Use it for unique visitors, tags, and "who liked this post". You can also compare sets, for example to find common friends.
         </p>
         <CodeBlock language="bash" style={atomDark}>
           {`SADD post:9:likes user:1 user:2 user:1    # user:1 stored once
@@ -84,7 +84,7 @@ SUNION friends:a friends:b                 # 1, 2, 3, 4`}
       <section className="method-section">
         <h2 className="method-title">5. Sorted Set (ZSET)</h2>
         <p className="com-text">
-          A sorted set is like a set, but every member has a score, and members are always kept sorted by score. Add/update is O(log n). This is the perfect type for leaderboards, rankings, priority queues and time-based data (score = timestamp).
+          A sorted set is like a set, but every member also has a score. Redis always keeps the members sorted by that score. Adding or updating is O(log n), which means it stays fast even with lots of members. Think of a game scoreboard that re-orders itself every time a score changes. It is perfect for leaderboards, rankings, priority queues and time-based data (score = timestamp).
         </p>
         <CodeBlock language="bash" style={atomDark}>
           {`ZADD leaderboard 1500 "kartik" 1200 "amit" 1800 "riya"
@@ -96,12 +96,13 @@ ZRANGEBYSCORE leaderboard 1300 1600        # members with score in range`}
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">6. Special types (know the names)</h2>
+        <h2 className="method-title">6. Special types (just know the names)</h2>
         <p className="com-text">
-          Streams: an append-only log with consumer groups, used for event processing (covered in Pub/Sub &amp; Streams).
-          Bitmaps: store true/false per bit, for example "did user N log in today" for millions of users using very little memory.
-          HyperLogLog: counts unique items approximately (about 0.81% error) using only 12 KB, for example unique visitors per day.
-          Geospatial: store longitude/latitude and find "shops within 5 km".
+          You don't need these every day, but it is good to know they exist.
+          Streams: a log where you can only add to the end, with consumer groups. Used for event processing (covered in Pub/Sub &amp; Streams).
+          Bitmaps: store true/false in single bits. For example "did user N log in today" for millions of users, using very little memory.
+          HyperLogLog: counts unique items, but only roughly (about 0.81% error). It uses only 12 KB. For example, unique visitors per day.
+          Geospatial: store longitude/latitude and ask "which shops are within 5 km?".
         </p>
         <CodeBlock language="bash" style={atomDark}>
           {`SETBIT login:2026-10-28 101 1      # user 101 logged in today
@@ -116,9 +117,15 @@ GEOSEARCH shops FROMLONLAT 72.83 21.17 BYRADIUS 5 km`}
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">How to choose (quick guide)</h2>
+        <h2 className="method-title">Which type should I pick?</h2>
         <p className="com-text">
-          Single value or cached JSON: String. Object with fields you update separately: Hash. Ordered list or simple queue: List. Unique values / membership check: Set. Ranking or anything sorted by a number or time: Sorted Set. Event log with multiple consumers: Stream. Approximate unique count: HyperLogLog.
+          One value or cached JSON: String.
+          An object where you change fields one by one: Hash.
+          An ordered list or a simple queue: List.
+          Unique values, or "is this in the group?" checks: Set.
+          Ranking, or anything sorted by a number or time: Sorted Set.
+          An event log read by many consumers: Stream.
+          A rough count of unique items: HyperLogLog.
         </p>
       </section>
     </div>

@@ -10,15 +10,15 @@ function RedisPersistence() {
     <div className="debounce-container">
       <h1 className="title">Persistence (RDB &amp; AOF)</h1>
       <p className="com-text">
-        Redis keeps data in RAM, so what happens when the server restarts? Without persistence, everything is gone. Persistence means Redis also writes data to disk so it can load it back after a restart. There are two methods, and you can use both.
+        Redis keeps data in RAM. So what happens when the server restarts? Without persistence, everything is gone. Persistence means Redis also saves the data to disk, so it can load it back after a restart. There are two ways to do it, and you can use both.
       </p>
 
       <section className="method-section">
         <h2 className="method-title">RDB (snapshot)</h2>
         <p className="com-text">
-          RDB saves a full snapshot of all data to a file (dump.rdb) at intervals, for example "every 5 minutes if at least 100 keys changed". Redis forks a child process to write the file, so the main thread keeps serving clients.
-          Good: small compact file, very fast restart, great for backups.
-          Bad: you can lose the data written since the last snapshot (minutes of data).
+          RDB takes a full snapshot (a photo) of all the data and saves it to a file (dump.rdb) every so often. For example: "every 5 minutes, if at least 100 keys changed". Redis starts a child process to write the file, so the main thread keeps serving clients.
+          Good: the file is small, restart is very fast, and it is great for backups.
+          Bad: you can lose everything written since the last snapshot (a few minutes of data).
         </p>
         <CodeBlock language="bash" style={atomDark}>
           {`# redis.conf
@@ -34,11 +34,11 @@ SAVE            # blocks Redis until done (avoid in production)`}
       <section className="method-section">
         <h2 className="method-title">AOF (Append Only File)</h2>
         <p className="com-text">
-          AOF logs every write command to a file. On restart, Redis replays the log to rebuild the data. How often it syncs to disk is set by appendfsync:
+          AOF writes down every write command in a file, like a diary. On restart, Redis runs the diary again from the start to rebuild the data. The appendfsync setting decides how often it saves to disk:
           always: after every write (safest, slowest).
-          everysec: once per second (default, good balance, you can lose at most about 1 second).
+          everysec: once per second (the default, a good middle ground, you lose at most about 1 second).
           no: let the operating system decide (fastest, least safe).
-          The file keeps growing, so Redis rewrites it in the background into the shortest form (AOF rewrite).
+          The file keeps growing. So Redis rewrites it in the background into the shortest version (this is called AOF rewrite).
         </p>
         <CodeBlock language="bash" style={atomDark}>
           {`# redis.conf
@@ -52,16 +52,17 @@ BGREWRITEAOF    # compact the AOF file manually`}
       <section className="method-section">
         <h2 className="method-title">RDB vs AOF</h2>
         <p className="com-text">
-          RDB: periodic snapshot, smaller file, faster restart, more possible data loss.
-          AOF: log of every write, bigger file, slower restart, much less data loss.
-          Both together: the recommended production setup when data matters (AOF for safety, RDB for backups). Pure cache: you can turn persistence off completely, since the database can always refill the cache.
+          RDB: a snapshot every so often. Smaller file, faster restart, but you can lose more data.
+          AOF: a log of every write. Bigger file, slower restart, but you lose much less data.
+          Both together: the usual choice in production when the data matters (AOF to stay safe, RDB for backups).
+          Only a cache: you can turn persistence off fully. The database can always fill the cache again.
         </p>
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Persistence is not a backup plan alone</h2>
+        <h2 className="method-title">Persistence alone is not a backup</h2>
         <p className="com-text">
-          Persistence protects you from restarts on the same machine. If the disk or server dies, you still lose data. For real safety, copy RDB files to another place (for example S3) and use replication so a second server has the data too. Managed services (AWS ElastiCache, Redis Cloud) handle this for you.
+          Persistence saves you when the same machine restarts. But if the disk or the server dies, the data is still lost. To be really safe, copy the RDB files to another place (for example S3). Also use replication, so a second server has the data too. Managed services (AWS ElastiCache, Redis Cloud) do this for you.
         </p>
       </section>
     </div>

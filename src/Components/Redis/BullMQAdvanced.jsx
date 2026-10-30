@@ -10,13 +10,13 @@ function BullMQAdvanced() {
     <div className="debounce-container">
       <h1 className="title">BullMQ Advanced</h1>
       <p className="com-text">
-        Scheduled (cron) jobs, rate limiting, de-duplication, parent-child flows, events, stalled jobs, graceful shutdown and NestJS. These are the topics that separate "I used BullMQ once" from "I run BullMQ in production". Examples follow BullMQ v6.
+        This page covers scheduled (cron) jobs, rate limiting, de-duplication, parent-child flows, events, stalled jobs, graceful shutdown and NestJS. These are the things you need once you run BullMQ in production, not just in a demo. The examples use BullMQ v6.
       </p>
 
       <section className="method-section">
         <h2 className="method-title">Repeating jobs: Job Schedulers</h2>
         <p className="com-text">
-          For jobs that run on a schedule (daily report, reminder every 15 minutes), use queue.upsertJobScheduler(id, repeat, template). "Upsert" means calling it again with the same id updates the schedule instead of creating a duplicate, so it is safe to call on every app start. In BullMQ v6 the old repeat option in queue.add() is no longer allowed; job schedulers replace it.
+          For jobs that run on a timetable (a daily report, a reminder every 15 minutes), use queue.upsertJobScheduler(id, repeat, template). "Upsert" means: if you call it again with the same id, it updates the schedule instead of making a copy. So it is safe to call every time your app starts. In BullMQ v6 the old repeat option in queue.add() is not allowed anymore. Job schedulers replace it.
         </p>
         <CodeBlock language="javascript" style={atomDark}>
           {`// Every day at 08:00 (cron pattern)
@@ -37,7 +37,7 @@ await reportQueue.removeJobScheduler('daily-summary');`}
       <section className="method-section">
         <h2 className="method-title">Rate limiting the worker</h2>
         <p className="com-text">
-          When a job calls an external API with limits (for example an email provider allowing 100 emails per second), set limiter on the worker. The limit is global across all workers of that queue, because the counter lives in Redis.
+          Sometimes a job calls an outside API that has limits. For example, an email provider that allows 100 emails per second. Then set limiter on the worker. The limit counts for all workers of that queue together, because the counter lives in Redis.
         </p>
         <CodeBlock language="javascript" style={atomDark}>
           {`new Worker('emails', processEmail, {
@@ -50,7 +50,7 @@ await reportQueue.removeJobScheduler('daily-summary');`}
       <section className="method-section">
         <h2 className="method-title">De-duplication</h2>
         <p className="com-text">
-          A fixed jobId already blocks exact duplicates while that job exists. The deduplication option is more flexible: while a job with the same deduplication id is still around (or until ttl ends), new adds with that id are ignored. Useful for "user clicked Sync 5 times, run it only once".
+          A fixed jobId already blocks exact copies while that job exists. The deduplication option gives you more control. While a job with the same deduplication id is still around (or until ttl ends), new adds with that id are ignored. Handy when "the user clicked Sync 5 times, but we want to run it only once".
         </p>
         <CodeBlock language="javascript" style={atomDark}>
           {`await syncQueue.add('sync-contacts', { userId: 101 }, {
@@ -62,7 +62,7 @@ await reportQueue.removeJobScheduler('daily-summary');`}
       <section className="method-section">
         <h2 className="method-title">Flows (parent and child jobs)</h2>
         <p className="com-text">
-          With FlowProducer you add a tree of jobs. The parent waits in state waiting-children until all its children complete, then runs, and it can read their results. Example: process 3 video sizes in parallel, then send one "video ready" notification.
+          With FlowProducer you add a tree of jobs. The parent waits in the waiting-children state until all its children are done. Then it runs, and it can read their results. Example: make 3 video sizes at the same time, then send one "video ready" notification.
         </p>
         <CodeBlock language="javascript" style={atomDark}>
           {`import { FlowProducer } from 'bullmq';
@@ -88,7 +88,8 @@ const childResults = await job.getChildrenValues();`}
       <section className="method-section">
         <h2 className="method-title">Events: Worker events vs QueueEvents</h2>
         <p className="com-text">
-          worker.on('completed' / 'failed' / 'progress') fires only for jobs processed by that worker instance. QueueEvents listens to events of the whole queue from any worker on any server (it reads a Redis stream), so it is the right choice for a separate service that tells users "your report is ready" (for example over SSE or WebSocket).
+          worker.on('completed' / 'failed' / 'progress') only fires for jobs handled by that one worker.
+          QueueEvents hears events from the whole queue, from any worker on any server (it reads a Redis stream). So use it for a separate service that tells users "your report is ready" (for example over SSE or WebSocket).
         </p>
         <CodeBlock language="javascript" style={atomDark}>
           {`import { QueueEvents } from 'bullmq';
@@ -104,7 +105,9 @@ events.on('failed', ({ jobId, failedReason }) => console.error(jobId, failedReas
       <section className="method-section">
         <h2 className="method-title">Stalled jobs</h2>
         <p className="com-text">
-          While a worker processes a job, it holds a lock that it renews regularly. If the worker crashes, or blocks the event loop so long that it cannot renew the lock (heavy synchronous CPU work), the job is marked stalled. BullMQ moves stalled jobs back to waiting so another worker retries them; after maxStalledCount stalls (default 1) the job fails. Fix stalls by not blocking the event loop: use async code, lower concurrency for CPU work, or run CPU-heavy processors in a separate process (sandboxed processor).
+          While a worker is working on a job, it holds a lock on it and keeps renewing that lock. Sometimes it can't renew it. Maybe the worker crashed. Or heavy CPU work blocked the event loop for too long. Then the job is marked stalled (stuck).
+          BullMQ moves stalled jobs back to waiting, so another worker can try them. After maxStalledCount stalls (default 1), the job fails.
+          To avoid stalls, don't block the event loop: use async code, lower the concurrency for CPU work, or run CPU-heavy processors in a separate process (a sandboxed processor).
         </p>
         <CodeBlock language="javascript" style={atomDark}>
           {`// Sandboxed processor: the job runs in a separate child process
@@ -117,7 +120,7 @@ const worker = new Worker('images', \`\${__dirname}/image.processor.js\`, { conn
       <section className="method-section">
         <h2 className="method-title">Graceful shutdown</h2>
         <p className="com-text">
-          When you deploy or restart, close the worker so it stops taking new jobs and waits for the current ones to finish. Otherwise running jobs get killed and later become stalled.
+          When you deploy or restart, close the worker first. It stops taking new jobs and waits for the current ones to finish. Like a shop that locks the door at closing time but still serves the people inside. If you skip this, running jobs get killed and later become stalled.
         </p>
         <CodeBlock language="javascript" style={atomDark}>
           {`process.on('SIGTERM', async () => {
@@ -131,7 +134,9 @@ const worker = new Worker('images', \`\${__dirname}/image.processor.js\`, { conn
       <section className="method-section">
         <h2 className="method-title">Connection rules</h2>
         <p className="com-text">
-          Workers use blocking Redis commands to wait for jobs, so their ioredis connection must have maxRetriesPerRequest: null (BullMQ warns and forces it if you do not). Use maxmemory-policy noeviction. In Redis Cluster, give queues a prefix with a hash tag, like {'{bull}'}, so all keys of a queue are in the same slot.
+          Workers use blocking Redis commands (commands that sit and wait) to wait for jobs. So their ioredis connection must have maxRetriesPerRequest: null. If you forget, BullMQ warns you and sets it anyway.
+          Use maxmemory-policy noeviction.
+          In Redis Cluster, give queues a prefix with a hash tag, like {'{bull}'}, so all keys of one queue land in the same slot.
         </p>
         <CodeBlock language="javascript" style={atomDark}>
           {`import IORedis from 'ioredis';
@@ -144,7 +149,11 @@ const worker = new Worker('emails', processEmail, { connection });`}
       <section className="method-section">
         <h2 className="method-title">BullMQ in NestJS</h2>
         <p className="com-text">
-          @nestjs/bullmq wraps BullMQ in NestJS style: register the connection once, register each queue, inject the queue to add jobs, and write a processor class that extends WorkerHost.
+          @nestjs/bullmq lets you use BullMQ the NestJS way:
+          <br />1. Register the connection once.
+          <br />2. Register each queue.
+          <br />3. Inject the queue where you want to add jobs.
+          <br />4. Write a processor class that extends WorkerHost.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`// app.module.ts
@@ -174,7 +183,7 @@ export class TenantProvisioningProcessor extends WorkerHost {
       <section className="method-section">
         <h2 className="method-title">Monitoring</h2>
         <p className="com-text">
-          Use Bull Board (a free web UI) or Taskforce.sh to see queues, retry failed jobs and inspect job data. In your own code, getJobCounts() gives waiting / active / failed numbers for alerts, for example "alert if failed jobs grow".
+          Use Bull Board (a free web UI) or Taskforce.sh to see your queues, retry failed jobs and look at job data. In your own code, getJobCounts() gives you waiting / active / failed numbers. You can use them for alerts, for example "alert me if failed jobs keep growing".
         </p>
       </section>
     </div>

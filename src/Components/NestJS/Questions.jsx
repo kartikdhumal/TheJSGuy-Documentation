@@ -14,7 +14,7 @@ function NestJSQuestions() {
   return (
     <div className="debounce-container">
       <h1 className="title">NestJS Questions</h1>
-      <p className="com-text">Common NestJS interview questions, each answered with the one point the interviewer is looking for.</p>
+      <p className="com-text">Common NestJS interview questions. Each answer gives you the main point the interviewer wants to hear.</p>
       {qa.map((item, index) => (
         <div key={item.q} className="faq-item">
           <h4 className="faq-question">{index + 1}. {item.q}</h4>

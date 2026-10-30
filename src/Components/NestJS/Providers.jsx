@@ -10,14 +10,15 @@ function NestJSProviders() {
     <div className="debounce-container">
       <h1 className="title">Providers &amp; Dependency Injection</h1>
       <p className="com-text">
-        A provider is anything Nest can create and inject: services, repositories, helpers, config values, a Redis client. Dependency Injection (DI) means a class does not create its own dependencies with new. It just asks for them in the constructor, and Nest's IoC container (Inversion of Control) creates them and passes them in.
+        A provider is anything Nest can make for you and hand to other classes: services, repositories, helpers, config values, a Redis client.
+        Dependency Injection (DI) sounds big, but the idea is simple. Your class does not make the things it needs with new. It just asks for them in the constructor. Nest makes them and hands them over. The part of Nest that does this is called the IoC container (Inversion of Control, which just means Nest is in charge of making objects, not you). Think of a restaurant: the chef doesn't go to the market, the ingredients are delivered to the kitchen.
       </p>
 
       <section className="method-section">
-        <h2 className="method-title">Why DI?</h2>
+        <h2 className="method-title">Why bother with DI?</h2>
         <p className="com-text">
-          Without DI: OrdersService does new PaymentService(new HttpClient(...)). Now it is tightly coupled, and in a test you cannot swap the real payment service for a fake one.
-          With DI: OrdersService only says "I need a PaymentService". In production Nest gives the real one, in a test you give a mock. One instance is shared, and Nest figures out the creation order.
+          Without DI: OrdersService does new PaymentService(new HttpClient(...)) itself. Now the two classes are stuck together. In a test, you can't swap the real payment service for a fake one.
+          With DI: OrdersService only says "I need a PaymentService". In the real app, Nest gives it the real one. In a test, you give it a fake one (a mock). Only one copy is made and shared. And Nest works out which thing to create first.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`@Injectable()                 // marks the class as a provider Nest can manage
@@ -38,18 +39,18 @@ export class OrdersService {
       <section className="method-section">
         <h2 className="method-title">How Nest knows what to inject</h2>
         <p className="com-text">
-          TypeScript with emitDecoratorMetadata saves the constructor parameter types. Nest reads them (PaymentService, MailService) and uses each class as a token to look up the provider. That is why it works with classes but not with interfaces: interfaces disappear after compiling, so for them you need a custom token with @Inject().
+          With emitDecoratorMetadata turned on, TypeScript saves the types of your constructor parameters. Nest reads those types (PaymentService, MailService). It then uses each class as a token. A token is just a name tag Nest uses to find the right provider. This is why it works with classes but not with interfaces. Interfaces vanish after TypeScript compiles your code, so there is nothing left to read. For interfaces, you need your own token with @Inject().
         </p>
       </section>
 
       <section className="method-section">
         <h2 className="method-title">Custom providers</h2>
         <p className="com-text">
-          providers: [UsersService] is a shortcut for {'{ provide: UsersService, useClass: UsersService }'}. The long form lets you control what is injected:
-          1. useValue: a fixed value or object (config, mock).
-          2. useClass: pick a class (e.g. a different one per environment).
-          3. useFactory: build it with a function, can be async and can inject other providers.
-          4. useExisting: an alias for another provider.
+          Writing providers: [UsersService] is a short way of writing {'{ provide: UsersService, useClass: UsersService }'}. The long way lets you choose exactly what gets handed over:
+          <br />1. useValue: a fixed value or object (like config, or a mock).
+          <br />2. useClass: pick which class to use (for example, a different one for each environment).
+          <br />3. useFactory: build it with a function. The function can be async and can ask for other providers.
+          <br />4. useExisting: a second name (alias) for a provider that already exists.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`providers: [
@@ -100,11 +101,11 @@ constructor(@Inject(PAYMENT_GATEWAY) private readonly gateway: PaymentGateway) {
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Provider scopes</h2>
+        <h2 className="method-title">Provider scopes (how many copies get made)</h2>
         <p className="com-text">
-          1. DEFAULT (singleton): one instance for the whole app. Use this 99% of the time; it is the fastest.
-          2. REQUEST: a new instance for every request. Useful for per-request data (tenant, current user), but it is slower, and it "bubbles up": anything that injects a request-scoped provider also becomes request-scoped.
-          3. TRANSIENT: a new instance for every class that injects it (each consumer gets its own copy).
+          1. DEFAULT (singleton): one copy for the whole app. Use this 99% of the time. It is the fastest.
+          <br />2. REQUEST: a new copy for every request. Handy for data that changes per request (tenant, current user). But it is slower. It also spreads upward: any class that asks for a request-scoped provider becomes request-scoped too.
+          <br />3. TRANSIENT: a new copy for every class that asks for it. Each class gets its own.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`@Injectable({ scope: Scope.REQUEST })
@@ -121,7 +122,7 @@ export class TenantContext {
       <section className="method-section">
         <h2 className="method-title">Optional and circular dependencies</h2>
         <p className="com-text">
-          @Optional() injects undefined instead of crashing if the provider is missing. For two services that depend on each other, use forwardRef on both sides, but treat it as a design smell and prefer moving shared logic into a third service.
+          @Optional() means "it's fine if this is missing". If the provider isn't there, you get undefined instead of a crash. Sometimes two services need each other. You can fix that with forwardRef on both sides. But take it as a warning sign. A better fix is usually to move the shared code into a third service.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`constructor(
@@ -134,11 +135,11 @@ export class TenantContext {
       <section className="method-section">
         <h2 className="method-title">Common error: "Nest can't resolve dependencies"</h2>
         <p className="com-text">
-          The message "Nest can't resolve dependencies of the AuthService (?). Please make sure that the argument UsersService at index [0] is available in the AuthModule context" means one of three things:
-          1. UsersService is not in the providers of its module.
-          2. UsersModule does not export UsersService.
-          3. AuthModule does not import UsersModule.
-          Also check for a missing @Injectable() or a circular import that resolves to undefined.
+          You will see this error a lot: "Nest can't resolve dependencies of the AuthService (?). Please make sure that the argument UsersService at index [0] is available in the AuthModule context". In plain words, Nest can't find UsersService for AuthService. It is almost always one of these three:
+          <br />1. UsersService is not in the providers of its own module.
+          <br />2. UsersModule does not export UsersService.
+          <br />3. AuthModule does not import UsersModule.
+          If those look fine, check for a missing @Injectable(). Or a circular import that ends up as undefined.
         </p>
       </section>
     </div>

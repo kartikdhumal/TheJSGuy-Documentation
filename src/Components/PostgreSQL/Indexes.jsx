@@ -97,12 +97,12 @@ SELECT * FROM orders WHERE customer_id = 5;
         <h2 className="method-title">Simple performance tips</h2>
         <p className="com-text">
           1. Do not use SELECT * in app code, pick the columns you need.
-          2. Index columns used in WHERE, JOIN and ORDER BY.
-          3. A function on a column (WHERE LOWER(email) = ...) skips a normal index; use an expression index.
-          4. LIKE '%abc' (starting with %) cannot use a B-tree index; use pg_trgm or full-text search.
-          5. For deep pagination, use keyset pagination (WHERE id &gt; last_id LIMIT 20) instead of a big OFFSET.
-          6. Use a connection pool (pg Pool or PgBouncer); opening a new connection each time is slow.
-          7. Run ANALYZE after big data changes so the planner has fresh statistics.
+          <br />2. Index columns used in WHERE, JOIN and ORDER BY.
+          <br />3. A function on a column (WHERE LOWER(email) = ...) skips a normal index; use an expression index.
+          <br />4. LIKE '%abc' (starting with %) cannot use a B-tree index; use pg_trgm or full-text search.
+          <br />5. For deep pagination, use keyset pagination (WHERE id &gt; last_id LIMIT 20) instead of a big OFFSET.
+          <br />6. Use a connection pool (pg Pool or PgBouncer); opening a new connection each time is slow.
+          <br />7. Run ANALYZE after big data changes so the planner has fresh statistics.
         </p>
       </section>
     </div>

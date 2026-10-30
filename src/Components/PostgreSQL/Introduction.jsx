@@ -17,11 +17,11 @@ function PostgreSQLIntroduction() {
         <h2 className="method-title">Why is PostgreSQL used?</h2>
         <p className="com-text">
           1. Data safety: it is fully ACID, so your data does not get half-saved or lost.
-          2. Strong SQL: joins, subqueries, CTEs (WITH), window functions all work very well.
-          3. JSONB: you can store JSON in a column and query it fast, so you get some MongoDB-like flexibility inside a SQL database.
-          4. Many readers and writers at the same time: it uses MVCC, so reads do not block writes.
-          5. Extensions: PostGIS (maps and locations), pgvector (AI embeddings), pg_trgm (fuzzy search) and many more.
-          6. Free and open source, with no single company owning it.
+          <br />2. Strong SQL: joins, subqueries, CTEs (WITH), window functions all work very well.
+          <br />3. JSONB: you can store JSON in a column and query it fast, so you get some MongoDB-like flexibility inside a SQL database.
+          <br />4. Many readers and writers at the same time: it uses MVCC, so reads do not block writes.
+          <br />5. Extensions: PostGIS (maps and locations), pgvector (AI embeddings), pg_trgm (fuzzy search) and many more.
+          <br />6. Free and open source, with no single company owning it.
           This is why many companies pick PostgreSQL as their main database for web apps, fintech, analytics and SaaS products.
         </p>
       </section>

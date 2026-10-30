@@ -10,13 +10,13 @@ function RedisLocksRateLimiting() {
     <div className="debounce-container">
       <h1 className="title">Distributed Locks &amp; Rate Limiting</h1>
       <p className="com-text">
-        When your app runs on many servers, normal in-memory variables do not work across them. Redis is shared by all servers, and its commands are atomic, so it is the standard place to build locks ("only one server does this") and rate limits ("max 5 tries per minute").
+        When your app runs on many servers, a normal variable in one server's memory is not seen by the others. But all servers can talk to the same Redis, and its commands are atomic (they happen fully, with nothing in between). So Redis is the usual place to build locks ("only one server does this") and rate limits ("max 5 tries per minute").
       </p>
 
       <section className="method-section">
         <h2 className="method-title">Distributed lock with SET NX PX</h2>
         <p className="com-text">
-          SET key value NX PX 30000 means: create the key only if it does not exist, and auto-delete it after 30 seconds. The first server to run it gets the lock. The expiry makes sure the lock is released even if that server crashes. The value must be a unique token, so a server only deletes its own lock, never someone else's.
+          SET key value NX PX 30000 means: create the key only if it does not exist yet, and delete it by itself after 30 seconds. The first server to run it gets the lock. Think of a single bathroom key at a cafe: whoever holds it goes in, everyone else waits. The expiry makes sure the lock is freed even if that server crashes. The value must be a unique token. That way a server only deletes its own lock, never someone else's.
         </p>
         <CodeBlock language="javascript" style={atomDark}>
           {`import { randomUUID } from 'node:crypto';
@@ -43,21 +43,21 @@ async function withLock(name, ttlMs, work) {
 await withLock('daily-report', 30000, generateDailyReport);`}
         </CodeBlock>
         <p className="com-text">
-          Why not just DEL? If your work takes longer than the TTL, the lock expires, another server takes it, and then your DEL would delete their lock. The token check prevents that.
+          Why not just call DEL? If your work takes longer than the TTL, the lock expires and another server takes it. Then your DEL would delete their lock. Checking the token stops that from happening.
         </p>
       </section>
 
       <section className="method-section">
         <h2 className="method-title">Redlock (multi-node lock)</h2>
         <p className="com-text">
-          A lock on one Redis server is lost if that server fails. Redlock takes the lock on a majority of independent Redis servers (for example 3 of 5) to survive one failure. It is debated: clock drift and long pauses can still break it. For correctness-critical work (money), add a fencing token or use the database's own locking. For "avoid duplicate work" cases, a single-node lock is usually enough.
+          A lock on one Redis server is lost if that server fails. Redlock takes the lock on most of several separate Redis servers (for example 3 out of 5), so one failure does not break it. But people argue about it: clocks that drift and long pauses can still break it. For work that must be 100% correct (like money), add a fencing token or use the database's own locking. If you only want to "avoid doing the same work twice", a lock on one Redis server is usually enough.
         </p>
       </section>
 
       <section className="method-section">
         <h2 className="method-title">Rate limiting: fixed window (INCR + EXPIRE)</h2>
         <p className="com-text">
-          Count requests in a key per time window. INCR is atomic, so parallel requests are counted correctly. Simple and cheap, but a user can send double the limit around the window border (end of one minute plus start of the next).
+          Count the requests in a key for each time window (for example, each minute). INCR is atomic, so requests that come at the same time are still counted correctly. It is simple and cheap. The weak spot: a user can send double the limit around the edge of the window (at the end of one minute and the start of the next).
         </p>
         <CodeBlock language="javascript" style={atomDark}>
           {`async function isAllowed(ip, limit = 5, windowSec = 60) {
@@ -76,7 +76,7 @@ if (!(await isAllowed(req.ip))) {
       <section className="method-section">
         <h2 className="method-title">Rate limiting: sliding window (Sorted Set)</h2>
         <p className="com-text">
-          Store each request with its timestamp as the score. Remove entries older than the window, then count. This gives an accurate "last 60 seconds" limit with no border problem. Uses more memory than a counter.
+          Save each request with its time as the score. Remove entries older than the window, then count what is left. This gives a correct "last 60 seconds" limit, with no edge problem. It uses more memory than a simple counter.
         </p>
         <CodeBlock language="javascript" style={atomDark}>
           {`async function slidingWindow(userId, limit = 100, windowMs = 60000) {
@@ -97,9 +97,12 @@ if (!(await isAllowed(req.ip))) {
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Other algorithms (know the names)</h2>
+        <h2 className="method-title">Other ways to rate limit (just know the names)</h2>
         <p className="com-text">
-          Token bucket: a bucket refills at a fixed rate; each request takes a token. It allows short bursts. Leaky bucket: requests leave at a fixed rate, smoothing traffic. Both are usually built with a small Lua script so the read-and-update is atomic. In NestJS, @nestjs/throttler can store its counters in Redis so limits work across all servers.
+          Token bucket: a bucket fills up with tokens at a steady speed. Each request takes one token. It allows short bursts.
+          Leaky bucket: requests go out at a steady speed, which smooths out the traffic.
+          Both are usually built with a small Lua script, so the read-and-update happens in one atomic step.
+          In NestJS, @nestjs/throttler can keep its counters in Redis, so the limits work across all your servers.
         </p>
       </section>
     </div>

@@ -10,7 +10,10 @@ function NestJSGuards() {
     <div className="debounce-container">
       <h1 className="title">Guards &amp; Authorization</h1>
       <p className="com-text">
-        A guard answers one question: "should this request reach the handler?" It implements canActivate() and returns true (continue) or false (Nest throws 403 Forbidden). You can also throw your own exception, like UnauthorizedException (401). Guards are used for authentication (who are you?) and authorization (are you allowed?).
+        A guard is like a security guard at the gate. It answers one question: "should this request get in and reach the handler?" It has a canActivate() method:
+        <br />1. Return true, and the request goes on.
+        <br />2. Return false, and Nest throws 403 Forbidden.
+        You can also throw your own error, like UnauthorizedException (401). Guards are used for two things: authentication (who are you?) and authorization (are you allowed to do this?).
       </p>
 
       <section className="method-section">
@@ -37,9 +40,12 @@ export class InternalController {}`}
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Role-based access with metadata</h2>
+        <h2 className="method-title">Checking roles (admin, user...)</h2>
         <p className="com-text">
-          The guard needs to know which roles a route requires. We attach that with a custom decorator (SetMetadata or Reflector.createDecorator) and read it in the guard with Reflector. getAllAndOverride checks the method first, then the controller, so a route can override its controller.
+          The guard needs to know which roles a route needs. Here is how it finds out:
+          <br />1. We stick that info onto the route with our own decorator (made with SetMetadata or Reflector.createDecorator). This info is called metadata.
+          <br />2. Inside the guard, we read it back with Reflector (a Nest helper for reading metadata).
+          getAllAndOverride looks at the method first, then the controller. So a route's own setting wins over its controller's setting.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`// roles.decorator.ts
@@ -73,7 +79,7 @@ remove(@Param('id') id: string) {}`}
       <section className="method-section">
         <h2 className="method-title">Global auth guard with @Public()</h2>
         <p className="com-text">
-          Safer default: protect every route globally and mark the few open ones (login, register, health) as public. Then a new route is never accidentally left unprotected.
+          A safer way to start: lock every route in the whole app. Then mark only the few open ones (login, register, health) as public. This way, if you add a new route and forget about auth, it is still locked by default.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`export const IS_PUBLIC_KEY = 'isPublic';
@@ -108,9 +114,9 @@ login() {}`}
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Resource ownership checks</h2>
+        <h2 className="method-title">Is this really yours?</h2>
         <p className="com-text">
-          Roles are not enough: a normal user must only edit their own order. Keep that check in the service (where you already load the record), or in a guard that loads the resource. Never trust a userId sent in the body; take it from req.user, which the auth guard set from the verified token.
+          Roles are not enough. A normal user should only edit their own order, not someone else's. Put this check in the service, since you already load the record there. Or use a guard that loads the record. Never trust a userId sent in the body, because anyone can type any id there. Take it from req.user instead. The auth guard filled that in from the checked token.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`async update(id: number, dto: UpdateOrderDto, user: AuthUser) {
@@ -127,7 +133,7 @@ login() {}`}
       <section className="method-section">
         <h2 className="method-title">Rate limiting with ThrottlerGuard</h2>
         <p className="com-text">
-          @nestjs/throttler is a guard too. Register it globally and tighten it on sensitive routes like login. With several server instances, use a Redis storage so the limit is shared.
+          Rate limiting means "only allow so many requests per minute". @nestjs/throttler does this, and it is a guard too. Turn it on for the whole app. Then make it stricter on risky routes like login. If you run more than one copy of your server, store the counts in Redis so all copies share the same limit.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`ThrottlerModule.forRoot([{ ttl: 60_000, limit: 100 }])     // 100 req / minute

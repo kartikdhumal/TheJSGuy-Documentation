@@ -10,24 +10,24 @@ function RedisIntroduction() {
     <div className="debounce-container">
       <h1 className="title">Introduction to Redis</h1>
       <p className="com-text">
-        Redis (REmote DIctionary Server) is an in-memory key-value data store. In-memory means the data lives in RAM, not on disk, so reading and writing is extremely fast (usually under 1 millisecond). You use it next to your main database (MongoDB, MySQL, PostgreSQL) for things that need speed: caching, sessions, rate limiting, leaderboards, queues and real-time messaging.
+        Redis (REmote DIctionary Server) is a key-value store. You save a value under a key, and you get it back with that key. It keeps all the data in memory (RAM), not on disk. That is why it is very fast. Most reads and writes take less than 1 millisecond. You don't use Redis instead of your main database (MongoDB, MySQL, PostgreSQL). You use it next to it, for things that need speed: caching, sessions, rate limiting, leaderboards, queues and live messages.
       </p>
 
       <section className="method-section">
         <h2 className="method-title">Why is Redis so fast?</h2>
         <p className="com-text">
-          1. Data is in RAM, so there is no disk read for every request.
-          2. Commands run on a single main thread, so there are no locks and no context switching between threads.
-          3. It uses an event loop with non-blocking I/O (same idea as Node.js), so one thread can serve thousands of clients.
-          4. Its data structures (hash tables, skip lists, compact lists) are designed so most commands are O(1) or O(log n).
-          Since Redis 6, network reading and writing can use extra I/O threads, but the commands themselves still run one by one on the main thread.
+          1. The data is in RAM. Redis does not have to read the disk for every request.
+          <br />2. Commands run on one main thread. So there are no locks, and no time is lost switching between threads.
+          <br />3. It uses an event loop that never sits and waits (the same idea as Node.js). One thread can serve thousands of clients.
+          <br />4. Its data structures (hash tables, skip lists, compact lists) are built so most commands take O(1) or O(log n) time. In simple words: they stay fast even when you have lots of data.
+          Since Redis 6, extra threads can help with reading and writing network data. But the commands themselves still run one by one on the main thread.
         </p>
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Single-threaded means atomic</h2>
+        <h2 className="method-title">One thread means every command is atomic</h2>
         <p className="com-text">
-          Because commands run one at a time, every single command is atomic. If 100 users call INCR on the same counter at the same moment, Redis runs them one after another and the final value is exactly 100. You never get a half-updated value. This is why Redis is great for counters, locks and rate limiting.
+          Redis runs commands one at a time. So every single command is atomic. Atomic means it happens fully or not at all, and nothing can sneak in between. Say 100 users call INCR on the same counter at the same moment. Redis runs them one after another, and the final value is exactly 100. You never get a half-updated value. Think of one cashier serving a line of people: one person at a time, no mix-ups. This is why Redis is great for counters, locks and rate limiting.
         </p>
         <CodeBlock language="bash" style={atomDark}>
           {`# Start the CLI and try it
@@ -43,20 +43,23 @@ GET page:views       # "2"`}
       <section className="method-section">
         <h2 className="method-title">Redis vs a normal database</h2>
         <p className="com-text">
-          A database like PostgreSQL or MongoDB stores data on disk, supports complex queries, joins and indexes, and is the source of truth. Redis keeps data in memory, supports simple key-based lookups and special data structures, and is much faster but limited by RAM. So we usually do not replace the database with Redis. We put Redis in front of it: read from Redis first, and only go to the database when Redis does not have the data.
+          A database like PostgreSQL or MongoDB keeps data on disk. It can run complex queries, joins and indexes. It is the source of truth, the place where the real data lives.
+          Redis keeps data in memory. It is great at simple "get by key" lookups and has some special data structures. It is much faster, but it can only hold as much as your RAM.
+          So we usually don't replace the database with Redis. We put Redis in front of it. First we look in Redis. Only if Redis does not have the data do we go to the database.
         </p>
       </section>
 
       <section className="method-section">
         <h2 className="method-title">Common use cases</h2>
         <p className="com-text">
-          Caching (API responses, DB query results), Session storage (logged-in users), Rate limiting (max 5 login attempts per minute), Leaderboards (sorted sets), Counters (likes, views), Distributed locks (only one server runs a job), Pub/Sub (chat, notifications), Job queues (BullMQ is built on Redis), and Real-time analytics.
+          Here is where people use Redis most:
+          Caching (API responses, DB query results). Session storage (logged-in users). Rate limiting (max 5 login attempts per minute). Leaderboards (sorted sets). Counters (likes, views). Distributed locks (only one server runs a job). Pub/Sub (chat, notifications). Job queues (BullMQ is built on Redis). Real-time analytics.
         </p>
       </section>
 
       <section className="method-section">
         <h2 className="method-title">Quick setup</h2>
-        <p className="com-text">The easiest way to run Redis locally is Docker. Then connect from Node.js with ioredis (or the official node-redis client).</p>
+        <p className="com-text">The easiest way to run Redis on your own computer is Docker. Then you connect to it from Node.js with ioredis (or the official node-redis client).</p>
         <CodeBlock language="bash" style={atomDark}>
           {`# Run Redis in Docker
 docker run -d --name redis -p 6379:6379 redis
@@ -79,9 +82,9 @@ console.log(value); // Hello Redis`}
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Key naming convention</h2>
+        <h2 className="method-title">How to name your keys</h2>
         <p className="com-text">
-          Redis has no tables, only keys. So we use a colon to group keys like folders: user:101, user:101:cart, session:abc123, rate:login:192.168.1.10. This keeps keys readable and makes it easy to find related data. Keep keys short but meaningful, because every key takes memory.
+          Redis has no tables. It only has keys. So we use a colon to group keys, like folders: user:101, user:101:cart, session:abc123, rate:login:192.168.1.10. This keeps keys easy to read, and related data is easy to find. Keep keys short but clear, because every key uses some memory.
         </p>
       </section>
     </div>

@@ -10,13 +10,16 @@ function RedisTransactionsLua() {
     <div className="debounce-container">
       <h1 className="title">Transactions, Pipelining &amp; Lua</h1>
       <p className="com-text">
-        One Redis command is always atomic. But real work often needs several commands together, for example "decrease stock and add to the order". Redis has three tools for this: pipelining (for speed), transactions (for running commands together), and Lua scripts (for real atomic logic).
+        One Redis command is always atomic (it happens fully, and nothing can sneak in between). But real work often needs a few commands together. For example: "decrease the stock and add the item to the order". Redis gives you three tools for this:
+          <br />1. Pipelining: for speed.
+          <br />2. Transactions: to run commands together.
+          <br />3. Lua scripts: for logic that must be fully atomic.
       </p>
 
       <section className="method-section">
         <h2 className="method-title">Pipelining (speed)</h2>
         <p className="com-text">
-          Normally every command waits for its reply before the next is sent, which is one network round trip each. A pipeline sends many commands in one go and reads all replies together. 100 commands in one round trip instead of 100. It is about speed only: other clients' commands can still run in between.
+          Normally each command waits for its reply before the next one is sent. That is one trip over the network for every command. A pipeline sends many commands at once and reads all the replies together. So 100 commands need one trip instead of 100. Think of buying 10 things in one trip to the shop instead of 10 trips. Pipelining is only about speed. Commands from other clients can still run in between yours.
         </p>
         <CodeBlock language="javascript" style={atomDark}>
           {`const pipeline = redis.pipeline();
@@ -31,7 +34,10 @@ const results = await pipeline.exec();
       <section className="method-section">
         <h2 className="method-title">Transactions: MULTI / EXEC</h2>
         <p className="com-text">
-          MULTI starts a transaction; commands are queued; EXEC runs them all together with nothing from other clients in between. Important differences from SQL transactions: there is no rollback. If one command fails at run time (for example INCR on a text value), the others still run. And you cannot use the result of one command to decide the next inside the transaction.
+          MULTI starts a transaction. The commands after it wait in a line. EXEC runs them all together, and nothing from other clients can run in between.
+          This is not the same as a SQL transaction:
+          <br />1. There is no rollback (no undo). If one command fails while running (for example INCR on a text value), the others still run.
+          <br />2. Inside the transaction, you can't use the result of one command to decide the next one.
         </p>
         <CodeBlock language="bash" style={atomDark}>
           {`MULTI
@@ -46,7 +52,7 @@ DISCARD     # cancel a transaction instead of EXEC`}
       <section className="method-section">
         <h2 className="method-title">WATCH (optimistic locking)</h2>
         <p className="com-text">
-          WATCH a key before MULTI. If any other client changes that key before your EXEC, the whole transaction is cancelled (EXEC returns null) and you retry. This is "check-and-set": only commit if nobody touched the data meanwhile.
+          Call WATCH on a key before MULTI. If another client changes that key before your EXEC, your whole transaction is cancelled (EXEC returns null), and you try again. This is called "check-and-set": save your changes only if nobody touched the data in the meantime.
         </p>
         <CodeBlock language="javascript" style={atomDark}>
           {`async function buyOne(productId) {
@@ -63,9 +69,9 @@ DISCARD     # cancel a transaction instead of EXEC`}
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Lua scripts (best for atomic logic)</h2>
+        <h2 className="method-title">Lua scripts (best for safe read-and-write logic)</h2>
         <p className="com-text">
-          A Lua script runs inside Redis as one atomic step: read, decide and write, with no other command in between. It is simpler than WATCH (no retry loop) and needs only one round trip. Keep scripts short, because while a script runs, Redis serves nobody else. BullMQ uses Lua scripts heavily to move jobs between states safely.
+          Lua is a small programming language. Redis can run a Lua script inside itself as one atomic step. The script can read, decide and write, and no other command can run in between. It is simpler than WATCH (no retry loop), and it needs only one network trip. Keep scripts short. While a script runs, Redis serves nobody else. BullMQ uses a lot of Lua scripts to move jobs between states safely.
         </p>
         <CodeBlock language="javascript" style={atomDark}>
           {`// Decrease stock only if enough is left (atomic)
@@ -85,7 +91,9 @@ if (left === -1) console.log('Out of stock');`}
       <section className="method-section">
         <h2 className="method-title">Which one to use?</h2>
         <p className="com-text">
-          Many independent commands, need speed: Pipeline. A few commands that must run together, no decisions: MULTI/EXEC. Read-then-write where the decision depends on current data: Lua script (or WATCH + MULTI with retries).
+          Many separate commands, and you want speed: Pipeline.
+          A few commands that must run together, with no decisions: MULTI/EXEC.
+          Read first, then write based on what you read: Lua script (or WATCH + MULTI with retries).
         </p>
       </section>
     </div>

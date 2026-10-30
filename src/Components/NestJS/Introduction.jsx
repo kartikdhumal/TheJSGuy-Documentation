@@ -10,24 +10,28 @@ function NestJSIntroduction() {
     <div className="debounce-container">
       <h1 className="title">Introduction to NestJS</h1>
       <p className="com-text">
-        NestJS is a framework for building server-side applications with Node.js and TypeScript. Under the hood it uses Express (default) or Fastify, but on top of it gives you a fixed structure: modules, controllers, providers and dependency injection. Express tells you "here is a router, organise it yourself". NestJS tells you "here is where every piece goes". That is why big teams like it: every NestJS project looks the same.
+        NestJS is a framework for building backend apps with Node.js and TypeScript. Inside, it still uses Express (by default) or Fastify. On top of that, it gives you a fixed way to organise your code: modules, controllers, providers and dependency injection. Express says "here is a router, organise it yourself". NestJS says "here is where every piece goes". That is why big teams like it. Every NestJS project looks the same, so you can jump into any one and find your way.
       </p>
 
       <section className="method-section">
-        <h2 className="method-title">Why NestJS over plain Express?</h2>
+        <h2 className="method-title">Why pick NestJS over plain Express?</h2>
         <p className="com-text">
-          1. Structure: code is split into modules (users, orders, auth), so a big app stays organised.
-          2. Dependency Injection: you do not create objects with new everywhere. Nest creates them and passes them where needed, which makes testing easy.
-          3. TypeScript first: types, decorators and DTOs are part of the design, not an add-on.
-          4. Batteries included: validation, guards (auth), interceptors, config, TypeORM/Mongoose, Swagger, BullMQ, WebSockets, microservices and testing all have official packages.
-          5. It is still Express underneath, so any Express middleware still works.
+          1. Clear structure: your code is split into modules (users, orders, auth). So even a big app stays tidy.
+          <br />2. Dependency Injection: you don't write new everywhere to make objects. Nest makes them and hands them to the classes that need them. This also makes testing easy.
+          <br />3. TypeScript first: types, decorators and DTOs are built in from the start, not added later.
+          <br />4. Lots of ready-made tools: validation, guards (auth), interceptors, config, TypeORM/Mongoose, Swagger, BullMQ, WebSockets, microservices and testing all have official packages.
+          <br />5. It is still Express underneath. So any Express middleware you already know still works.
         </p>
       </section>
 
       <section className="method-section">
         <h2 className="method-title">The 3 building blocks</h2>
         <p className="com-text">
-          Module: a box that groups related code (UsersModule). Controller: receives the HTTP request and returns the response, no business logic. Provider (Service): holds the business logic and talks to the database. Flow: Request → Controller → Service → Database → back to Controller → Response.
+          Module: a box that keeps related code together (like UsersModule).
+          Controller: takes the HTTP request and sends back the response. It does not hold your main app logic.
+          Provider (Service): holds the real logic (the business logic) and talks to the database.
+          Think of a restaurant: the controller is the waiter, the service is the chef, and the module is the whole kitchen team.
+          The flow is: Request → Controller → Service → Database → back to Controller → Response.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`// users.controller.ts : handles HTTP
@@ -60,7 +64,7 @@ export class UsersModule {}`}
 
       <section className="method-section">
         <h2 className="method-title">Quick setup with the CLI</h2>
-        <p className="com-text">The Nest CLI creates the project and generates files for you, so you never write the boilerplate by hand.</p>
+        <p className="com-text">The Nest CLI is a command-line tool. It creates the project and makes the files for you. So you never have to type the same starter code by hand.</p>
         <CodeBlock language="bash" style={atomDark}>
           {`npm i -g @nestjs/cli
 nest new my-app          # creates the project
@@ -78,9 +82,9 @@ nest g service orders`}
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">main.ts: the entry point</h2>
+        <h2 className="method-title">main.ts: where your app starts</h2>
         <p className="com-text">
-          NestFactory.create() builds the app from the root module (AppModule). This is where you set global things: prefix, validation, CORS, Swagger and the port.
+          main.ts is the first file that runs. NestFactory.create() builds your app from the main (root) module, AppModule. This is also where you set things for the whole app: the URL prefix, validation, CORS, Swagger and the port.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`// main.ts
@@ -103,9 +107,9 @@ bootstrap();`}
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Project structure</h2>
+        <h2 className="method-title">How to arrange your folders</h2>
         <p className="com-text">
-          Group files by feature (module), not by type. Shared things like guards, filters, interceptors and decorators go in a common folder.
+          Put files together by feature (one folder per module), not by file type. So everything about users lives in the users folder. Things many modules share, like guards, filters, interceptors and decorators, go in a common folder.
         </p>
         <CodeBlock language="bash" style={atomDark}>
           {`src/
@@ -130,9 +134,9 @@ bootstrap();`}
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Decorators everywhere</h2>
+        <h2 className="method-title">You will see decorators everywhere</h2>
         <p className="com-text">
-          A decorator is a function starting with @ that attaches metadata to a class, method or parameter (@Controller, @Get, @Body, @Injectable). Nest reads this metadata at startup to know which class is a controller, which method handles which route, and what to inject. Decorators need "experimentalDecorators" and "emitDecoratorMetadata" in tsconfig.json; the CLI sets this for you.
+          A decorator is the @Something line you put on top of a class, method or parameter (@Controller, @Get, @Body, @Injectable). It is really a function. It sticks a small label (called metadata, which just means extra info) onto that code. When the app starts, Nest reads these labels. That is how it knows which class is a controller, which method handles which route, and what to pass in. Decorators need "experimentalDecorators" and "emitDecoratorMetadata" turned on in tsconfig.json. Don't worry, the CLI does this for you.
         </p>
       </section>
     </div>

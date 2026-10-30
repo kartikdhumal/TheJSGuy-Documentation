@@ -10,13 +10,13 @@ function NestJSMicroservicesWebSockets() {
     <div className="debounce-container">
       <h1 className="title">WebSockets &amp; Microservices</h1>
       <p className="com-text">
-        NestJS is not only for REST APIs. The same modules, providers, guards, pipes and interceptors work for real-time WebSocket gateways and for microservices that talk over TCP, Redis, RabbitMQ, Kafka or NATS. You learn the pattern once and reuse it.
+        Nest is not only for REST APIs. The same modules, providers, guards, pipes and interceptors also work for real-time WebSockets and for microservices. Microservices are small apps that talk to each other over TCP, Redis, RabbitMQ, Kafka or NATS. So you learn the pattern once, and use it everywhere.
       </p>
 
       <section className="method-section">
         <h2 className="method-title">WebSocket gateway</h2>
         <p className="com-text">
-          A gateway is like a controller for WebSocket messages. @SubscribeMessage() handles an event, @WebSocketServer() gives the server to broadcast. Socket.IO is the default adapter.
+          A gateway is like a controller, but for WebSocket messages instead of HTTP requests. @SubscribeMessage() handles one event. @WebSocketServer() gives you the server, so you can send a message to many users at once. Nest uses Socket.IO by default.
         </p>
         <CodeBlock language="bash" style={atomDark}>
           {`npm i @nestjs/websockets @nestjs/platform-socket.io`}
@@ -52,13 +52,16 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       <section className="method-section">
         <h2 className="method-title">Scaling WebSockets</h2>
         <p className="com-text">
-          With 2+ server instances, a user on server A does not get messages emitted on server B. Use the Socket.IO Redis adapter so all instances share events through Redis Pub/Sub, and enable sticky sessions on the load balancer. Authenticate in handleConnection (or a WS guard) by verifying the JWT sent in the handshake.
+          Say you run 2 or more copies of your server. A user connected to server A won't get messages sent from server B. To fix this:
+          <br />1. Use the Socket.IO Redis adapter. All servers then share events through Redis Pub/Sub, like a group chat between the servers.
+          <br />2. Turn on sticky sessions on the load balancer, so each user keeps talking to the same server.
+          For login, check the user in handleConnection (or in a WS guard). Verify the JWT the client sends when it first connects (the handshake).
         </p>
       </section>
 
       <section className="method-section">
         <h2 className="method-title">Server-Sent Events (SSE)</h2>
-        <p className="com-text">For one-way server → client updates (job progress, notifications), SSE is simpler than WebSockets.</p>
+        <p className="com-text">Sometimes only the server needs to send updates to the client, like job progress or notifications. For this one-way flow, SSE is simpler than WebSockets.</p>
         <CodeBlock language="typescript" style={atomDark}>
           {`@Sse('jobs/:id/progress')
 progress(@Param('id') id: string): Observable<MessageEvent> {
@@ -70,9 +73,9 @@ progress(@Param('id') id: string): Observable<MessageEvent> {
       <section className="method-section">
         <h2 className="method-title">Microservices</h2>
         <p className="com-text">
-          A microservice is a Nest app that listens on a transport instead of HTTP. Two message styles:
-          1. Request-response (@MessagePattern + client.send): the caller waits for a reply.
-          2. Event-based (@EventPattern + client.emit): fire-and-forget, no reply.
+          A microservice is a Nest app that listens on a transport instead of HTTP. A transport is just the road the messages travel on, like Redis, TCP or RabbitMQ. There are two ways to send messages:
+          <br />1. Request-response (@MessagePattern + client.send): the caller waits for an answer, like asking a question.
+          <br />2. Event-based (@EventPattern + client.emit): send it and move on, no answer. Like dropping a note in a letterbox.
         </p>
         <CodeBlock language="typescript" style={atomDark}>
           {`// orders-service/main.ts
@@ -118,8 +121,8 @@ export class GatewayService {
       </section>
 
       <section className="method-section">
-        <h2 className="method-title">Hybrid app</h2>
-        <p className="com-text">One app can serve HTTP and listen to a microservice transport at the same time.</p>
+        <h2 className="method-title">Hybrid app (HTTP + microservice)</h2>
+        <p className="com-text">One app can do both: answer HTTP requests and listen on a microservice transport at the same time.</p>
         <CodeBlock language="typescript" style={atomDark}>
           {`const app = await NestFactory.create(AppModule);
 app.connectMicroservice<MicroserviceOptions>({
@@ -134,7 +137,7 @@ await app.listen(3000);`}
       <section className="method-section">
         <h2 className="method-title">When not to use microservices</h2>
         <p className="com-text">
-          Microservices add network failures, distributed transactions, versioning and deployment overhead. A well-structured modular monolith (clear NestJS modules with exported boundaries) is the right start for most teams. Split a module into a service only when it needs independent scaling, deployment or ownership.
+          Microservices bring extra problems: network failures, transactions that span many services, version mismatches, and more work to deploy. For most teams, the right start is a modular monolith. That means one app, but split into clear Nest modules that only share what they export. Move a module out into its own service only when it really needs to scale, deploy, or be owned by a team on its own.
         </p>
       </section>
     </div>

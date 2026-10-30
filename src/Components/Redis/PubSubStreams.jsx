@@ -10,13 +10,15 @@ function RedisPubSubStreams() {
     <div className="debounce-container">
       <h1 className="title">Pub/Sub &amp; Streams</h1>
       <p className="com-text">
-        Redis can also move messages between parts of your system. Pub/Sub is "live broadcast": whoever is listening right now gets the message. Streams are "a message log": messages are stored, and consumers can read them later, track what they processed, and retry.
+        Redis can also carry messages between parts of your app. There are two ways.
+          Pub/Sub is like a live radio show: only people listening right now hear it.
+          Streams are like a message log: messages are saved. Readers (consumers) can read them later, remember what they already handled, and try again if something failed.
       </p>
 
       <section className="method-section">
         <h2 className="method-title">Pub/Sub</h2>
         <p className="com-text">
-          A publisher sends a message to a channel. Every subscriber connected to that channel gets it instantly. It is fire-and-forget: Redis does not store the message. If a subscriber is offline, it misses the message forever. Use it for live notifications, chat, or telling all servers "clear your local cache".
+          A publisher sends a message to a channel. Every subscriber on that channel gets it right away. It is "send and forget": Redis does not save the message. If a subscriber is offline, it misses that message forever. Use it for live notifications, chat, or telling all your servers "clear your local cache".
         </p>
         <CodeBlock language="javascript" style={atomDark}>
           {`import Redis from 'ioredis';
@@ -36,14 +38,19 @@ await pub.publish('notifications', JSON.stringify({ userId: 101, text: 'Hi!' }))
 await sub.psubscribe('order:*');`}
         </CodeBlock>
         <p className="com-text">
-          Key point: Pub/Sub has at-most-once delivery. Good for real-time UI updates, not for important work that must not be lost.
+          Remember: Pub/Sub is "at-most-once". Each message arrives once or not at all. That is fine for live UI updates, but not for important work that must not get lost.
         </p>
       </section>
 
       <section className="method-section">
         <h2 className="method-title">Streams</h2>
         <p className="com-text">
-          A stream is an append-only log. Each entry gets an ID (time-based, like 1730107200000-0). Consumers can read from any point, so nothing is lost when they are offline. With consumer groups, several workers share the work: each message goes to only one worker in the group, the worker must acknowledge it (XACK), and unacknowledged messages stay in a Pending list so they can be retried. This gives at-least-once delivery, like a simple Kafka.
+          A stream is a log where you can only add to the end. Each entry gets an ID based on time, like 1730107200000-0. Consumers can start reading from any point, so nothing is lost while they are offline.
+          With consumer groups, several workers share the work:
+          <br />1. Each message goes to only one worker in the group.
+          <br />2. The worker must say "done" (acknowledge it with XACK).
+          <br />3. Messages that are not acknowledged stay in a Pending list, so they can be tried again.
+          This gives "at-least-once" delivery: every message is handled at least one time. It works like a small, simple Kafka.
         </p>
         <CodeBlock language="bash" style={atomDark}>
           {`# Producer: add events (* = auto ID)
@@ -66,9 +73,9 @@ XPENDING orders billing`}
       <section className="method-section">
         <h2 className="method-title">Pub/Sub vs Streams vs List</h2>
         <p className="com-text">
-          Pub/Sub: no storage, all subscribers get every message, lost if offline. Use for live broadcasts.
-          Streams: stored, consumer groups, acknowledgements, replay history. Use for event processing that must not lose messages.
-          List (LPUSH + BRPOP): a simple queue, one consumer gets each item, but no built-in acknowledgement or retry. For real job queues, use BullMQ, which adds retries, delays, priorities and much more on top of Redis.
+          Pub/Sub: nothing is saved. All subscribers get every message. If you are offline, you miss it. Use it for live broadcasts.
+          Streams: messages are saved. You get consumer groups, acknowledgements, and you can replay old messages. Use it for event processing where no message may be lost.
+          List (LPUSH + BRPOP): a simple queue. One consumer gets each item. But there is no built-in "done" message and no retry. For real job queues, use BullMQ. It adds retries, delays, priorities and much more on top of Redis.
         </p>
       </section>
     </div>

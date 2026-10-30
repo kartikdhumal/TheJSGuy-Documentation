@@ -10,24 +10,30 @@ function BullMQIntroduction() {
     <div className="debounce-container">
       <h1 className="title">Introduction to BullMQ</h1>
       <p className="com-text">
-        BullMQ is a job queue library for Node.js built on top of Redis. A job queue lets your API say "do this work later, in the background" and reply to the user immediately, while separate worker processes do the slow work: sending emails, generating PDFs, resizing images, processing an uploaded file, or creating a new tenant's database.
+        BullMQ is a job queue library for Node.js, built on top of Redis. A job queue lets your API say "do this work later, in the background" and answer the user right away. Separate worker processes then do the slow work. For example: sending emails, making PDFs, resizing images, processing an uploaded file, or creating a new tenant's database. Think of the token line at a bank: you take a token and sit down, and the counters call people one by one.
       </p>
 
       <section className="method-section">
         <h2 className="method-title">Why do we need a queue?</h2>
         <p className="com-text">
-          Without a queue, the user waits while the API sends 500 emails, and if the server restarts in the middle, the work is lost. With a queue: the API adds a job (takes milliseconds) and returns "Processing started". The job is stored in Redis, so it survives restarts. Workers pick it up, retry it if it fails, and you can run more workers when there is more work. The heavy work never blocks your API.
+          Without a queue, the user waits while the API sends 500 emails. And if the server restarts in the middle, the work is lost.
+          With a queue:
+          <br />1. The API adds a job (it takes milliseconds) and replies "Processing started".
+          <br />2. The job is saved in Redis, so a restart does not lose it.
+          <br />3. Workers pick it up and try again if it fails.
+          <br />4. When there is more work, you just run more workers.
+          The heavy work never slows down your API.
         </p>
       </section>
 
       <section className="method-section">
         <h2 className="method-title">The 4 main pieces</h2>
         <p className="com-text">
-          Queue: where you add jobs (the producer side, usually your API).
-          Worker: a process that takes jobs from the queue and runs your function (the consumer side).
-          Job: one unit of work, with a name, data (JSON), and options (retries, delay, priority).
-          QueueEvents: listens to events from all workers (completed, failed, progress), useful for dashboards or notifying users.
-          Plus FlowProducer for parent-child job trees (covered in BullMQ Advanced).
+          Queue: where you add jobs. This is the producer side, usually your API.
+          Worker: a process that takes jobs from the queue and runs your function. This is the consumer side.
+          Job: one piece of work. It has a name, data (JSON), and options (retries, delay, priority).
+          QueueEvents: listens to events from all workers (completed, failed, progress). Handy for dashboards or for telling users what happened.
+          There is also FlowProducer, for parent-child job trees (covered in BullMQ Advanced).
         </p>
       </section>
 
@@ -65,21 +71,28 @@ worker.on('failed', (job, err) => console.error(\`Job \${job?.id} failed:\`, err
       <section className="method-section">
         <h2 className="method-title">How BullMQ uses Redis</h2>
         <p className="com-text">
-          Each queue is a set of Redis keys (lists, sorted sets and hashes) under a prefix like bull:emails:. Waiting jobs sit in a list, delayed jobs in a sorted set scored by run time, and each job's data in a hash. All state changes (waiting to active to completed) are done with Lua scripts, so they are atomic: two workers can never take the same job. That is why BullMQ needs Redis with maxmemory-policy noeviction, so Redis never deletes queue data.
+          Each queue is just a group of Redis keys (lists, sorted sets and hashes) that start with a prefix like bull:emails:.
+          Waiting jobs sit in a list. Delayed jobs sit in a sorted set, sorted by the time they should run. Each job's data is in a hash.
+          Every state change (waiting to active to completed) is done with a Lua script, so it is atomic (all in one step, nothing in between). That is why two workers can never take the same job.
+          BullMQ needs Redis with maxmemory-policy noeviction, so Redis never deletes queue data.
         </p>
       </section>
 
       <section className="method-section">
         <h2 className="method-title">Bull vs BullMQ</h2>
         <p className="com-text">
-          Bull is the older library. BullMQ is its rewrite in TypeScript by the same team, with a cleaner API, separate Queue/Worker classes, flows (parent-child jobs), job schedulers, better rate limiting and better performance. Bull is in maintenance mode, so new projects should use BullMQ.
+          Bull is the older library. BullMQ is the same team's rewrite in TypeScript. It has a cleaner API, separate Queue and Worker classes, flows (parent-child jobs), job schedulers, better rate limiting and better speed. Bull now only gets fixes, no new features. So for new projects, use BullMQ.
         </p>
       </section>
 
       <section className="method-section">
         <h2 className="method-title">Real-life example</h2>
         <p className="com-text">
-          Onboarding a new customer in a SaaS app: the API saves the customer with status PENDING, adds a "provision" job and replies right away. A worker creates the database, runs migrations, seeds default data and sets status ACTIVE. If any step fails, BullMQ retries the job automatically with exponential backoff. The frontend can poll the status (or listen with SSE) to show progress.
+          Adding a new customer in a SaaS app:
+          <br />1. The API saves the customer with status PENDING, adds a "provision" job, and replies right away.
+          <br />2. A worker creates the database, runs migrations, adds default data, and sets the status to ACTIVE.
+          <br />3. If any step fails, BullMQ tries the job again by itself, waiting a bit longer each time (exponential backoff).
+          <br />4. The frontend keeps asking for the status (or listens with SSE) to show progress.
         </p>
       </section>
     </div>
