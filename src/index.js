@@ -142,6 +142,42 @@ import TypeScriptUtilityTypes from './Components/TypeScript/UtilityTypes';
 import TypeScriptTypeGuards from './Components/TypeScript/TypeGuards';
 import TypeScriptConfig from './Components/TypeScript/Config';
 
+// Redis & BullMQ
+import RedisIntroduction from './Components/Redis/Introduction';
+import RedisDataTypes from './Components/Redis/DataTypes';
+import RedisExpiryEviction from './Components/Redis/ExpiryEviction';
+import RedisCaching from './Components/Redis/Caching';
+import RedisPersistence from './Components/Redis/Persistence';
+import RedisPubSubStreams from './Components/Redis/PubSubStreams';
+import RedisTransactionsLua from './Components/Redis/TransactionsLua';
+import RedisLocksRateLimiting from './Components/Redis/LocksRateLimiting';
+import RedisScaling from './Components/Redis/Scaling';
+import RedisNodeJS from './Components/Redis/RedisNodeJS';
+import BullMQIntroduction from './Components/Redis/BullMQIntroduction';
+import BullMQJobsWorkers from './Components/Redis/BullMQJobsWorkers';
+import BullMQAdvanced from './Components/Redis/BullMQAdvanced';
+import RedisQuestions from './Components/Redis/Questions';
+
+// NestJS
+import NestJSIntroduction from './Components/NestJS/Introduction';
+import NestJSModules from './Components/NestJS/Modules';
+import NestJSControllers from './Components/NestJS/Controllers';
+import NestJSProviders from './Components/NestJS/Providers';
+import NestJSRequestLifecycle from './Components/NestJS/RequestLifecycle';
+import NestJSMiddleware from './Components/NestJS/Middleware';
+import NestJSPipesValidation from './Components/NestJS/PipesValidation';
+import NestJSGuards from './Components/NestJS/Guards';
+import NestJSInterceptors from './Components/NestJS/Interceptors';
+import NestJSExceptionFilters from './Components/NestJS/ExceptionFilters';
+import NestJSConfiguration from './Components/NestJS/Configuration';
+import NestJSDatabase from './Components/NestJS/Database';
+import NestJSAuthentication from './Components/NestJS/Authentication';
+import NestJSAdvanced from './Components/NestJS/Advanced';
+import NestJSTesting from './Components/NestJS/Testing';
+import NestJSMicroservicesWebSockets from './Components/NestJS/MicroservicesWebSockets';
+import NestJSBestPractices from './Components/NestJS/BestPractices';
+import NestJSQuestions from './Components/NestJS/Questions';
+
 const LazyLoading = lazy(() => import('./Components/LazyLoading'));
 
 export const userContext = createContext();
@@ -580,6 +616,40 @@ export const myRouter = createBrowserRouter([
   { path: '/typescript-utility-types', element: <TypeScriptUtilityTypes /> },
   { path: '/typescript-type-guards', element: <TypeScriptTypeGuards /> },
   { path: '/typescript-config', element: <TypeScriptConfig /> },
+  { path: '/redis', element: <RedisIntroduction /> },
+  { path: '/redis-introduction', element: <RedisIntroduction /> },
+  { path: '/redis-data-types', element: <RedisDataTypes /> },
+  { path: '/redis-expiry-eviction', element: <RedisExpiryEviction /> },
+  { path: '/redis-caching', element: <RedisCaching /> },
+  { path: '/redis-persistence', element: <RedisPersistence /> },
+  { path: '/redis-pubsub-streams', element: <RedisPubSubStreams /> },
+  { path: '/redis-transactions-lua', element: <RedisTransactionsLua /> },
+  { path: '/redis-locks-rate-limiting', element: <RedisLocksRateLimiting /> },
+  { path: '/redis-scaling', element: <RedisScaling /> },
+  { path: '/redis-nodejs', element: <RedisNodeJS /> },
+  { path: '/bullmq-introduction', element: <BullMQIntroduction /> },
+  { path: '/bullmq-jobs-workers', element: <BullMQJobsWorkers /> },
+  { path: '/bullmq-advanced', element: <BullMQAdvanced /> },
+  { path: '/redis-questions', element: <RedisQuestions /> },
+  { path: '/nestjs', element: <NestJSIntroduction /> },
+  { path: '/nestjs-introduction', element: <NestJSIntroduction /> },
+  { path: '/nestjs-modules', element: <NestJSModules /> },
+  { path: '/nestjs-controllers', element: <NestJSControllers /> },
+  { path: '/nestjs-providers', element: <NestJSProviders /> },
+  { path: '/nestjs-request-lifecycle', element: <NestJSRequestLifecycle /> },
+  { path: '/nestjs-middleware', element: <NestJSMiddleware /> },
+  { path: '/nestjs-pipes-validation', element: <NestJSPipesValidation /> },
+  { path: '/nestjs-guards', element: <NestJSGuards /> },
+  { path: '/nestjs-interceptors', element: <NestJSInterceptors /> },
+  { path: '/nestjs-exception-filters', element: <NestJSExceptionFilters /> },
+  { path: '/nestjs-configuration', element: <NestJSConfiguration /> },
+  { path: '/nestjs-database', element: <NestJSDatabase /> },
+  { path: '/nestjs-authentication', element: <NestJSAuthentication /> },
+  { path: '/nestjs-advanced', element: <NestJSAdvanced /> },
+  { path: '/nestjs-testing', element: <NestJSTesting /> },
+  { path: '/nestjs-microservices-websockets', element: <NestJSMicroservicesWebSockets /> },
+  { path: '/nestjs-best-practices', element: <NestJSBestPractices /> },
+  { path: '/nestjs-questions', element: <NestJSQuestions /> },
   {
     path: '/lazyloading',
     element: (
