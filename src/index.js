@@ -213,6 +213,7 @@ import LLDApiDbDesign from './Components/SystemDesign/APIDBDesign';
 import LLDParkingLot from './Components/SystemDesign/ParkingLot';
 import LLDLRUCache from './Components/SystemDesign/LRUCache';
 import LLDMovieBooking from './Components/SystemDesign/MovieBooking';
+import SystemDesignQuestions from './Components/SystemDesign/Questions';
 
 const LazyLoading = lazy(() => import('./Components/LazyLoading'));
 
@@ -719,6 +720,7 @@ export const myRouter = createBrowserRouter([
   { path: '/lld-parking-lot', element: <LLDParkingLot /> },
   { path: '/lld-lru-cache', element: <LLDLRUCache /> },
   { path: '/lld-movie-booking', element: <LLDMovieBooking /> },
+  { path: '/system-design-questions', element: <SystemDesignQuestions /> },
   {
     path: '/lazyloading',
     element: (

@@ -300,6 +300,7 @@ export const navbarCards = [
     versionDate: '—',
     links: [
       { to: '/system-design', label: 'Start Here: Roadmap for 3 yrs' },
+      { to: '/system-design-questions', label: 'System Design Questions' },
     ],
     groups: [
       {
