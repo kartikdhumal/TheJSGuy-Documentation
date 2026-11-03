@@ -9,9 +9,17 @@ function PostgreSQLIndexes() {
   return (
     <div className="debounce-container">
       <h1 className="title">Indexes &amp; Query Performance</h1>
-      <p className="com-text">
-        An index is like the index at the back of a book. Without it, PostgreSQL reads every row to find what you want (Sequential Scan). With it, it jumps straight to the right rows (Index Scan). Indexes make reads faster but make writes a little slower and take extra space, so add them only where you search, join or sort.
-      </p>
+      <div className="definition-box">
+        <p className="definition-label">In simple words</p>
+        <p className="definition-text">An index is like the index at the back of a book. It helps PostgreSQL find rows fast without reading the whole table.</p>
+        <ol className="com-list">
+          <li className="com-list-item"><strong>Without an index:</strong> PostgreSQL reads every row (Seq Scan).</li>
+          <li className="com-list-item"><strong>With an index:</strong> it jumps straight to the right rows (Index Scan).</li>
+          <li className="com-list-item"><strong>Cost:</strong> inserts and updates get a little slower, and it uses extra disk space.</li>
+          <li className="com-list-item"><strong>Rule:</strong> add indexes only on columns you search, join or sort by.</li>
+          <li className="com-list-item definition-default"><strong>Defaults:</strong> the index type is B-tree. PRIMARY KEY and UNIQUE columns get an index by themselves, foreign keys do not. CREATE INDEX blocks writes while it builds (use CONCURRENTLY to avoid that).</li>
+        </ol>
+      </div>
 
       <section className="method-section">
         <h2 className="method-title">Create an index</h2>

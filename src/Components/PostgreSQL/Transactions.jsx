@@ -9,9 +9,16 @@ function PostgreSQLTransactions() {
   return (
     <div className="debounce-container">
       <h1 className="title">Transactions, MVCC &amp; Locks</h1>
-      <p className="com-text">
-        A transaction is a group of queries that run as one unit: either all of them succeed, or none of them do. Classic example: sending money. Taking money from A and adding it to B must both happen, never only one.
-      </p>
+      <div className="definition-box">
+        <p className="definition-label">In simple words</p>
+        <p className="definition-text">A transaction is a group of queries that work as one: either all of them succeed, or none of them do.</p>
+        <ol className="com-list">
+          <li className="com-list-item"><strong>Example:</strong> sending money. Take 1000 from A and add 1000 to B. Both must happen, never only one.</li>
+          <li className="com-list-item"><strong>MVCC:</strong> the way PostgreSQL lets many people read and write at the same time without waiting for each other.</li>
+          <li className="com-list-item"><strong>Locks:</strong> a way to stop two people from changing the same row at the same time.</li>
+          <li className="com-list-item definition-default"><strong>Defaults:</strong> isolation level is Read Committed. Auto-commit is on, so every query is its own transaction unless you write BEGIN. Autovacuum is on. A query waits for a lock forever (lock_timeout = 0). Deadlocks are checked after 1 second (deadlock_timeout).</li>
+        </ol>
+      </div>
 
       <section className="method-section">
         <h2 className="method-title">BEGIN, COMMIT, ROLLBACK</h2>

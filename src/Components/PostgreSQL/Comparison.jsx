@@ -23,9 +23,16 @@ function PostgreSQLComparison() {
   return (
     <div className="debounce-container">
       <h1 className="title">PostgreSQL vs MySQL vs MongoDB</h1>
-      <p className="com-text">
-        All three are popular, but they are good at different things. PostgreSQL and MySQL are both SQL databases with tables. MongoDB is a NoSQL database that stores documents. Here is a simple side by side view.
-      </p>
+      <div className="definition-box">
+        <p className="definition-label">In simple words</p>
+        <p className="definition-text">These are 3 popular databases. PostgreSQL and MySQL keep data in tables. MongoDB keeps data as JSON documents.</p>
+        <ol className="com-list">
+          <li className="com-list-item"><strong>PostgreSQL:</strong> SQL database with tables and many extra features.</li>
+          <li className="com-list-item"><strong>MySQL:</strong> SQL database with tables, simple and very common.</li>
+          <li className="com-list-item"><strong>MongoDB:</strong> NoSQL database, each record is a JSON-like document.</li>
+          <li className="com-list-item definition-default"><strong>Defaults:</strong> ports are PostgreSQL 5432, MySQL 3306, MongoDB 27017. MySQL uses the InnoDB engine. MongoDB adds an _id (ObjectId) to every document.</li>
+        </ol>
+      </div>
 
       <section className="method-section">
         <h2 className="method-title">Quick comparison table</h2>

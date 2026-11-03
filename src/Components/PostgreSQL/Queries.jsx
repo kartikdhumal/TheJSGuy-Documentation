@@ -9,9 +9,18 @@ function PostgreSQLQueries() {
   return (
     <div className="debounce-container">
       <h1 className="title">CRUD Queries in PostgreSQL</h1>
-      <p className="com-text">
-        CRUD means Create, Read, Update, Delete. These are the queries you write every day. We will use one simple table for all examples.
-      </p>
+      <div className="definition-box">
+        <p className="definition-label">In simple words</p>
+        <p className="definition-text">CRUD means the 4 basic things you do with data: Create, Read, Update and Delete.</p>
+        <ol className="com-list">
+          <li className="com-list-item"><strong>Create:</strong> INSERT, add new rows.</li>
+          <li className="com-list-item"><strong>Read:</strong> SELECT, get rows.</li>
+          <li className="com-list-item"><strong>Update:</strong> UPDATE, change rows.</li>
+          <li className="com-list-item"><strong>Delete:</strong> DELETE, remove rows.</li>
+          <li className="com-list-item definition-default"><strong>Defaults:</strong> ORDER BY sorts in ascending order (ASC). With no LIMIT you get all rows. LIKE cares about upper/lower case (ILIKE does not). Each query is saved right away (auto-commit) unless you start with BEGIN.</li>
+        </ol>
+      </div>
+      <p className="com-text">We will use this one simple table for all the examples below.</p>
       <CodeBlock language="sql" style={atomDark}>
         {`CREATE TABLE employees (
   id         SERIAL PRIMARY KEY,

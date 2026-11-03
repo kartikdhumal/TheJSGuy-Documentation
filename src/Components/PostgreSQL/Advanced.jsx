@@ -9,9 +9,17 @@ function PostgreSQLAdvanced() {
   return (
     <div className="debounce-container">
       <h1 className="title">Advanced PostgreSQL Features</h1>
-      <p className="com-text">
-        These features are what make PostgreSQL more than "just another SQL database". You will see them in real projects and in interviews.
-      </p>
+      <div className="definition-box">
+        <p className="definition-label">In simple words</p>
+        <p className="definition-text">These are extra features that make PostgreSQL more than a basic SQL database. You will see them in real projects and in interviews.</p>
+        <ol className="com-list">
+          <li className="com-list-item"><strong>Window functions:</strong> rankings and running totals.</li>
+          <li className="com-list-item"><strong>Views:</strong> saved queries you use like a table.</li>
+          <li className="com-list-item"><strong>Functions and triggers:</strong> small code that runs inside the database.</li>
+          <li className="com-list-item"><strong>More:</strong> full-text search, partitioning, extensions, replication and backups.</li>
+          <li className="com-list-item definition-default"><strong>Defaults:</strong> a normal view is not stored, it runs every time. A materialized view does not refresh by itself. Extensions are off until you run CREATE EXTENSION. A table is not split into partitions unless you write PARTITION BY.</li>
+        </ol>
+      </div>
 
       <section className="method-section">
         <h2 className="method-title">Window functions</h2>

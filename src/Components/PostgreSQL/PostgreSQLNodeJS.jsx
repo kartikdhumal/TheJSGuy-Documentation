@@ -9,9 +9,16 @@ function PostgreSQLNodeJS() {
   return (
     <div className="debounce-container">
       <h1 className="title">PostgreSQL with Node.js</h1>
-      <p className="com-text">
-        From Node.js you can talk to PostgreSQL directly with the pg package (node-postgres), or use an ORM like Prisma or TypeORM. Even with an ORM it is good to know how pg works underneath.
-      </p>
+      <div className="definition-box">
+        <p className="definition-label">In simple words</p>
+        <p className="definition-text">To use PostgreSQL from Node.js, you need a driver: a library that talks to the database for you. The most common one is pg.</p>
+        <ol className="com-list">
+          <li className="com-list-item"><strong>pg (node-postgres):</strong> you write the SQL yourself, full control.</li>
+          <li className="com-list-item"><strong>ORM (Prisma, TypeORM):</strong> you write JavaScript, and it makes the SQL for you.</li>
+          <li className="com-list-item"><strong>Tip:</strong> even if you use an ORM, knowing pg helps you fix problems.</li>
+          <li className="com-list-item definition-default"><strong>Defaults:</strong> pg connects to localhost:5432. A Pool keeps at most 10 connections. An idle connection is closed after 10 seconds. The PostgreSQL server allows 100 connections in total (max_connections).</li>
+        </ol>
+      </div>
 
       <section className="method-section">
         <h2 className="method-title">Install and connect with a Pool</h2>

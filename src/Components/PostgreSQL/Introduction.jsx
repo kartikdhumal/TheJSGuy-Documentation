@@ -9,9 +9,18 @@ function PostgreSQLIntroduction() {
   return (
     <div className="debounce-container">
       <h1 className="title">Introduction to PostgreSQL</h1>
-      <p className="com-text">
-        PostgreSQL (also called Postgres) is a free and open-source relational database. Relational means data is stored in tables (rows and columns) and tables are linked with keys. You talk to it using SQL. It is known for being very reliable, following the SQL standard closely, and having many extra features like JSONB, arrays, full-text search and custom types.
-      </p>
+      <div className="definition-box">
+        <p className="definition-label">In simple words</p>
+        <p className="definition-text"><strong>PostgreSQL</strong> (or just Postgres) is a free database where your app saves its data in tables.</p>
+        <ol className="com-list">
+          <li className="com-list-item"><strong>Table:</strong> like an Excel sheet. Each row is one record (one user), each column is one detail (name, email).</li>
+          <li className="com-list-item"><strong>Relational:</strong> tables are linked to each other. For example, an order keeps the id of the user who placed it.</li>
+          <li className="com-list-item"><strong>SQL:</strong> you use SQL to save and get data, like SELECT * FROM users;</li>
+          <li className="com-list-item"><strong>Free:</strong> it is open source, nobody pays for it.</li>
+          <li className="com-list-item"><strong>Known for:</strong> keeping your data safe, strong SQL, and extras like JSONB (save JSON in a column).</li>
+          <li className="com-list-item definition-default"><strong>Defaults:</strong> port 5432, admin user postgres, first database postgres, new tables go into the public schema, isolation level Read Committed.</li>
+        </ol>
+      </div>
 
       <section className="method-section">
         <h2 className="method-title">Why is PostgreSQL used?</h2>

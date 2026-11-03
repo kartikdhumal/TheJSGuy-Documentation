@@ -9,9 +9,17 @@ function PostgreSQLJoinsCTE() {
   return (
     <div className="debounce-container">
       <h1 className="title">Joins, Subqueries &amp; CTEs</h1>
-      <p className="com-text">
-        Real data is split into many tables. Joins put them back together in one result. Subqueries and CTEs help you break a big query into small, readable steps.
-      </p>
+      <div className="definition-box">
+        <p className="definition-label">In simple words</p>
+        <p className="definition-text">Your data is split into many tables. A join puts them back together in one result.</p>
+        <ol className="com-list">
+          <li className="com-list-item"><strong>Join:</strong> match rows from two tables using a common column, like orders.customer_id = customers.id.</li>
+          <li className="com-list-item"><strong>Subquery:</strong> a query inside another query.</li>
+          <li className="com-list-item"><strong>CTE (WITH):</strong> give a name to a small query and use it in the next step, so big SQL is easy to read.</li>
+          <li className="com-list-item definition-default"><strong>Defaults:</strong> writing just JOIN means INNER JOIN. UNION removes duplicate rows (UNION ALL keeps them). Since PostgreSQL 12, a simple CTE used once is merged into the main query, not stored separately.</li>
+        </ol>
+      </div>
+      <p className="com-text">Sample tables we will use on this page:</p>
       <CodeBlock language="sql" style={atomDark}>
         {`CREATE TABLE customers (id SERIAL PRIMARY KEY, name TEXT);
 CREATE TABLE orders (

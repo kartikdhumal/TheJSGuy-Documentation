@@ -9,9 +9,16 @@ function PostgreSQLJSONB() {
   return (
     <div className="debounce-container">
       <h1 className="title">JSONB in PostgreSQL</h1>
-      <p className="com-text">
-        JSONB lets you store JSON inside a normal table column. It is useful for data whose shape changes, like product attributes (a phone has RAM, a shirt has size), user settings or API responses. You keep normal columns for fixed data and a JSONB column for the flexible part.
-      </p>
+      <div className="definition-box">
+        <p className="definition-label">In simple words</p>
+        <p className="definition-text">JSONB lets you save JSON inside a normal table column, and still search it fast.</p>
+        <ol className="com-list">
+          <li className="com-list-item"><strong>When to use:</strong> data whose shape changes, like product details (a phone has RAM, a shirt has size), user settings or API responses.</li>
+          <li className="com-list-item"><strong>How:</strong> fixed data goes in normal columns, the changing part goes in one JSONB column.</li>
+          <li className="com-list-item"><strong>JSON vs JSONB:</strong> JSONB is saved in a binary format, so it is faster to search and can have an index.</li>
+          <li className="com-list-item definition-default"><strong>Defaults:</strong> if a key is missing, -&gt;&gt; gives NULL (no error). JSONB does not keep key order or extra spaces. If the same key comes twice, the last one wins.</li>
+        </ol>
+      </div>
 
       <section className="method-section">
         <h2 className="method-title">JSON vs JSONB</h2>

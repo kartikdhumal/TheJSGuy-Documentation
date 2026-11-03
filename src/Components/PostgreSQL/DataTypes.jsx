@@ -9,9 +9,16 @@ function PostgreSQLDataTypes() {
   return (
     <div className="debounce-container">
       <h1 className="title">PostgreSQL Data Types</h1>
-      <p className="com-text">
-        Every column has a type. Picking the right type saves space, keeps data clean and makes queries faster. PostgreSQL has all the normal SQL types plus some extra ones like UUID, JSONB, arrays and ENUM.
-      </p>
+      <div className="definition-box">
+        <p className="definition-label">In simple words</p>
+        <p className="definition-text">A data type tells PostgreSQL what kind of value a column can hold: a number, text, a date, true/false and so on.</p>
+        <ol className="com-list">
+          <li className="com-list-item"><strong>Why it matters:</strong> the right type saves space and stops bad data, like "abc" in an age column.</li>
+          <li className="com-list-item"><strong>Common ones:</strong> INTEGER, NUMERIC, TEXT, BOOLEAN, DATE, TIMESTAMPTZ.</li>
+          <li className="com-list-item"><strong>PostgreSQL extras:</strong> UUID, JSONB, arrays and ENUM.</li>
+          <li className="com-list-item definition-default"><strong>Defaults:</strong> a column can be NULL unless you write NOT NULL. If you give no value and no DEFAULT, it becomes NULL. Plain TIMESTAMP means without time zone. SERIAL starts at 1.</li>
+        </ol>
+      </div>
 
       <section className="method-section">
         <h2 className="method-title">Numbers</h2>

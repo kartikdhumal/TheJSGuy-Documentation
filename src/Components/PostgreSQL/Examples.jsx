@@ -9,9 +9,15 @@ function PostgreSQLExamples() {
   return (
     <div className="debounce-container">
       <h1 className="title">Real-World Examples</h1>
-      <p className="com-text">
-        A small e-commerce database, and the queries you would actually write for it. Many of these are also asked in interviews.
-      </p>
+      <div className="definition-box">
+        <p className="definition-label">In simple words</p>
+        <p className="definition-text">Here we build a small online shop database and write the queries a real app needs.</p>
+        <ol className="com-list">
+          <li className="com-list-item"><strong>Tables:</strong> users, products, orders and order_items.</li>
+          <li className="com-list-item"><strong>Each example:</strong> answers one real question, like "who are my top 5 customers?"</li>
+          <li className="com-list-item"><strong>Interviews:</strong> many of these queries are asked in interviews too.</li>
+        </ol>
+      </div>
 
       <section className="method-section">
         <h2 className="method-title">The schema</h2>
