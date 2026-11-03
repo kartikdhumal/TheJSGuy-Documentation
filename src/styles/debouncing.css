@@ -146,6 +146,29 @@ ol.com-list > .com-list-item {
   margin-bottom: 0;
 }
 
+.example-box {
+  background: #0b1a14;
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  border-left: 4px solid #4ade80;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin: 1rem 0 1.25rem;
+}
+
+.example-label {
+  color: #4ade80;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.5rem;
+}
+
+.example-box .com-text:last-child,
+.example-box ol.com-list:last-child {
+  margin-bottom: 0;
+}
+
 .definition-box .definition-default {
   margin-top: 0.75rem;
   padding-top: 0.75rem;

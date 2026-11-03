@@ -192,6 +192,28 @@ import PostgreSQLNodeJS from './Components/PostgreSQL/PostgreSQLNodeJS';
 import PostgreSQLExamples from './Components/PostgreSQL/Examples';
 import PostgreSQLQuestions from './Components/PostgreSQL/Questions';
 
+// System Design (HLD + LLD)
+import SystemDesignIntroduction from './Components/SystemDesign/Introduction';
+import SystemDesignFoundations from './Components/SystemDesign/Foundations';
+import SystemDesignWebInfrastructure from './Components/SystemDesign/WebInfrastructure';
+import SystemDesignAPIs from './Components/SystemDesign/APIs';
+import SystemDesignDatabases from './Components/SystemDesign/Databases';
+import SystemDesignDistributed from './Components/SystemDesign/DistributedSystems';
+import SystemDesignArchitecture from './Components/SystemDesign/Architecture';
+import SystemDesignSecurity from './Components/SystemDesign/Security';
+import SystemDesignInstagram from './Components/SystemDesign/Instagram';
+import SystemDesignIRCTC from './Components/SystemDesign/IRCTCTatkal';
+import SystemDesignUPI from './Components/SystemDesign/UPI';
+import LLDBasics from './Components/SystemDesign/LLDBasics';
+import LLDSolid from './Components/SystemDesign/SOLIDPrinciples';
+import LLDCreationalPatterns from './Components/SystemDesign/CreationalPatterns';
+import LLDStructuralPatterns from './Components/SystemDesign/StructuralPatterns';
+import LLDBehavioralPatterns from './Components/SystemDesign/BehavioralPatterns';
+import LLDApiDbDesign from './Components/SystemDesign/APIDBDesign';
+import LLDParkingLot from './Components/SystemDesign/ParkingLot';
+import LLDLRUCache from './Components/SystemDesign/LRUCache';
+import LLDMovieBooking from './Components/SystemDesign/MovieBooking';
+
 const LazyLoading = lazy(() => import('./Components/LazyLoading'));
 
 export const userContext = createContext();
@@ -677,6 +699,26 @@ export const myRouter = createBrowserRouter([
   { path: '/postgresql-nodejs', element: <PostgreSQLNodeJS /> },
   { path: '/postgresql-examples', element: <PostgreSQLExamples /> },
   { path: '/postgresql-questions', element: <PostgreSQLQuestions /> },
+  { path: '/system-design', element: <SystemDesignIntroduction /> },
+  { path: '/system-design-foundations', element: <SystemDesignFoundations /> },
+  { path: '/system-design-web-infrastructure', element: <SystemDesignWebInfrastructure /> },
+  { path: '/system-design-apis', element: <SystemDesignAPIs /> },
+  { path: '/system-design-databases', element: <SystemDesignDatabases /> },
+  { path: '/system-design-distributed', element: <SystemDesignDistributed /> },
+  { path: '/system-design-architecture', element: <SystemDesignArchitecture /> },
+  { path: '/system-design-security', element: <SystemDesignSecurity /> },
+  { path: '/system-design-instagram', element: <SystemDesignInstagram /> },
+  { path: '/system-design-irctc-tatkal', element: <SystemDesignIRCTC /> },
+  { path: '/system-design-upi', element: <SystemDesignUPI /> },
+  { path: '/lld-basics', element: <LLDBasics /> },
+  { path: '/lld-solid', element: <LLDSolid /> },
+  { path: '/lld-creational-patterns', element: <LLDCreationalPatterns /> },
+  { path: '/lld-structural-patterns', element: <LLDStructuralPatterns /> },
+  { path: '/lld-behavioral-patterns', element: <LLDBehavioralPatterns /> },
+  { path: '/lld-api-db-design', element: <LLDApiDbDesign /> },
+  { path: '/lld-parking-lot', element: <LLDParkingLot /> },
+  { path: '/lld-lru-cache', element: <LLDLRUCache /> },
+  { path: '/lld-movie-booking', element: <LLDMovieBooking /> },
   {
     path: '/lazyloading',
     element: (

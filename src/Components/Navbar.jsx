@@ -37,6 +37,28 @@ function Navbar() {
                 ))}
               </div>
             )}
+            {card.groups?.map((group) => (
+              <details key={group.name} className="navbar-group">
+                <summary className="navbar-group-summary">
+                  <span className="navbar-group-name">{group.name}</span>
+                  <span className="navbar-group-full">{group.fullForm}</span>
+                  <span className="navbar-group-arrow" aria-hidden="true">▾</span>
+                </summary>
+                <p className="navbar-group-about">{group.about}</p>
+                {group.sections.map((section) => (
+                  <div key={section.title} className="navbar-group-section">
+                    <p className="navbar-group-section-title">{section.title}</p>
+                    <div className="navbar-links">
+                      {section.links.map((link) => (
+                        <div key={link.to} className="navbar-item">
+                          <Link to={link.to} className="navbar-link">{link.label}</Link>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </details>
+            ))}
           </div>
         ))}
       </div>

@@ -1,6 +1,7 @@
 /**
  * Navbar cards and links data.
  * Each card has: title, links (array of { to, label }), optional useOuterWrapper, optional version, versionDate.
+ * Optional groups: collapsible blocks of { name, fullForm, about, sections: [{ title, links }] }.
  */
 export const navbarCards = [
   {
@@ -291,6 +292,150 @@ export const navbarCards = [
       { to: '/nestjs-microservices-websockets', label: 'WebSockets & Microservices' },
       { to: '/nestjs-best-practices', label: 'Best Practices & Deployment' },
       { to: '/nestjs-questions', label: 'NestJS Questions' },
+    ],
+  },
+  {
+    title: 'System Design',
+    version: '—',
+    versionDate: '—',
+    links: [
+      { to: '/system-design', label: 'Start Here: Roadmap for 3 yrs' },
+    ],
+    groups: [
+      {
+        name: 'HLD',
+        fullForm: 'High-Level Design',
+        about: 'The big picture. Which boxes your app has (servers, database, cache, queue) and how they talk to each other.',
+        sections: [
+          {
+            title: 'Foundations',
+            links: [
+              { to: '/system-design-foundations#open-website', label: 'What Happens When You Open a Website?' },
+              { to: '/system-design-foundations#hld-vs-lld', label: 'HLD vs LLD' },
+              { to: '/system-design-foundations#scaling', label: 'Horizontal vs Vertical Scaling' },
+              { to: '/system-design-foundations#estimation', label: 'Back-of-the-Envelope Numbers' },
+            ],
+          },
+          {
+            title: 'Web Infrastructure',
+            links: [
+              { to: '/system-design-web-infrastructure#load-balancer', label: 'Load Balancer' },
+              { to: '/system-design-web-infrastructure#cdn', label: 'CDN' },
+              { to: '/system-design-web-infrastructure#proxy', label: 'Forward vs Reverse Proxy' },
+              { to: '/system-design-web-infrastructure#ssl', label: 'SSL Certificates' },
+              { to: '/system-design-web-infrastructure#caching', label: 'Caching' },
+              { to: '/system-design-web-infrastructure#request-flow', label: 'Complete Request Flow' },
+            ],
+          },
+          {
+            title: 'APIs & Communication',
+            links: [
+              { to: '/system-design-apis#what-is-api', label: 'What Are APIs?' },
+              { to: '/system-design-apis#api-styles', label: 'REST vs SOAP vs GraphQL vs gRPC vs WebSockets' },
+              { to: '/system-design-apis#api-vs-sdk', label: 'API vs SDK' },
+            ],
+          },
+          {
+            title: 'Databases & Data Scaling',
+            links: [
+              { to: '/system-design-databases#partitioning', label: 'Database Partitioning' },
+              { to: '/system-design-databases#partitioning-vs-sharding', label: 'Partitioning vs Sharding' },
+              { to: '/system-design-databases#replication-vs-sharding', label: 'Replication vs Sharding' },
+              { to: '/system-design-databases#sql-vs-nosql', label: 'SQL vs NoSQL' },
+              { to: '/system-design-databases#nosql-types', label: 'Types of NoSQL Databases' },
+            ],
+          },
+          {
+            title: 'Distributed Systems',
+            links: [
+              { to: '/system-design-distributed#cap', label: 'CAP Theorem' },
+              { to: '/system-design-distributed#acid-vs-base', label: 'ACID vs BASE' },
+              { to: '/system-design-distributed#message-queues', label: 'Message Queues' },
+              { to: '/system-design-distributed#write-through-vs-write-back', label: 'Write-Through vs Write-Back' },
+              { to: '/system-design-distributed#rate-limiting', label: 'Rate Limiting' },
+            ],
+          },
+          {
+            title: 'Architecture',
+            links: [
+              { to: '/system-design-architecture#monolith-vs-microservices', label: 'Monolith vs Microservices' },
+              { to: '/system-design-architecture#microservices', label: 'Microservices Architecture' },
+              { to: '/system-design-architecture#api-gateway', label: 'API Gateway' },
+            ],
+          },
+          {
+            title: 'Security & Authentication',
+            links: [
+              { to: '/system-design-security#security-layers', label: 'Security Layers' },
+              { to: '/system-design-security#jwt', label: 'JWT (JSON Web Token)' },
+              { to: '/system-design-security#session-vs-jwt', label: 'Session vs JWT' },
+            ],
+          },
+          {
+            title: 'Real-World Designs',
+            links: [
+              { to: '/system-design-instagram', label: 'Instagram' },
+              { to: '/system-design-irctc-tatkal', label: 'IRCTC Tatkal Booking' },
+              { to: '/system-design-upi', label: 'UPI Payments' },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'LLD',
+        fullForm: 'Low-Level Design',
+        about: 'The inside of one box. How you write the classes, functions, patterns and tables so the code is clean and easy to change.',
+        sections: [
+          {
+            title: 'Basics',
+            links: [
+              { to: '/lld-basics#what-is-lld', label: 'What is LLD?' },
+              { to: '/lld-basics#oop', label: 'OOP in 5 Minutes' },
+              { to: '/lld-basics#class-relationships', label: 'Class Relationships (UML)' },
+              { to: '/lld-basics#approach', label: 'How to Solve an LLD Question' },
+            ],
+          },
+          {
+            title: 'Design Principles',
+            links: [
+              { to: '/lld-solid#solid', label: 'SOLID Principles' },
+              { to: '/lld-solid#dry-kiss-yagni', label: 'DRY, KISS, YAGNI' },
+              { to: '/lld-solid#composition', label: 'Composition over Inheritance' },
+            ],
+          },
+          {
+            title: 'Design Patterns',
+            links: [
+              { to: '/lld-creational-patterns#singleton', label: 'Singleton' },
+              { to: '/lld-creational-patterns#factory', label: 'Factory' },
+              { to: '/lld-creational-patterns#builder', label: 'Builder' },
+              { to: '/lld-structural-patterns#adapter', label: 'Adapter' },
+              { to: '/lld-structural-patterns#decorator', label: 'Decorator' },
+              { to: '/lld-structural-patterns#facade', label: 'Facade' },
+              { to: '/lld-structural-patterns#proxy', label: 'Proxy' },
+              { to: '/lld-behavioral-patterns#observer', label: 'Observer' },
+              { to: '/lld-behavioral-patterns#strategy', label: 'Strategy' },
+              { to: '/lld-behavioral-patterns#chain-of-responsibility', label: 'Chain of Responsibility' },
+            ],
+          },
+          {
+            title: 'API & Database Design',
+            links: [
+              { to: '/lld-api-db-design#rest-api-design', label: 'REST API Design' },
+              { to: '/lld-api-db-design#idempotency', label: 'Idempotency' },
+              { to: '/lld-api-db-design#schema-design', label: 'Database Schema Design' },
+            ],
+          },
+          {
+            title: 'Machine Coding Problems',
+            links: [
+              { to: '/lld-parking-lot', label: 'Parking Lot' },
+              { to: '/lld-lru-cache', label: 'LRU Cache' },
+              { to: '/lld-movie-booking', label: 'Movie Ticket Booking' },
+            ],
+          },
+        ],
+      },
     ],
   },
   {

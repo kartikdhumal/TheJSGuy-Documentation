@@ -11,7 +11,7 @@ function PostgreSQLIntroduction() {
       <h1 className="title">Introduction to PostgreSQL</h1>
       <div className="definition-box">
         <p className="definition-label">In simple words</p>
-        <p className="definition-text"><strong>PostgreSQL</strong> (or just Postgres) is a free database where your app saves its data in tables.</p>
+        <p className="definition-text"><strong>PostgreSQL</strong> (or just Postgres) is a powerful, open-source object-relational database management system (ORDBMS). It stores and manages structured and semi-structured data using the SQL language. </p>
         <ol className="com-list">
           <li className="com-list-item"><strong>Table:</strong> like an Excel sheet. Each row is one record (one user), each column is one detail (name, email).</li>
           <li className="com-list-item"><strong>Relational:</strong> tables are linked to each other. For example, an order keeps the id of the user who placed it.</li>
