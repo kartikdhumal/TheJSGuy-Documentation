@@ -155,6 +155,17 @@ import BullMQIntroduction from './Components/Redis/BullMQIntroduction';
 import BullMQJobsWorkers from './Components/Redis/BullMQJobsWorkers';
 import BullMQAdvanced from './Components/Redis/BullMQAdvanced';
 import RedisQuestions from './Components/Redis/Questions';
+// AI & LLMs
+import AILLMBasics from './Components/AI/LLMBasics';
+import AIPromptEngineering from './Components/AI/PromptEngineering';
+import AIEmbeddings from './Components/AI/Embeddings';
+import AIVectorSearch from './Components/AI/VectorSearch';
+import AIChunking from './Components/AI/Chunking';
+import AIRAG from './Components/AI/RAG';
+import AIAdvancedRAG from './Components/AI/AdvancedRAG';
+import AIToolCalling from './Components/AI/ToolCalling';
+import AIProduction from './Components/AI/AIProduction';
+import AIQuestions from './Components/AI/Questions';
 
 // NestJS
 import NestJSIntroduction from './Components/NestJS/Introduction';
@@ -666,6 +677,18 @@ export const myRouter = createBrowserRouter([
   { path: '/bullmq-jobs-workers', element: <BullMQJobsWorkers /> },
   { path: '/bullmq-advanced', element: <BullMQAdvanced /> },
   { path: '/redis-questions', element: <RedisQuestions /> },
+  // AI & LLMs
+  { path: '/ai', element: <AILLMBasics /> },
+  { path: '/ai-llm-basics', element: <AILLMBasics /> },
+  { path: '/ai-prompt-engineering', element: <AIPromptEngineering /> },
+  { path: '/ai-embeddings', element: <AIEmbeddings /> },
+  { path: '/ai-vector-search', element: <AIVectorSearch /> },
+  { path: '/ai-chunking', element: <AIChunking /> },
+  { path: '/ai-rag', element: <AIRAG /> },
+  { path: '/ai-advanced-rag', element: <AIAdvancedRAG /> },
+  { path: '/ai-tool-calling', element: <AIToolCalling /> },
+  { path: '/ai-production', element: <AIProduction /> },
+  { path: '/ai-questions', element: <AIQuestions /> },
   { path: '/nestjs', element: <NestJSIntroduction /> },
   { path: '/nestjs-introduction', element: <NestJSIntroduction /> },
   { path: '/nestjs-modules', element: <NestJSModules /> },

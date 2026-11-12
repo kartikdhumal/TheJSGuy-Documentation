@@ -295,6 +295,21 @@ export const navbarCards = [
     ],
   },
   {
+    title: 'AI & LLMs',
+    links: [
+      { to: '/ai-llm-basics', label: 'How LLMs Work' },
+      { to: '/ai-prompt-engineering', label: 'Prompt Engineering' },
+      { to: '/ai-embeddings', label: 'Embeddings' },
+      { to: '/ai-vector-search', label: 'Vector Search & pgvector' },
+      { to: '/ai-chunking', label: 'Chunking Strategies' },
+      { to: '/ai-rag', label: 'RAG' },
+      { to: '/ai-advanced-rag', label: 'Advanced RAG' },
+      { to: '/ai-tool-calling', label: 'Tool Calling & Agents' },
+      { to: '/ai-production', label: 'AI in Production' },
+      { to: '/ai-questions', label: 'AI Questions' },
+    ],
+  },
+  {
     title: 'System Design',
     version: '—',
     versionDate: '—',

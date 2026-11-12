@@ -385,6 +385,7 @@ strong {
 @media screen and (max-width: 480px) {
   .debounce-container {
     width: 100%;
+    box-sizing: border-box;
     padding: 5px 20px;
   }
 
