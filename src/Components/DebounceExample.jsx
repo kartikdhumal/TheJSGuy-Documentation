@@ -1,5 +1,4 @@
-import { delay } from 'lodash';
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function DebounceExample() {
     const [value, setValue] = useState('');

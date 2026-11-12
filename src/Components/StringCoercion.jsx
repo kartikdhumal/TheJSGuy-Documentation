@@ -190,7 +190,7 @@ const message = name + " scored " + score + " out of 100.";
         <CodeBlock language="javascript" style={atomDark}>
           {`const data = { id: 1, name: "Test" };
 console.log("Received: " + data);           // "Received: [object Object]"
-console.log("Received: " + JSON.stringify(data)); // "Received: {\"id\":1,\"name\":\"Test\"}"`}
+console.log("Received: " + JSON.stringify(data)); // "Received: {"id":1,"name":"Test"}"`}
         </CodeBlock>
 
         <h3>Avoiding accidental string concatenation</h3>

@@ -125,20 +125,11 @@ function IMPQueries() {
 
         if (pipelineMatch) {
             try {
-                const jsonLikeString = pipelineMatch[0]
-                    .replace(/new Date\(['"](.*?)['"]\)/g, '"DATE_OBJ($1)"')
-                    .replace(/\$\$(\w+)/g, '"$$$1"')
-                    .replace(/\$/g, '$$')
-                    .replace(/"\$\$(\w+)"/g, '$$$1')
-                    .replace(/(\w+):/g, '"$1":')
-                    .replace(/\"(\$?\w+)\"/g, '$1')
-                    .replace(/'/g, '"');
-
                 const finalPipelineContent = `[${pipelineMatch[1]}]`
                     .replace(/(\w+):/g, '"$1":')
                     .replace(/'/g, '"')
                     .replace(/\s\s+/g, ' ')
-                    .replace(/(\$[a-zA-Z]+)(?=\:)/g, '"$1"')
+                    .replace(/(\$[a-zA-Z]+)(?=:)/g, '"$1"')
                     .replace(/(\$ifNull)/g, '"$ifNull"')
                     .replace(/(\$concat)/g, '"$concat"')
                     .replace(/(\$add)/g, '"$add"')
@@ -151,10 +142,10 @@ function IMPQueries() {
                     .replace(/(\$filter)/g, '"$filter"')
                     .replace(/(\$regexMatch)/g, '"$regexMatch"');
 
-                const pipelineArray = eval('(' + finalPipelineContent + ')');
+                const pipelineArray = JSON.parse(finalPipelineContent);
 
                 const prettyPrinted = JSON.stringify(pipelineArray, null, 2)
-                    .replace(/\"DATE_OBJ\((.*?)\)\"/g, "new Date('$1')")
+                    .replace(/"DATE_OBJ\((.*?)\)"/g, "new Date('$1')")
                     .replace(/"\$\$(\w+)"/g, "$$$$1")
                     .replace(/"\$\$(\w+)"/g, "$$$$1");
 

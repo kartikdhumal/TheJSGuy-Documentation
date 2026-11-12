@@ -1,17 +1,12 @@
 import React, { useContext } from 'react';
 import '../styles/debouncing.css';
-import { useNavigate, useParams, useRouteError } from 'react-router-dom';
 import { userContext } from '..';
 import CodeBlock from './CodeBlock';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function HooksFAQ() {
-    const navigate = useNavigate();
     const { name, info } = useContext(userContext);
 
-    const handleClick = () => {
-        navigate('/new-route');
-    };
     return (
         <div className="debounce-container">
             <h1 className="main-title">React Hooks</h1>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import 'prismjs/themes/prism.css';
 import '../styles/debouncing.css';
